@@ -150,6 +150,7 @@ button.discover:active {
   border-radius: 5px;
   border: 1px solid #c0bbc7;
   padding: 0 10px;
+  color: #152d34;
 }
 
 #book-search:focus {

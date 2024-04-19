@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  height: 100px;
+  height: 10%;
   background: #e5dad8;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   display: flex;
@@ -67,7 +67,7 @@ nav li:active {
 }
 
 .hero {
-  height: 450px;
+  height: 45%;
   background: #c0bbc7;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   display: flex;
@@ -125,7 +125,7 @@ button.discover:active {
 }
 
 .search {
-  height: 150px;
+  height: 35%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,11 +137,13 @@ button.discover:active {
   color: #1e3f48;
 }
 
-.search-div {
-  align-self: flex-end;
+.search-container {
+  display: flex;
+  justify-content: center;
 }
 
 #book-search {
+  align-self: end;
   margin-right: 20px;
   width: 200px;
   height: 40px;
@@ -158,8 +160,13 @@ button.discover:active {
   outline: none;
 }
 
+.search-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .search button {
-  align-self: flex-end;
   height: 40px;
   appearance: none;
   width: 80px;
@@ -183,7 +190,7 @@ button.discover:active {
 }
 
 footer {
-  height: 100px;
+  height: 10%;
   background: #e5dad8;
   box-shadow: 0 -0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   display: flex;

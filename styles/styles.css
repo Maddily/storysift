@@ -83,6 +83,7 @@ nav li:active {
   align-items: center;
   gap: 20px;
   text-align: center;
+  margin-top: 25px;
 }
 
 .hero h1 {
@@ -233,6 +234,10 @@ footer p {
     height: 400px;
     flex-direction: row;
     justify-content: space-evenly;
+  }
+
+  .hero-left {
+    margin-top: 0;
   }
 
   button.discover {

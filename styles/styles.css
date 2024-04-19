@@ -9,6 +9,9 @@ html {
 body {
   height: 100vh;
   font-family: 'TT Commons Pro', Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 header {
@@ -55,6 +58,21 @@ nav li:hover {
   display: none;
 }
 
+footer {
+  height: 100px;
+  background: #e5dad8;
+  box-shadow: 0 -0.1rem 0.2rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-bottom: 0;
+  color: #173139;
+}
+
+footer p {
+  margin-left: 50px;
+}
+
 @media screen and (min-width: 700px) {
   html {
     font-size: 16px;
@@ -70,5 +88,9 @@ nav li:hover {
 
   .signup {
     display: inline-flex;
+  }
+
+  footer p {
+    margin-left: 100px;
   }
 }

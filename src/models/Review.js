@@ -13,7 +13,7 @@ const reviewSchema = new mongoose.Schema({
         required: true,
         maxlength: 300
     },
-    raing: {
+    rating: {
         type: Number
     },
     date_posted: {

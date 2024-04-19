@@ -1,0 +1,74 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 13px;
+}
+
+body {
+  height: 100vh;
+  font-family: 'TT Commons Pro', Arial, Helvetica, sans-serif;
+}
+
+header {
+  height: 100px;
+  background: #e5dad8;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 1rem;
+}
+
+header img {
+  width: 180px;
+}
+
+nav {
+  height: 100%;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  color: #173139;
+  margin: 0;
+  padding: 0;
+  height: 100px;
+  align-items: center;
+}
+
+nav li {
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+nav li:hover {
+  border-bottom: 2px solid #1e3f48;
+}
+
+.signup {
+  display: none;
+}
+
+@media screen and (min-width: 700px) {
+  html {
+    font-size: 16px;
+  }
+
+  header img {
+    width: 250px;
+  }
+
+  nav ul {
+    gap: 50px;
+  }
+
+  .signup {
+    display: inline-flex;
+  }
+}

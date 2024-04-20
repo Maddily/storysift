@@ -18,14 +18,16 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         minlength: 3,
-        maxlength: 30
+        maxlength: 30,
+        index: true
     },
     email: {
         type:  String,
         required: true,
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
+        index: true
     },
     password: {
         type: String,
@@ -38,6 +40,8 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     }
+}, {
+    timestamps: true
 });
 
 // Defines the User model using the schema

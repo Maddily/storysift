@@ -4,22 +4,22 @@ const mongoose = require('mongoose');
 
 const ratingSchema = new mongoose.Schema({
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User', // Reference to User model
         required: true
     },
     author_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Author', // Reference to Author Model
         required: true
     },
     book_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Book', // Reference to Book model
         required: true
     },
     genre_id: {
-        type: Schema.Types.ObjectID,
+        type: mongoose.Schema.Types.ObjectID,
         ref: 'Genre', // Reference to Genre model
         required: true
     },

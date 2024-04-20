@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const searchhhistorySchema = new mongoose.Schema({
+const searchhistorySchema = new mongoose.Schema({
     query: {
         type: String,
         required: true,
@@ -16,13 +16,13 @@ const searchhhistorySchema = new mongoose.Schema({
         required: true
     },
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User', // Reference to User model
         required: true
     }
 });
 
 // Defines the SearchHistory model using the schema
-const SearchHistory = mongoose.model('SearchHistory', searchhisorySchema);
+const SearchHistory = mongoose.model('SearchHistory', searchhistorySchema);
 
 module.exports = SearchHistory;

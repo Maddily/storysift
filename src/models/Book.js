@@ -36,12 +36,12 @@ const bookSchema = new mongoose.Schema({
         maxlength: 50
     },
     author_id: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Author', // Reference to Author model
         required: true
     },
     genre_id: {
-        type: Schema.Types.ObjectID,
+        type: mongoose.Schema.Types.ObjectID,
         ref: 'Genre', // Reference to Genre model
         required: true
     }

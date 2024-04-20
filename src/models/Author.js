@@ -10,30 +10,33 @@ const authorSchema = new mongoose.Schema({
     },
     last_name: {
         type: String,
-        requierd: true,
+        required: true,
         minlength: 2
     },
     number_of_books_written: {
         type: Number
     },
     date_of_birth: {
-        type: date
+        type: Date
     },
     date_of_death: {
-        type: Number
+        type: Date  // Corrected type to Date
     },
     bio: {
+        type: String,  // Added type as String
         minlength: 5
     },
     thumbnailURL: {
+        type: String,  // Added type as String
         minlength: 10
     },
-    books_written: {
-        type: Number
-    }
+    books_written: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+    }]
 });
 
 // Defines the Author model using the schema
-const User = mongoose.model('Author', authorSchema);
+const Author = mongoose.model('Author', authorSchema);
 
 module.exports = Author;

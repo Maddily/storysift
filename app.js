@@ -1,3 +1,6 @@
+// sets the environment variables
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./src/models/User');
@@ -9,6 +12,11 @@ const Bookshelf = require('./src/models/Bookshelf');
 // const Review --- add later
 
 const app = express();
+
+// Environment variables
+const PORT = process.env.PORT || 3000;
+const DB_URI = process.env.DB_URI;
+const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
 // Connect to MongoDB - find another way that doesn't expose the password
 const dbURI = "mongodb+srv://senhlema:12345@cluster0.d4v5esk.mongodb.net/Storysift_db?retryWrites=true&w=majority&appName=Cluster0";
@@ -130,13 +138,42 @@ app.post('/api/bookshelves', async (req, res) => {
     }
 });
 
+// Route to search books using Google Books API
+app.get('/api/books/search', async (req, res) => {
+    const { query } = req.query;
+
+    try {
+        const response = await axios.get('https://www.googleapis.com/books/v1/volumes', {
+            params: {
+                q: query
+            }
+        });
+
+        const books = response.data.items.map(item => {
+            const bookInfo = item.volumeInfo;
+            return {
+                title: bookInfo.title,
+                authors: bookInfo.authors,
+                description: bookInfo.description,
+                publishedDate: bookInfo.publishedDate,
+                thumbnail: bookInfo.imageLinks?.thumbnail,
+                previewLink: bookInfo.previewLink
+            };
+        });
+
+        res.status(200).json(books);
+    } catch (error) {
+        console.error('Error searching books:', error);
+        res.status(500).json({ message: 'Failed to search books', error: error.message });
+    }
+});
+
 // Default route - add the landing page here
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: './public' });
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

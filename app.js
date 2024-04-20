@@ -6,17 +6,18 @@ const Book = require('./src/models/Book');
 const Rating = require('./src/models/Rating');
 const SearchHistory = require('./src/models/SearchHistory');
 const Bookshelf = require('./src/models/Bookshelf');
+// const Review --- add later
 
 const app = express();
 
-// Connect to MongoDB
+// Connect to MongoDB - find another way that doesn't expose the password
 const dbURI = "mongodb+srv://senhlema:12345@cluster0.d4v5esk.mongodb.net/Storysift_db?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
-        console.log('Successfully connected to MongoDB');
+        console.log('Successfully connected to MongoDB!');
     })
     .catch((err) => {
-        console.error('Error connecting to MongoDB:', err);
+        console.error('There was an error connecting to MongoDB:', err);
     });
 
 // Middleware to parse JSON bodies
@@ -100,7 +101,7 @@ app.post('/api/ratings', async (req, res) => {
     }
 });
 
-// Route to create a new review
+// Route to create a new review TODO...
 
 // Route to create a new search history
 app.post('/api/search-history', async (req, res) => {

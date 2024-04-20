@@ -23,6 +23,9 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Serve all static files from public dir
+app.use(express.static('public'));
+
 // Route to create a new user
 app.post('/api/users', async (req, res) => {
     try {
@@ -129,7 +132,7 @@ app.post('/api/bookshelves', async (req, res) => {
 
 // Default route - add the landing page here
 app.get('/', (req, res) => {
-    res.send('Welcome to Storysift');
+    res.sendFile('index.html', { root: './public' });
 });
 
 // Start the server

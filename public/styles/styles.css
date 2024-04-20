@@ -126,7 +126,7 @@ button.discover:active {
 }
 
 .search {
-  height: 35%;
+  height: 37%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,7 +192,7 @@ button.discover:active {
 }
 
 footer {
-  height: 10%;
+  height: 8%;
   background: #e5dad8;
   box-shadow: 0 -0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   display: flex;

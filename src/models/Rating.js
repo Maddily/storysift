@@ -8,6 +8,11 @@ const ratingSchema = new mongoose.Schema({
         ref: 'User', // Reference to User model
         required: true
     },
+    author_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Author', // Reference to Author Model
+        required: true
+    },
     book_id: {
         type: Schema.Types.ObjectId,
         ref: 'Book', // Reference to Book model

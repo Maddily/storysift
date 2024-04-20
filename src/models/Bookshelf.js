@@ -1,4 +1,4 @@
-// storysift/src/models/User.js
+// storysift/src/models/Bookshelf.js
 
 const mongoose = require('mongoose');
 
@@ -19,12 +19,7 @@ const bookshelfSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User', // Reference to User model
         required: true
-    },
-    book_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Book', // Reference to Book model
-        required: true
-    },
+    }
 });
 
 // Defines the Bookshelf model using the schema

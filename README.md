@@ -32,6 +32,9 @@ StorySift is built using the following technologies:
 * API:
   * Google Books API
 
+## Data Model
+![new data models](https://github.com/Maddily/storysift/assets/68620670/72891c19-6638-4d7b-a34d-24dbbe7cfd9f)
+
 ## Contributing
 
 To contribute to StorySift, follow these steps:

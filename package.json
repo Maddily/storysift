@@ -1,0 +1,27 @@
+{
+  "name": "storysift-1",
+  "version": "1.0.0",
+  "description": "StorySift is a user-friendly book lookup/finder app designed to simplify the process of discovering and engaging with books. With streamlined search features, StorySift caters to book enthusiasts, students, and researchers alike.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maddily/storysift.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maddily/storysift/issues"
+  },
+  "homepage": "https://github.com/Maddily/storysift#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "mongodb": "^4.17.2",
+    "mongoose": "^8.3.2",
+    "nodemon": "^3.1.0"
+  }
+}

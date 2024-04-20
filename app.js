@@ -18,9 +18,8 @@ const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI;
 const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
-// Connect to MongoDB - find another way that doesn't expose the password
-const dbURI = "mongodb+srv://senhlema:12345@cluster0.d4v5esk.mongodb.net/Storysift_db?retryWrites=true&w=majority&appName=Cluster0";
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+// Connect to MongoDB
+mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Successfully connected to MongoDB!');
     })

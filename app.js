@@ -171,7 +171,7 @@ app.get('/api/books/search', async (req, res) => {
     }
 });
 
-// Default route - add the landing page here
+// Default route to the landing page
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: './public' });
 });
@@ -184,16 +184,6 @@ app.get('/books/search', (req, res) => {
 // Route to handle discover button click and redirect to results page
 app.get('/books', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'results.html'));
-});
-
-// Route to handle search query and redirect to results page
-app.get('/books/search', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'results.html'));
-});
-
-// Route to handle discover button click and redirect to results page
-app.get('/books', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'results.html'));
 });
 
 // Start the server

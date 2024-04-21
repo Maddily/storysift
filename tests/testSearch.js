@@ -18,13 +18,18 @@ axios.get('https://www.googleapis.com/books/v1/volumes', {
     // Extract and log book information from the API response
     const books = response.data.items.map(item => {
         const bookInfo = item.volumeInfo;
+        const publisher = bookInfo.publisher || 'Unknown';
         return {
             title: bookInfo.title,
             authors: bookInfo.authors,
             description: bookInfo.description,
-            publishedDate: bookInfo.publishedDate,
+            date_published: bookInfo.publishedDate,
             thumbnail: bookInfo.imageLinks?.thumbnail,
-            previewLink: bookInfo.previewLink
+            previewLink: bookInfo.previewLink,
+            language: bookInfo.language,
+            page_count: bookInfo.pageCount || 0,
+            publisher: publisher,
+            ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null
         };
     });
 

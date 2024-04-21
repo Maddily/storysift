@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  height: 10%;
+  height: 11%;
   background: #e5dad8;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   display: flex;

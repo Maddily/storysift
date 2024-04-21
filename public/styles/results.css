@@ -1,5 +1,5 @@
 .search {
-  height: 10%;
+  height: 11%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,9 +63,16 @@
   color: #1e3f48;
 }
 
+.hr {
+  height: 1%;
+}
+
 .search-ruler {
-  margin-top: 20px;
   width: 70%;
+}
+
+.results {
+  height: 69%;
 }
 
 @media screen and (min-width: 500px) {

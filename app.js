@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const axios = require('axios');
+const cors = require('cors');
 const User = require('./src/models/User');
 const Author = require('./src/models/Author');
 const Book = require('./src/models/Book');
@@ -30,6 +32,9 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -103,6 +108,40 @@ app.get('/api/books', async (req, res) => {
     }
 });
 
+// Route to search books using Google Books API
+app.get('/api/books/search', async (req, res) => {
+    const { query } = req.query;
+
+    try {
+        const response = await axios.get('https://www.googleapis.com/books/v1/volumes', {
+            params: {
+                q: query,
+                key: GOOGLE_BOOKS_API_KEY // Include your Google Books API key
+            }
+        });
+
+        const books = response.data.items.map(item => {
+            const bookInfo = item.volumeInfo;
+            return {
+                title: bookInfo.title,
+                description: bookInfo.description,
+                language: bookInfo.language,
+                page_count: bookInfo.pageCount || 0,
+                date_published: bookInfo.publishedDate ? new Date(bookInfo.publishedDate) : null,
+                publisher: bookInfo.publisher,
+                ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null,
+                author_id: bookData.author_id, // check if author_id is provided in bookData
+                genre_id: bookData.genre_id // check if genre_id is provided in bookData
+            };
+        });
+
+        res.status(200).json(books);
+    } catch (error) {
+        console.error('Error searching books:', error);
+        res.status(500).json({ message: 'Failed to search books', error: error.message });
+    }
+});
+
 // Route to create a new rating
 app.post('/api/ratings', async (req, res) => {
     try {
@@ -138,36 +177,6 @@ app.post('/api/bookshelves', async (req, res) => {
         res.status(201).json(savedBookshelf);
     } catch (error) {
         res.status(400).json({ message: 'Failed to create bookshelf', error: error.message });
-    }
-});
-
-// Route to search books using Google Books API
-app.get('/api/books/search', async (req, res) => {
-    const { query } = req.query;
-
-    try {
-        const response = await axios.get('https://www.googleapis.com/books/v1/volumes', {
-            params: {
-                q: query
-            }
-        });
-
-        const books = response.data.items.map(item => {
-            const bookInfo = item.volumeInfo;
-            return {
-                title: bookInfo.title,
-                authors: bookInfo.authors,
-                description: bookInfo.description,
-                publishedDate: bookInfo.publishedDate,
-                thumbnail: bookInfo.imageLinks?.thumbnail,
-                previewLink: bookInfo.previewLink
-            };
-        });
-
-        res.status(200).json(books);
-    } catch (error) {
-        console.error('Error searching books:', error);
-        res.status(500).json({ message: 'Failed to search books', error: error.message });
     }
 });
 

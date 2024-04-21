@@ -5,7 +5,7 @@ const axios = require('axios');
 const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
 // Define the search query
-const query = 'harry potter'; // Replace with your desired search query
+const query = 'harry potter';
 
 // Make API request to Google Books API
 axios.get('https://www.googleapis.com/books/v1/volumes', {

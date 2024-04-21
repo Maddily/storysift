@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const User = require('./src/models/User');
 const Author = require('./src/models/Author');
 const Book = require('./src/models/Book');
@@ -183,6 +184,16 @@ app.get('/books/search', (req, res) => {
 // Route to handle discover button click and redirect to results page
 app.get('/books', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'results.html'));
+});
+
+// Route to handle search query and redirect to results page
+app.get('/books/search', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'results.html'));
+});
+
+// Route to handle discover button click and redirect to results page
+app.get('/books', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'results.html'));
 });
 
 // Start the server

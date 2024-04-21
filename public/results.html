@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/common.css">
-  <link rel="stylesheet" href="styles/landing.css">
+  <link rel="stylesheet" href="/styles/normalize.css">
+  <link rel="stylesheet" href="/styles/common.css">
+  <link rel="stylesheet" href="/styles/results.css">
   <script src="scripts/index.js" defer></script>
-  <title>StorySift</title>
+  <title>Search results</title>
 </head>
 <body>
   <header>
@@ -21,18 +21,10 @@
       </ul>
     </nav>
   </header>
-  <section class="hero">
-    <div class="hero-left">
-      <h1>Sift Through Stories,<br> Find Your Next Escape</h1>
-      <p>Discover Hidden Gems and Timeless Classics</p>
-      <button class="discover">Discover</button>
-    </div>
-    <img src="../assets/images/hero.png" alt="Books on a shelf" class="hero-img">
-  </section>
   <section class="search">
     <div class="search-container">
       <div class="p-and-input">
-        <p>Ready to uncover your next escape?</p>
+        <p>Search</p>
         <input type="search" name="book-search" id="book-search" placeholder="Title / Author">
       </div>
       <div class="search-button-container">
@@ -40,6 +32,10 @@
       </div>
     </div>
   </section>
+  <div class="hr">
+    <hr class="search-ruler">
+  </div>
+  <section class="results"></section>
   <footer>
     <p>&copy; 2024 StorySift, Inc. All rights reserved.</p>
   </footer>

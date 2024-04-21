@@ -1,71 +1,3 @@
-*, ::after, ::before {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 14px;
-}
-
-body {
-  height: 100vh;
-  font-family: 'TT Commons Pro', Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
-  background: #eeecec;
-}
-
-header {
-  height: 10%;
-  background: #e5dad8;
-  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 1rem;
-}
-
-header img {
-  width: 180px;
-  cursor: pointer;
-}
-
-nav {
-  height: 100%;
-}
-
-nav ul {
-  list-style-type: none;
-  display: flex;
-  gap: 10px;
-  color: #173139;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  align-items: center;
-}
-
-nav li {
-  cursor: pointer;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-}
-
-nav li:hover {
-  border-bottom: 3px solid #1e3f48;
-  background: #e48d7a;
-  color: #152d34;
-}
-
-nav li:active {
-  background: #daa972;
-}
-
-.signup {
-  display: none;
-}
-
 .hero {
   height: 45%;
   background: #c0bbc7;
@@ -126,7 +58,7 @@ button.discover:active {
 }
 
 .search {
-  height: 37%;
+  height: 38%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,9 +88,6 @@ button.discover:active {
 
 #book-search:focus {
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
-}
-
-#book-search:focus {
   outline: none;
 }
 
@@ -191,22 +120,6 @@ button.discover:active {
   color: #1e3f48;
 }
 
-footer {
-  height: 8%;
-  background: #e5dad8;
-  box-shadow: 0 -0.1rem 0.2rem rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  margin-bottom: 0;
-  color: #173139;
-  margin-top: auto;
-}
-
-footer p {
-  margin-left: 50px;
-}
-
 @media screen and (min-width: 500px) {
   #book-search {
     width: 300px;
@@ -214,22 +127,6 @@ footer p {
 }
 
 @media screen and (min-width: 700px) {
-  html {
-    font-size: 16px;
-  }
-
-  header img {
-    width: 250px;
-  }
-
-  nav ul {
-    gap: 50px;
-  }
-
-  .signup {
-    display: inline-flex;
-  }
-
   .hero {
     height: 400px;
     flex-direction: row;
@@ -256,9 +153,5 @@ footer p {
 
   #book-search {
     width: 500px;
-  }
-
-  footer p {
-    margin-left: 100px;
   }
 }

@@ -31,7 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  /**
+   * Handles redirecting to /books when Discover button is clicked.
+   */
+  const handleDiscoverButtonClick = () => {
+    const discoverButton = document.querySelector('.discover');
+
+    discoverButton.addEventListener('click', (event) => {
+      // Prevent the default link behavior
+      event.preventDefault();
+      // Redirect to the landing page
+      window.location.href = '/books';
+    });
+  };
+
   handleHomeButtonClick();
+  handleDiscoverButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

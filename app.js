@@ -138,6 +138,16 @@ app.get('/', (req, res) => {
     res.send('Welcome to Storysift');
 });
 
+// Route to handle search query and redirect to results page
+app.get('/books/search', (req, res) => {
+  // Extract the search query from the query parameters
+  const query = req.query.query;
+
+  // Redirect to the results page with the search query as a query parameter
+  /* res.redirect(`/results.html?query=${encodeURIComponent(query)}`); */
+  res.sendFile(path.join(__dirname, 'public', 'results.html'));
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

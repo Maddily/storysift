@@ -49,6 +49,16 @@ app.get('/', (req, res) => {
     res.sendFile('index.html', { root: './public' });
 });
 
+// Route to handle search query and redirect to results page
+app.get('/books/search', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'results.html'));
+  });
+  
+// Route to handle discover button click and redirect to results page
+app.get('/books', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'results.html'));
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -4,16 +4,6 @@ const axios = require('axios');
 const User = require('../models/Book');
 const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
-// Route to handle search query and redirect to results page
-router.get('/books/search', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'results.html'));
-  });
-  
-// Route to handle discover button click and redirect to results page
-router.get('/books', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'results.html'));
-});
-
 // Route to create a new book
 router.post('/api/books', async (req, res) => {
     try {

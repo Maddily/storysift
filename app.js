@@ -30,8 +30,11 @@ mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Serve all static files from public dir
-app.use(express.static('public'));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the 'assets' directory
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Route to create a new user
 app.post('/api/users', async (req, res) => {
@@ -170,6 +173,16 @@ app.get('/api/books/search', async (req, res) => {
 // Default route - add the landing page here
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: './public' });
+});
+
+// Route to handle search query and redirect to results page
+app.get('/books/search', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'results.html'));
+  });
+  
+// Route to handle discover button click and redirect to results page
+app.get('/books', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'results.html'));
 });
 
 // Start the server

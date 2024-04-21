@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const User = require('./src/models/User');
 const Author = require('./src/models/Author');
 const Book = require('./src/models/Book');
@@ -21,6 +22,12 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the 'assets' directory
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Route to create a new user
 app.post('/api/users', async (req, res) => {

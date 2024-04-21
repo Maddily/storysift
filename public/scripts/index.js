@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.querySelector('.search-button');
 
   /**
-   * Handles search query submission
+   * Handle search query submission
    */
   function handleSearchQuery () {
     const query = searchInput.value.trim();
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
-   * Handles redirecting to the landing page when the Home button is clicked.
+   * Handle redirecting to the landing page when the Home button is clicked.
    */
   const handleHomeButtonClick = () => {
     const homeButton = document.querySelector('.home a');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
-   * Handles redirecting to /books when Discover button is clicked.
+   * Handle redirecting to /books when Discover button is clicked.
    */
   const handleDiscoverButtonClick = () => {
     const discoverButton = document.querySelector('.discover');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     discoverButton.addEventListener('click', (event) => {
       // Prevent the default link behavior
       event.preventDefault();
-      // Redirect to the landing page
+      // Redirect to the results page
       window.location.href = '/books';
     });
   };

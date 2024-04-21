@@ -34,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Handle redirecting to /books when Discover button is clicked.
    */
-  const handleDiscoverButtonClick = () => {
-    const discoverButton = document.querySelector('.discover');
-
-    discoverButton.addEventListener('click', (event) => {
-      // Prevent the default link behavior
-      event.preventDefault();
-      // Redirect to the results page
-      window.location.href = '/books';
+  function handleDiscoverButtonClick () {
+    document.addEventListener('click', (event) => {
+      const discoverButton = event.target.closest('.discover');
+      if (discoverButton) {
+        event.preventDefault();
+        window.location.href = '/books';
+      }
     });
   };
 

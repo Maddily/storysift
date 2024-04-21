@@ -1,8 +1,8 @@
 // Import required modules
 const axios = require('axios');
 
-// Define your Google Books API key
-const GOOGLE_BOOKS_API_KEY = 'AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU';
+// Define Google Books API key
+const GOOGLE_BOOKS_API_KEY = process.env.GOOGLE_BOOKS_API_KEY;
 
 // Define the search query
 const query = 'harry potter'; // Replace with your desired search query

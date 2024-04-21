@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const query = searchInput.value.trim();
     if (query) {
       // Redirect to results page with search query as query parameter
-      window.location.href = `/results.html?query=${encodeURIComponent(query)}`;
+      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
       // Update page title
       document.title += ` for "${query}"`;
     }
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Prevent the default link behavior
       event.preventDefault();
       // Redirect to the landing page
-      window.location.href = '/public/index.html';
+      window.location.href = '/';
     });
   };
 

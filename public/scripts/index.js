@@ -7,13 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Handle search query submission
    */
-  function handleSearchQuery () {
+  async function handleSearchQuery () {
     const query = searchInput.value.trim();
     if (query) {
-      // Redirect to results page with search query as query parameter
-      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      // Update page title
-      document.title += ` for "${query}"`;
+      try {
+        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * Handle redirecting to the landing page when the Home button is clicked.
    */
   const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home a');
+    const homeButton = document.querySelector('.home');
 
     homeButton.addEventListener('click', (event) => {
       // Prevent the default link behavior
@@ -32,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
-   * Handle redirecting to /books when Discover button is clicked.
+   * Put the search bar in focus when Discover button is clicked.
    */
   function handleDiscoverButtonClick () {
     document.addEventListener('click', (event) => {
       const discoverButton = event.target.closest('.discover');
       if (discoverButton) {
         event.preventDefault();
-        window.location.href = '/books';
+        searchInput.focus();
       }
     });
   };
@@ -49,4 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);
+
+  // Event listener for pressing Enter key
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearchQuery();
+    }
+  });
 });

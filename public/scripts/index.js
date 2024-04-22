@@ -33,6 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
+   * Handle redirecting to the landing page when the logo is clicked.
+   */
+  const handleLogoClick = () => {
+    const logo = document.querySelector('.logo-img');
+
+    logo.addEventListener('click', (event) => {
+      // Redirect to the landing page
+      window.location.href = '/';
+    });
+  };
+
+  /**
    * Put the search bar in focus when Discover button is clicked.
    */
   function handleDiscoverButtonClick () {
@@ -46,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   handleHomeButtonClick();
+  handleLogoClick();
   handleDiscoverButtonClick();
 
   // Event listener for search button click

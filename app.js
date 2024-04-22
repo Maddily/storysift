@@ -53,11 +53,6 @@ app.get('/', (req, res) => {
 app.get('/books/search', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'results.html'));
   });
-  
-// Route to handle discover button click and redirect to results page
-app.get('/books', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'results.html'));
-});
 
 // Start the server
 app.listen(PORT, () => {

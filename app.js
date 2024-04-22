@@ -54,6 +54,11 @@ app.get('/books/search', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'results.html'));
   });
 
+// Route to handle clicking a book and redirect to book details page
+app.get('/books', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'details.html'));
+  });
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

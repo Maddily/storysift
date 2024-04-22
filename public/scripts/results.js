@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   // Extract search query parameter from URL
   const searchParams = new URLSearchParams(window.location.search);
-  const query = searchParams.get('query');
+  let query = searchParams.get('query');
   const countContainer = document.querySelector('.count-container');
   const bookList = document.querySelector('.book-list');
   const prevPageButton = document.querySelector('.prev-page-button');
@@ -16,42 +16,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   const maxResults = 10;
   let totalResults = 0;
 
-  // Function to fetch books from the backend server
-  async function fetchBooksFromBackend(query, startIndex, maxResults) {
-    try {
-      const response = await fetch(`/books/search?query=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch books from backend');
+  // Handle redirecting to the book details page when a book is clicked.
+  function handleBookClick() {
+    bookList.addEventListener('click', (event) => {
+      const book = event.target.closest('.book');
+      if (book) {
+        // Extract volumeId
+        const volumeId = book.id;
+        if (volumeId) {
+          window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
+        } else {
+          console.log('No book found');
+        }
       }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching books from backend:', error);
-      throw error;
-    }
+    });
   }
 
   /**
    * Handle search query submission
    */
   async function handleSearchQuery () {
-    const query = searchInput.value.trim();
+    query = searchInput.value.trim();
 
     if (query) {
-      startIndex = 0;
-      try {
-        const initialBooks = await fetchBooksFromBackend(query, startIndex, maxResults);
-        totalResults = initialBooks.length;
-        displayBooks(initialBooks);
-      } catch (error) {
-        console.error('Failed to fetch books:', error);
-      }
+      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+      const searchInput = document.getElementById('book-search');
+      searchInput.value = query;
     } else {
       console.error('No search query found in URL');
     }
   }
 
-  /* // Function to fetch books from the Google Books API
+  // Function to fetch books from the Google Books API
   async function fetchBooks(query, startIndex, maxResults) {
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?key=AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU&q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`, {mode: 'cors'});
 
@@ -61,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const data = await response.json();
     return data;
-  } */
+  }
 
   // Function to display books in the results section
   function displayBooks(books) {
@@ -73,7 +69,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       noResultsMessage.textContent = 'No results found.';
       bookList.appendChild(noResultsMessage);
     } else {
-      if (query) {
+      if (query)
+      {
         // Calculate the current page number
         const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
         // Calculate the total number of pages
@@ -91,10 +88,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const title = book.volumeInfo.title;
         const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown';
         const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
+        const volumeId = book.id;
 
         // Create HTML elements for each book
         const bookElement = document.createElement('div');
         bookElement.classList.add('book');
+        bookElement.setAttribute('id', volumeId);
         bookElement.innerHTML = `
           <img src="${thumbnail}" alt="${title}">
           <div class="book-details">
@@ -140,23 +139,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
+  /**
+   * Handle redirecting to the landing page when the logo is clicked.
+   */
+  const handleLogoClick = () => {
+    const logo = document.querySelector('.logo-img');
+
+    logo.addEventListener('click', (event) => {
+      // Redirect to the landing page
+      window.location.href = '/';
+    });
+  };
+
   // Display the initial set of books
-  /* if (query) {
+  if (query) {
     const initialBooks = await fetchBooks(query, startIndex, maxResults);
     totalResults = initialBooks.totalItems;
     displayBooks(initialBooks.items);
-  } else {
-    console.error('No search query found in URL');
-  } */
-
-  if (query) {
-    try {
-      const initialBooks = await fetchBooksFromBackend(query, startIndex, maxResults);
-      totalResults = initialBooks.length;
-      displayBooks(initialBooks);
-    } catch (error) {
-      console.error('Failed to fetch books:', error);
-    }
   } else {
     console.error('No search query found in URL');
   }
@@ -165,6 +164,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   handlePagination();
 
   handleHomeButtonClick();
+  handleLogoClick();
+
+  handleBookClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

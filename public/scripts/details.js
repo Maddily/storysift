@@ -225,8 +225,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : undefined;
       const authorData = await fetchAuthorDetails(authors[0]);
+      const thumbnail = document.querySelector('.book-details-container img');
+
       authorDetailsSection.innerHTML = `
-        <span></span>
+        <span style="width: ${thumbnail.width}px;"></span>
         <div class="author-details">
           <h2>About the author</h2>
           <div>

@@ -213,6 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </div>
       `;
+      document.title = title + ' | StorySift';
     } catch (error) {
       const detailsSection = document.querySelector('.details');
       detailsSection.textContent = 'Service temporarily unavailable.';

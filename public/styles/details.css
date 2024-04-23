@@ -22,7 +22,6 @@ html {
 
 .book-details-container img {
   height: 160px;
-  width: 120px;
 }
 
 .book-details h1 {
@@ -52,10 +51,6 @@ html {
   display: flex;
   gap: 20px;
   color: #152d34;
-}
-
-.author-details-container span {
-  width: 120px;
 }
 
 .author-details h2 {

@@ -41,8 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (query) {
       window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      const searchInput = document.getElementById('book-search');
-      searchInput.value = query;
     } else {
       console.error('No search query found in URL');
     }
@@ -164,6 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Display the initial set of books
   if (query) {
+    document.title = `Search results for "${query}"`;
     try {
       const initialBooks = await fetchBooks(query, startIndex, maxResults);
       if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {

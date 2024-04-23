@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 const DB_URI = process.env.DB_URI;
 
 // Connect to MongoDB
-mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(DB_URI, {})
     .then(() => {
         console.log('Successfully connected to MongoDB!');
     })
@@ -38,11 +38,9 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 const usersRoutes = require('./src/routes/users');
 const booksRoutes = require('./src/routes/books');
 
-
 // Routes for different models
 app.use('/api/users', usersRoutes);
 app.use('/api/books', booksRoutes);
-
 
 // Default route to the landing page
 app.get('/', (req, res) => {

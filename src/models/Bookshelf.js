@@ -1,4 +1,4 @@
-// storysift/src/models/Bookshelf.js
+// src/models/Bookshelf.js
 
 const mongoose = require('mongoose');
 

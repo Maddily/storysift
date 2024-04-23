@@ -1,4 +1,4 @@
-// storysift/src/models/Review.js
+// src/models/Review.js
 
 const mongoose = require('mongoose');
 

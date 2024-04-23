@@ -1,4 +1,4 @@
-// storysift/src/models/Author.js
+// src/models/Author.js
 
 const mongoose = require('mongoose');
 

@@ -1,0 +1,1 @@
+// src/routes/rating.js

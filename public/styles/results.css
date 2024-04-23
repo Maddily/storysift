@@ -103,6 +103,14 @@
   padding-bottom: 10px;
 }
 
+.book:hover {
+  border-bottom: 3px solid #1e3f48;
+}
+
+.book:active {
+  background: #daa972;
+}
+
 .book * {
   cursor: pointer;
 }

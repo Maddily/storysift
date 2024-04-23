@@ -1,6 +1,7 @@
 // storysift/src/models/User.js
 
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     first_name: {
@@ -10,7 +11,7 @@ const userSchema = new mongoose.Schema({
     },
     last_name: {
         type: String,
-        requierd: true,
+        required: true,
         minlength: 2
     },
     username: {
@@ -22,7 +23,7 @@ const userSchema = new mongoose.Schema({
         index: true
     },
     email: {
-        type:  String,
+        type: String,
         required: true,
         unique: true,
         lowercase: true,
@@ -33,7 +34,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 12
+        maxlength: 100,
+        select: false    // Do not include password in query results by default
     },
     joining_date: {
         type: Date,
@@ -44,7 +46,35 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Defines the User model using the schema
+// Hash the password before saving to database
+userSchema.pre('save', async function(next) {
+    const user = this;
+
+    // NB! Only hash the password if it's modified or new
+    if (!user.isModified('password')) {
+        return next();
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+        user.password = hashedPassword;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+});
+
+// Method to compare password for authentication
+userSchema.methods.comparePassword = async function(candidatePassword) {
+    try {
+        return await bcrypt.compare(candidatePassword, this.password);
+    } catch (error) {
+        return false;
+    }
+};
+
+// Define the User model using the schema
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

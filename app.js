@@ -38,11 +38,9 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 const usersRoutes = require('./src/routes/users');
 const booksRoutes = require('./src/routes/books');
 
-
 // Routes for different models
 app.use('/api/users', usersRoutes);
 app.use('/api/books', booksRoutes);
-
 
 // Default route to the landing page
 app.get('/', (req, res) => {

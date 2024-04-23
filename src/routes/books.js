@@ -54,6 +54,45 @@ router.get('/search', async (req, res) => {
 Sttorysift backend routes
 */
 
+// Route to get book details by volumeId
+router.get('/:volumeId/details', async (req, res) => {
+  const { volumeId } = req.params;
+
+  try {
+    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${volumeId}`, {
+      params: {
+        key: GOOGLE_BOOKS_API_KEY
+      }
+    });
+
+    const bookInfo = response.data.volumeInfo;
+    const publisher = bookInfo.publisher || 'Unknown';
+    const authors = bookInfo.authors ? bookInfo.authors.join(', ') : 'Unknown';
+
+    const bookDetails = {
+      title: bookInfo.title,
+      author: authors,
+      description: bookInfo.description,
+      language: bookInfo.language,
+      page_count: bookInfo.pageCount || 0,
+      date_published: bookInfo.publishedDate,
+      publisher: publisher,
+      thumbnailURL: bookInfo.imageLinks?.thumbnail,
+      ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null,
+      volumeId: volumeId
+    };
+
+    res.status(200).json(bookDetails);
+  } catch (error) {
+    console.error('Error fetching book details:', error);
+    res.status(500).json({ message: 'Failed to fetch book details', error: error.message });
+  }
+});
+
+/*
+CRUD operations
+*/
+
 // Route to create a new book
 router.post('/', async (req, res) => {
   const {

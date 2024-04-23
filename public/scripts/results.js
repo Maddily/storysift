@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let startIndex = 0;
   const maxResults = 10;
   let totalResults = 0;
+  let books = [];
 
   // Handle redirecting to the book details page when a book is clicked.
   function handleBookClick() {
@@ -47,9 +48,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Function to fetch books from the Google Books API
+  // Function to fetch books from the backend
   async function fetchBooks(query, startIndex, maxResults) {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?key=AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU&q=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`, {mode: 'cors'});
+    const response = await fetch(`/api/books/search?query=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch books');
@@ -79,16 +80,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Create a paragraph element to display book count information
         const bookCountParagraph = document.createElement('p');
         bookCountParagraph.classList.add('count');
-        bookCountParagraph.textContent = `Page ${currentPageNumber} out of ${totalPages}`;
+        bookCountParagraph.textContent = `Search results for "${query}" - Page ${currentPageNumber} out of ${totalPages}`;
         countContainer.innerHTML = '';
         countContainer.appendChild(bookCountParagraph);
       }
       // Loop through the books and create HTML elements to display them
       books.forEach((book) => {
-        const title = book.volumeInfo.title;
-        const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown';
-        const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
-        const volumeId = book.id;
+        const title = book.title;
+        const authors = book.author;
+        const thumbnail = book.thumbnailURL ? book.thumbnailURL : 'https://via.placeholder.com/150';
+        const volumeId = book.volumeId;
 
         // Create HTML elements for each book
         const bookElement = document.createElement('div');
@@ -114,14 +115,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     nextPageButton.addEventListener('click', async () => {
       startIndex += maxResults;
       const data = await fetchBooks(query, startIndex, maxResults);
-      displayBooks(data.items);
+      if (data && data.items && data.items.length > 0) {
+        books = data.items || [];
+        displayBooks(books);
+      } else {
+        console.log('No more books to display.');
+      }
     });
 
     // Previous Page button
     prevPageButton.addEventListener('click', async () => {
       startIndex = Math.max(0, startIndex - maxResults);
       const data = await fetchBooks(query, startIndex, maxResults);
-      displayBooks(data.items);
+      if (data && data.items && data.items.length > 0) {
+        books = data.items || [];
+        displayBooks(books);
+      } else {
+        console.log('No more books to display.');
+      }
     });
   }
 
@@ -153,9 +164,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Display the initial set of books
   if (query) {
-    const initialBooks = await fetchBooks(query, startIndex, maxResults);
-    totalResults = initialBooks.totalItems;
-    displayBooks(initialBooks.items);
+    try {
+      const initialBooks = await fetchBooks(query, startIndex, maxResults);
+      if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {
+        totalResults = initialBooks.totalItems;
+        books = initialBooks.items || [];
+        displayBooks(books);
+      } else {
+        console.log('No books found for the given query.');
+        displayBooks([]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch books:', error);
+    }
   } else {
     console.error('No search query found in URL');
   }

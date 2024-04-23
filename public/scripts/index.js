@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('book-search');
   const searchButton = document.querySelector('.search-button');
+  const signUpButton = document.querySelector('.signup');
 
   /**
    * Handle search query submission
@@ -36,12 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
    * Handle redirecting to the landing page when the logo is clicked.
    */
   const handleLogoClick = () => {
-    const logo = document.querySelector('.logo-img');
+    const logos = document.querySelectorAll('.logo');
 
-    logo.addEventListener('click', (event) => {
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+    logos.forEach((logo) => {
+      logo.addEventListener('click', (event) => {
+        // Redirect to the landing page
+        window.location.href = '/';
+      });
+    })
   };
 
   /**
@@ -57,9 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  /**
+   * Handle redirecting to the sign up page when the sign up button is clicked.
+   */
+  function handleSignUpButtonClick() {
+    signUpButton.addEventListener('click', () => {
+      window.location.href = '/signup';
+    });
+  }
+
   handleHomeButtonClick();
   handleLogoClick();
   handleDiscoverButtonClick();
+  handleSignUpButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

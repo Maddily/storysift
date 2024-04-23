@@ -157,16 +157,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-  /**
+   /**
    * Handle redirecting to the landing page when the logo is clicked.
    */
-  const handleLogoClick = () => {
-    const logo = document.querySelector('.logo-img');
+   const handleLogoClick = () => {
+    const logos = document.querySelectorAll('.logo');
 
-    logo.addEventListener('click', (event) => {
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+    logos.forEach((logo) => {
+      logo.addEventListener('click', (event) => {
+        // Redirect to the landing page
+        window.location.href = '/';
+      });
+    })
   };
 
   if (volumeId) {

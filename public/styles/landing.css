@@ -88,7 +88,7 @@ button.discover:active {
 
 #book-search:focus {
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
-  outline: none;
+  outline: 1px solid #e48d7a;
 }
 
 .search-button-container {

@@ -5,23 +5,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchButton = document.querySelector('.search-button');
 
   /**
-   * Handles search query submission
+   * Handle search query submission
    */
-  function handleSearchQuery () {
+  async function handleSearchQuery () {
     const query = searchInput.value.trim();
     if (query) {
-      // Redirect to results page with search query as query parameter
-      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      // Update page title
-      document.title += ` for "${query}"`;
+      try {
+        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 
   /**
-   * Handles redirecting to the landing page when the Home button is clicked.
+   * Handle redirecting to the landing page when the Home button is clicked.
    */
   const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home a');
+    const homeButton = document.querySelector('.home');
 
     homeButton.addEventListener('click', (event) => {
       // Prevent the default link behavior
@@ -32,22 +33,42 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   /**
-   * Handles redirecting to /books when Discover button is clicked.
+   * Handle redirecting to the landing page when the logo is clicked.
    */
-  const handleDiscoverButtonClick = () => {
-    const discoverButton = document.querySelector('.discover');
+  const handleLogoClick = () => {
+    const logo = document.querySelector('.logo-img');
 
-    discoverButton.addEventListener('click', (event) => {
-      // Prevent the default link behavior
-      event.preventDefault();
+    logo.addEventListener('click', (event) => {
       // Redirect to the landing page
-      window.location.href = '/books';
+      window.location.href = '/';
+    });
+  };
+
+  /**
+   * Put the search bar in focus when Discover button is clicked.
+   */
+  function handleDiscoverButtonClick () {
+    document.addEventListener('click', (event) => {
+      const discoverButton = event.target.closest('.discover');
+      if (discoverButton) {
+        event.preventDefault();
+        searchInput.focus();
+      }
     });
   };
 
   handleHomeButtonClick();
+  handleLogoClick();
   handleDiscoverButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);
+
+  // Event listener for pressing Enter key
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearchQuery();
+    }
+  });
 });

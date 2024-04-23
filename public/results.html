@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/styles/normalize.css">
   <link rel="stylesheet" href="/styles/common.css">
   <link rel="stylesheet" href="/styles/results.css">
-  <script src="scripts/index.js" defer></script>
+  <script src="/scripts/results.js" defer></script>
   <title>Search results</title>
 </head>
 <body>
@@ -32,10 +32,16 @@
       </div>
     </div>
   </section>
-  <div class="hr">
-    <hr class="search-ruler">
-  </div>
-  <section class="results"></section>
+  <div class="count-container"></div>
+  <section class="results">
+    <div class="book-list">
+      <!-- Books will be dynamically added here -->
+    </div>
+  </section>
+  <section class="pagination">
+    <button class="prev-page-button">&lt;&nbsp;&nbsp;&nbsp;Previous</button>
+    <button class="next-page-button">Next&nbsp;&nbsp;&nbsp;&gt;</button>
+  </section>
   <footer>
     <p>&copy; 2024 StorySift, Inc. All rights reserved.</p>
   </footer>

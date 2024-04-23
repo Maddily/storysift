@@ -1,4 +1,4 @@
-// storysift/src/models/Rating.js
+// /models/Rating.js
 
 const mongoose = require('mongoose');
 

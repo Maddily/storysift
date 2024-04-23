@@ -1,4 +1,4 @@
-// storysift/src/models/SearchHistory.js
+// src/models/SearchHistory.js
 
 const mongoose = require('mongoose');
 

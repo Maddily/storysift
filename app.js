@@ -37,10 +37,22 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 // Route imports
 const usersRoutes = require('./src/routes/users');
 const booksRoutes = require('./src/routes/books');
+const authorsRoutes = require('./src/routes/authors');
+const bookshelvesRoutes = require('./src/routes/bookshelves');
+const genresRoutes = require('./src/routes/genres');
+const ratingsRoutes = require('./src/routes/ratings');
+const reviewRoutes = require('./src/routes/reviews');
+const searchHistoriesRoutes = require('./src/routes/searchHistories');
 
 // Routes for different models
 app.use('/api/users', usersRoutes);
 app.use('/api/books', booksRoutes);
+app.use('/api/authors', authorsRoutes);
+app.use('/api/bookshelves', bookshelvesRoutes);
+app.use('/api/genre', genresRoutes);
+app.use('/api/ratings', ratingsRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/searchHistories', searchHistoriesRoutes);
 
 // Default route to the landing page
 app.get('/', (req, res) => {

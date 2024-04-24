@@ -251,6 +251,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  const signUpButton = document.querySelector('.signup');
+  const signInButton = document.querySelector('.sign-in');
+
+  /**
+   * Handle redirecting to the sign up page when the sign up button is clicked.
+   */
+  function handleSignUpButtonClick() {
+    signUpButton.addEventListener('click', () => {
+      window.location.href = '/signup';
+    });
+  }
+
+  /**
+   * Handle redirecting to the sign in page when the sign in button is clicked.
+   */
+  function handleSignInButtonClick() {
+    signInButton.addEventListener('click', () => {
+      window.location.href = '/signin';
+    });
+  }
+
   handleHomeButtonClick();
   handleLogoClick();
+  handleSignUpButtonClick();
+  handleSignInButtonClick();
 });

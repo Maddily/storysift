@@ -1,6 +1,6 @@
 // src/controllers/bookshelf.js
 
-const Bookshelf = require('../models/Bookshelves');
+const Bookshelf = require('../models/Bookshelf');
 
 // Controller function to create a new bookshelf
 async function createBookshelf(req, res) {

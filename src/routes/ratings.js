@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const ratingsController = require('../controllers/ratingsController');
+const ratingsController = require('../controllers/rating');
 
 router.post('/', ratingsController.createRating);
 router.get('/', ratingsController.getAllRatings);

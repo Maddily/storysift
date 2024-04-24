@@ -44,6 +44,72 @@ router.post('/signin', async (req, res) => {
     }
 });
 
+// Route to get all users
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch users', error: error.message });
+    }
+});
+
+// Route to get a single user by ID
+router.get('/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to fetch user', error: error.message });
+    }
+});
+
+// Route to update a user by ID
+router.put('/:id', async (req, res) => {
+    const userId = req.params.id;
+    const { first_name, last_name, username, email, password } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.first_name = first_name;
+        user.last_name = last_name;
+        user.username = username;
+        user.email = email;
+        user.password = password; // You may want to hash the new password here
+
+        await user.save();
+        res.status(200).json({ message: 'User updated successfully', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update user', error: error.message });
+    }
+});
+
+// Route to delete a user by ID
+router.delete('/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        await user.deleteOne();
+        res.status(200).json({ message: 'User deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete user', error: error.message });
+    }
+});
+
 // Route to a user's profile
 router.get('/profile', (req, res) => {
   const userId = req.session.userId;

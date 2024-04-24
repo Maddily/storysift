@@ -40,6 +40,7 @@ const booksRoutes = require('./src/routes/books');
 const authorsRoutes = require('./src/routes/authors');
 const reviewsRoutes = require('./src/routes/reviews');
 const ratingsRoutes = require('./src/routes/ratings');
+const bookshelvesRoutes = require('./src/routes/bookshelves');
 
 
 // Routes for different models
@@ -48,6 +49,7 @@ app.use('/api/books', booksRoutes);
 app.use('/api/authors', authorsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/ratings', ratingsRoutes);
+app.use('/api/bookshelves', bookshelvesRoutes);
 
 // Default route to the landing page
 app.get('/', (req, res) => {

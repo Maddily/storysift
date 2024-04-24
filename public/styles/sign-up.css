@@ -115,7 +115,7 @@ label {
   text-decoration: none;
 }
 
-@media screen and (min-width: 500px){
+@media screen and (min-width: 400px){
   .field input {
     width: 300px;
   }

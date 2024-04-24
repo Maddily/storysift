@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('book-search');
   const searchButton = document.querySelector('.search-button');
   const signUpButton = document.querySelector('.signup');
+  const signInButton = document.querySelector('.sign-in');
 
   /**
    * Handle search query submission
@@ -69,10 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /**
+   * Handle redirecting to the sign in page when the sign in button is clicked.
+   */
+  function handleSignInButtonClick() {
+    signInButton.addEventListener('click', () => {
+      window.location.href = '/signin';
+    });
+  }
+
   handleHomeButtonClick();
   handleLogoClick();
   handleDiscoverButtonClick();
   handleSignUpButtonClick();
+  handleSignInButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

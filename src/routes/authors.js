@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const authorController = require('../controllers/authorController');
+const authorController = require('../controllers/author');
 
 router.post('/', authorController.createAuthor);
 router.get('/:id', authorController.getAuthorById);

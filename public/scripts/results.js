@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nextPageButton = document.querySelector('.next-page-button');
   const searchInput = document.getElementById('book-search');
   const searchButton = document.querySelector('.search-button');
+  const signUpButton = document.querySelector('.signup');
+  const signInButton = document.querySelector('.sign-in');
 
   // Global variables for pagination
   let startIndex = 0;
@@ -41,8 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (query) {
       window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      const searchInput = document.getElementById('book-search');
-      searchInput.value = query;
     } else {
       console.error('No search query found in URL');
     }
@@ -154,16 +154,19 @@ document.addEventListener('DOMContentLoaded', async () => {
    * Handle redirecting to the landing page when the logo is clicked.
    */
   const handleLogoClick = () => {
-    const logo = document.querySelector('.logo-img');
+    const logos = document.querySelectorAll('.logo');
 
-    logo.addEventListener('click', (event) => {
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+    logos.forEach((logo) => {
+      logo.addEventListener('click', (event) => {
+        // Redirect to the landing page
+        window.location.href = '/';
+      });
+    })
   };
 
   // Display the initial set of books
   if (query) {
+    document.title = `Search results for "${query}"`;
     try {
       const initialBooks = await fetchBooks(query, startIndex, maxResults);
       if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {
@@ -181,6 +184,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('No search query found in URL');
   }
 
+  /**
+   * Handle redirecting to the sign up page when the sign up button is clicked.
+   */
+  function handleSignUpButtonClick() {
+    signUpButton.addEventListener('click', () => {
+      window.location.href = '/signup';
+    });
+  }
+
+  /**
+   * Handle redirecting to the sign in page when the sign in button is clicked.
+   */
+  function handleSignInButtonClick() {
+    signInButton.addEventListener('click', () => {
+      window.location.href = '/signin';
+    });
+  }
+
   // Initialize pagination
   handlePagination();
 
@@ -188,6 +209,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   handleLogoClick();
 
   handleBookClick();
+
+  handleSignUpButtonClick();
+  handleSignInButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

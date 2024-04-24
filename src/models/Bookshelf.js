@@ -23,7 +23,5 @@ const bookshelfSchema = new mongoose.Schema({
     }
 });
 
-// Defines the Bookshelf model using the schema
 const BookShelf = mongoose.model('Bookshelf', bookshelfSchema);
-
 module.exports = BookShelf;

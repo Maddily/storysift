@@ -26,9 +26,10 @@ StorySift is built using the following technologies:
 * Backend:
   * Node.js
   * Express.js
-  * MongoDB
+  * MongoDB (with Mongoose for database modeling)
 * Libraries:
   * Axios
+  * CORS (Cross-Origin Resource Sharing) middleware for Express.js
 * API:
   * Google Books API
 

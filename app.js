@@ -57,10 +57,20 @@ app.use(session({
 // Route imports
 const usersRoutes = require('./src/routes/users');
 const booksRoutes = require('./src/routes/books');
+const authorsRoutes = require('./src/routes/authors');
+const reviewsRoutes = require('./src/routes/reviews');
+const ratingsRoutes = require('./src/routes/ratings');
+const bookshelvesRoutes = require('./src/routes/bookshelves');
+const searchHistoriesRoutes = require('./src/routes/searchHistories');
 
 // Routes for different models
 app.use('/api/users', usersRoutes);
 app.use('/api/books', booksRoutes);
+app.use('/api/authors', authorsRoutes);
+app.use('/api/reviews', reviewsRoutes);
+app.use('/api/ratings', ratingsRoutes);
+app.use('/api/bookshelves', bookshelvesRoutes);
+app.use('/api/searchHistories', searchHistoriesRoutes);
 
 // Default route to the landing page
 app.get('/', (req, res) => {

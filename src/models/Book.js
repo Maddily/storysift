@@ -35,6 +35,11 @@ const bookSchema = new mongoose.Schema({
         required: true,
         maxlength: 50
     },
+    volumeId: {
+        type: String,
+        required: true,
+        maxlength: 50
+    },
     author_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Author', // Reference to Author model

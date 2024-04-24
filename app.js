@@ -49,7 +49,6 @@ app.use('/api/authors', authorsRoutes);
 app.use('/api/reviews', reviewsRoutes);
 app.use('/api/ratings', ratingsRoutes);
 
-
 // Default route to the landing page
 app.get('/', (req, res) => {
     res.sendFile('index.html', { root: './public' });

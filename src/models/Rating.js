@@ -30,6 +30,6 @@ const ratingSchema = new mongoose.Schema({
 });
 
 // Defines the Rating model using the schema
-const Rating = mongoose.model('Review', ratingSchema);
+const Rating = mongoose.model('Rating', ratingSchema);
 
 module.exports = Rating;

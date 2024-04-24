@@ -35,14 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Sign-up successful, redirect to a page
       /* window.location.href = '/signin'; */
-      errorMessage.style.display = 'none';
+      /* errorMessage.style.display = 'none'; */
       console.log('Sign in successful');
+      console.log('Session started');
+      alert('You are now signed in!');
+      window.location.reload();
     } catch (error) {
       errorMessage.style.display = 'flex';
       console.error('Sign-up error:', error.message);
     }
   });
-
+  
   // Function to handle redirecting to the landing page when the Home button is clicked.
   const handleHomeButtonClick = () => {
     const homeButton = document.querySelector('.home');
@@ -73,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleSignUpButtonClick() {
     signUpButtons.forEach(button => {
       button.addEventListener('click', () => {
+        console.log('Sign-in form submitted');
         window.location.href = '/signup';
       });
     });
@@ -82,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to handle redirecting to the sign in page when the sign in button is clicked.
   function handleSignInButtonClick() {
     signInButton.addEventListener('click', () => {
+      console.log('Sign-in button clicked');
       window.location.href = '/signin';
     });
   }
@@ -90,4 +95,29 @@ document.addEventListener('DOMContentLoaded', () => {
   handleLogoClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
+
+// perform authentication check on page load
+(async () => {
+  try {
+      const authResponse = await fetch('/api/users/check-authentication');
+      const authData = await authResponse.json();
+
+      if (authData.authenticated) {
+          // User is authenticated, hide sign-in and sign-up buttons
+          const signInButton = document.querySelector('.sign-in');
+          const signUpButtons = document.querySelectorAll('.sign-up');
+
+          signInButton.style.display = 'none';
+          signUpButtons.forEach((button) => {
+              button.style.display = 'none';
+          });
+
+          // Log session start in the console
+          console.log('Session started');
+      }
+  } catch (error) {
+      console.error('Authentication check failed:', error.message);
+  }
+})();
+
 });

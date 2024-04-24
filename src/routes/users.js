@@ -35,12 +35,24 @@ router.post('/signin', async (req, res) => {
             return res.status(401).json({ message: 'Authentication failed' });
         }
 
-        // Authentication successful
+        // Authentication successful, store user data in session
+        req.session.userId = user._id; // Store user ID in session
         res.status(200).json({ message: 'Authentication successful' });
     } catch (error) {
         console.error('Error signing in user:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+});
+
+// Route to a user's profile
+router.get('/profile', (req, res) => {
+  const userId = req.session.userId;
+  if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  // Fetch user profile based on user ID
+  // Then send the user profile data in the response
 });
 
 module.exports = router;

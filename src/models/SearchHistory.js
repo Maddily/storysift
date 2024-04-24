@@ -22,7 +22,5 @@ const searchhistorySchema = new mongoose.Schema({
     }
 });
 
-// Defines the SearchHistory model using the schema
 const SearchHistory = mongoose.model('SearchHistory', searchhistorySchema);
-
 module.exports = SearchHistory;

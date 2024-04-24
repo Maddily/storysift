@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.querySelector('form');
+  let email = document.getElementById('email');
+
+  email.focus();
 
   signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const email = document.getElementById('email').value.trim();
+    email = email.value.trim();
     const password = document.getElementById('password').value;
     const errorMessage = document.querySelector('.error');
 

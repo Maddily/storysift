@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signUpForm = document.querySelector('form');
+  let firstName = document.getElementById('first-name');
+
+  firstName.focus();
 
   signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const firstName = document.getElementById('first-name').value.trim();
+    firstName = firstName.value.trim();
     const lastName = document.getElementById('last-name').value.trim();
     const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim();

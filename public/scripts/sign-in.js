@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.querySelector('form');
+  const profileButton = document.querySelector('.profile');
   let email = document.getElementById('email');
 
   email.focus();
@@ -36,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(data.error || 'Failed to sign up');
       }
 
-      // Sign-up successful, redirect to a page
-      /* window.location.href = '/signin'; */
-      errorMessage.style.display = 'none';
+      // Sign-in successful, redirect to home page
+      window.location.href = '/';
+      /* errorMessage.style.display = 'none'; */
       console.log('Sign in successful');
     } catch (error) {
       errorMessage.style.display = 'flex';

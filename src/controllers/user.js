@@ -1,5 +1,5 @@
 // src/controllers/user.js
-
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // Controller function to create a new user (Sign-up)
@@ -26,9 +26,16 @@ async function signInUser(req, res) {
             return res.status(401).json({ message: 'Authentication failed' });
         }
 
-        // Authentication successful, store user data in session
-        req.session.userId = user._id; // Store user ID in session
-        res.status(200).json({ message: 'Authentication successful' });
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+            expiresIn: '24h'
+        });
+
+        res.status(200).json({
+            message: 'Authentication successful',
+            token: token,
+            userId: user._id
+        });
     } catch (error) {
         console.error('Error signing in user:', error);
         res.status(500).json({ message: 'Internal Server Error' });

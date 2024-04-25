@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         throw new Error(data.error || 'Failed to sign up');
       }
+      const { token } = await response.json();
+      localStorage.setItem('token', token);
 
       // Sign-up successful, redirect to a page
       /* window.location.href = '/signin'; */
@@ -96,10 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
   handleSignUpButtonClick();
   handleSignInButtonClick();
 
-// perform authentication check on page load
+// fetching user profile using the stored JWT token
 (async () => {
   try {
-      const authResponse = await fetch('/api/users/check-authentication');
+      const token = localStorage.getItem('token');
+      const authResponse = await fetch('/api/users/check-authentication', {
+          headers: {
+              Authorization: token
+          }
+      });
+      
       const authData = await authResponse.json();
 
       if (authData.authenticated) {
@@ -112,12 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
               button.style.display = 'none';
           });
 
-          // Log session start in the console
           console.log('Session started');
       }
   } catch (error) {
       console.error('Authentication check failed:', error.message);
   }
 })();
+
 
 });

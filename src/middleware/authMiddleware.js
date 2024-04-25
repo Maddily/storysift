@@ -1,13 +1,19 @@
 // src/middleware/authMiddleware.js
+const jwt = require('jsonwebtoken');
 
-// Middleware to check if user is authenticated
 const isAuthenticated = (req, res, next) => {
-    if (req.session && req.session.userId) {
-        // User is authenticated
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = decoded.userId;
         next();
-    } else {
-        // User is not authenticated
-        res.status(401).json({ error: 'Unauthorized' });
+    } catch (error) {
+        return res.status(401).json({ error: 'Unauthorized' });
     }
 };
 

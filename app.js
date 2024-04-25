@@ -6,8 +6,10 @@ const mongoose = require('mongoose');
 const path = require('path');
 const axios = require('axios');
 const cors = require('cors');
-const session = require('express-session');
+// const session = require('express-session');
 const crypto = require('crypto');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -37,22 +39,12 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the 'assets' directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.use(session({
-  secret: generateRandomString(32), // A random secret key
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-      secure: true, // Using HTTPS
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-  }
-}));
 
 // Route imports
 const usersRoutes = require('./src/routes/users');

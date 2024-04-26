@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Sign-up successful, redirect to sign-in page
       window.location.href = '/signin';
     } catch (error) {
+      const errorMessage = document.querySelector('.err');
+      errorMessage.style.display = 'flex';
       console.error('Sign-up error:', error.message);
     }
   });
@@ -121,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function validateEmail() {
     const emailValue = emailInput.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailValue)) {
+    if (emailValue && !emailRegex.test(emailValue)) {
       setError(emailInput, 'Enter a valid email address.');
       return false;
     } else {

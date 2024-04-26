@@ -21,7 +21,7 @@ async function getAllBookshelves (req, res) {
   const userId = req.userId;
 
   try {
-    const bookshelves = await Bookshelf.find({ userId: userId });
+    const bookshelves = await Bookshelf.find({ userId });
     res.status(200).json(bookshelves);
   } catch (error) {
     console.error('Error fetching bookshelves:', error);

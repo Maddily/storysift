@@ -16,10 +16,12 @@ async function createBookshelf(req, res) {
     }
 }
 
-// Controller function to get all bookshelves
+// Controller function to get all bookshelves belonging to a specific user
 async function getAllBookshelves(req, res) {
+    const userId = req.userId;
+
     try {
-        const bookshelves = await Bookshelf.find();
+        const bookshelves = await Bookshelf.find({ user_id: userId });
         res.status(200).json(bookshelves);
     } catch (error) {
         console.error('Error fetching bookshelves:', error);

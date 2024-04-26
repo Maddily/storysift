@@ -3,11 +3,11 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user');
-const isAuthenticated = require('../middleware/authMiddleware');
+const isAuthenticated = require('../middleware/auth');
 
 // Authentication check endpoint
 router.get('/check-authentication', isAuthenticated, (req, res) => {
-    res.json({ authenticated: true, user: req.userId });
+  res.json({ authenticated: true, user: req.userId });
 });
 
 // User profile route (move this above the generic routes)

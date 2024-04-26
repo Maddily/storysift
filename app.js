@@ -4,12 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const axios = require('axios');
 const cors = require('cors');
-// const session = require('express-session');
-const crypto = require('crypto');
-const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -25,13 +20,6 @@ mongoose.connect(DB_URI, {})
     .catch((err) => {
         console.error('There was an error connecting to MongoDB:', err);
     });
-
-// Generate a random string of specified length
-const generateRandomString = (length) => {
-  return crypto.randomBytes(Math.ceil(length / 2))
-    .toString('hex')
-    .slice(0, length);
-};
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -87,6 +75,11 @@ app.get('/signup', (req, res) => {
 // Route to handle redirecting to sign in page
 app.get('/signin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'sign-in.html'));
+  });
+
+// Route to handle redirecting to a user's profile
+app.get('/user', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
   });
 
 // Start the server

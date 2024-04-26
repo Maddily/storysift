@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.querySelector('form');
+  const profileButton = document.querySelector('.profile');
+  const email = document.getElementById('email');
+
+  email.focus();
 
   signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -30,13 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || 'Failed to sign up');
+        throw new Error(data.error || 'Failed to sign in');
       }
       const { token } = await response.json();
       localStorage.setItem('token', token);
 
-      // Sign-up successful, redirect to a page
-      /* window.location.href = '/signin'; */
+      // Sign-in successful, redirect to home page
+      window.location.href = '/';
       /* errorMessage.style.display = 'none'; */
       console.log('Sign in successful');
       console.log('Session started');
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.reload();
     } catch (error) {
       errorMessage.style.display = 'flex';
-      console.error('Sign-up error:', error.message);
+      console.error('Sign-in error:', error.message);
     }
   });
   

@@ -4,10 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const axios = require('axios');
 const cors = require('cors');
-const session = require('express-session');
-const crypto = require('crypto');
 
 const app = express();
 
@@ -24,13 +21,6 @@ mongoose.connect(DB_URI, {})
         console.error('There was an error connecting to MongoDB:', err);
     });
 
-// Generate a random string of specified length
-const generateRandomString = (length) => {
-  return crypto.randomBytes(Math.ceil(length / 2))
-    .toString('hex')
-    .slice(0, length);
-};
-
 // Middleware to parse JSON bodies
 app.use(express.json());
 
@@ -42,17 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the 'assets' directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.use(session({
-  secret: generateRandomString(32), // A random secret key
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-      secure: true, // Using HTTPS
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
-  }
-}));
 
 // Route imports
 const usersRoutes = require('./src/routes/users');
@@ -95,6 +74,11 @@ app.get('/signup', (req, res) => {
 // Route to handle redirecting to sign in page
 app.get('/signin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'sign-in.html'));
+  });
+
+// Route to handle redirecting to a user's profile
+app.get('/user', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
   });
 
 // Start the server

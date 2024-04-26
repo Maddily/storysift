@@ -1,7 +1,6 @@
 // src/controllers/user.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const jwt = require('jsonwebtoken');
 
 // Controller function to create a new user (Sign-up)
 async function createUser(req, res) {

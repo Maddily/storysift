@@ -27,7 +27,6 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(cors());
 
-
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -59,8 +58,14 @@ app.get('/', (req, res) => {
 
 // Route to handle search query and redirect to results page
 app.get('/books/search', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'results.html'));
-  });
+  // Validate user input in the search bar
+  const query = req.query.q;
+  if (!query || query.trim() === '') {
+      return res.status(400).json({ message: 'Invalid search query' });
+  }
+
+  res.sendFile(path.join(__dirname, 'public', 'results.html'));
+});
 
 // Route to handle clicking a book and redirect to book details page
 app.get('/books', (req, res) => {
@@ -81,6 +86,12 @@ app.get('/signin', (req, res) => {
 app.get('/user', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'profile.html'));
   });
+
+  // Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
+});
 
 // Start the server
 app.listen(PORT, () => {

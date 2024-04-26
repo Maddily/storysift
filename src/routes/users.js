@@ -13,11 +13,12 @@ router.get('/check-authentication', isAuthenticated, (req, res) => {
 // User profile route (move this above the generic routes)
 router.get('/profile', isAuthenticated, userController.getUserProfile);
 
+// Other user routes
 router.post('/signup', userController.createUser);
 router.post('/signin', userController.signInUser);
-router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
+router.get('/', userController.getAllUsers);
 
 module.exports = router;

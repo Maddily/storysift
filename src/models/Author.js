@@ -3,23 +3,23 @@
 const mongoose = require('mongoose');
 
 const authorSchema = new mongoose.Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: true,
     minlength: 3
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true,
     minlength: 2
   },
-  number_of_books_written: {
+  numberOfBooksWritten: {
     type: Number
   },
-  date_of_birth: {
+  dateOfBirth: {
     type: Date
   },
-  date_of_death: {
+  dateOfDeath: {
     type: Date // Corrected type to Date
   },
   bio: {
@@ -30,7 +30,7 @@ const authorSchema = new mongoose.Schema({
     type: String, // Added type as String
     minlength: 10
   },
-  books_written: [{
+  booksWritten: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book'
   }]

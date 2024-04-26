@@ -15,7 +15,7 @@ const searchhistorySchema = new mongoose.Schema({
     default: Date.now,
     required: true
   },
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to User model
     required: true

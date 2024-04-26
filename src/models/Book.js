@@ -18,11 +18,11 @@ const bookSchema = new mongoose.Schema({
     required: true,
     maxlength: 50
   },
-  page_count: {
+  pageCount: {
     type: Number,
     default: 0
   },
-  date_published: {
+  datePublished: {
     type: Date
   },
   publisher: {
@@ -40,12 +40,12 @@ const bookSchema = new mongoose.Schema({
     required: true,
     maxlength: 50
   },
-  author_id: {
+  authorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Author', // Reference to Author model
     required: true
   },
-  genre_id: {
+  genreId: {
     type: mongoose.Schema.Types.ObjectID,
     ref: 'Genre', // Reference to Genre model
     required: true

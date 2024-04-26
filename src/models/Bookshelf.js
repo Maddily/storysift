@@ -10,16 +10,15 @@ const bookshelfSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 30
   },
-  creation_date: {
+  creationDate: {
     type: Date,
     default: Date.now,
     required: true
   },
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to User model
-    required: true,
-    unique: true
+    required: true
   }
 });
 

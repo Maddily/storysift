@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: true,
     minlength: 3
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true,
     minlength: 2
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     maxlength: 100,
     select: false // Do not include password in query results by default
   },
-  joining_date: {
+  joiningDate: {
     type: Date,
     default: Date.now,
     required: true

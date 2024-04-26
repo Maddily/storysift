@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.querySelector('form');
-  const profileButton = document.querySelector('.profile');
+  // const profileButton = document.querySelector('.profile');
   const email = document.getElementById('email');
 
   email.focus();

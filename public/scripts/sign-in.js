@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signInForm = document.querySelector('form');
   const profileButton = document.querySelector('.profile');
-  let email = document.getElementById('email');
+  const email = document.getElementById('email');
 
   email.focus();
 
   signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    email = email.value.trim();
+    const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const errorMessage = document.querySelector('.error');
 
@@ -34,8 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || 'Failed to sign up');
+        throw new Error(data.error || 'Failed to sign in');
       }
+      const { token } = await response.json();
+      localStorage.setItem('token', token);
 
       // Sign-in successful, redirect to home page
       window.location.href = '/';
@@ -43,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Sign in successful');
     } catch (error) {
       errorMessage.style.display = 'flex';
-      console.error('Sign-up error:', error.message);
+      console.error('Sign-in error:', error.message);
     }
   });
 

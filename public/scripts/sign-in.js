@@ -41,11 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Sign-in successful, redirect to home page
       window.location.href = '/';
-      /* errorMessage.style.display = 'none'; */
       console.log('Sign in successful');
-      console.log('Session started');
-      alert('You are now signed in!');
-      window.location.reload();
     } catch (error) {
       errorMessage.style.display = 'flex';
       console.error('Sign-in error:', error.message);

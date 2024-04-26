@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Validation functions for input fields
-  function validateFirstName() {
+  function validateFirstName () {
     const firstNameValue = firstNameInput.value.trim();
     if (firstNameValue.length < 3) {
       setError(firstNameInput, 'First name must be at least 3 characters long.');
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function validateLastName() {
+  function validateLastName () {
     const lastNameValue = lastNameInput.value.trim();
     if (lastNameValue.length < 2) {
       setError(lastNameInput, 'Last name must be at least 2 characters long.');
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function validateUsername() {
+  function validateUsername () {
     const usernameValue = usernameInput.value.trim();
     if (usernameValue.length < 3) {
       setError(usernameInput, 'Username must be at least 3 characters long.');
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function validateEmail() {
+  function validateEmail () {
     const emailValue = emailInput.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailValue && !emailRegex.test(emailValue)) {
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function validatePassword() {
+  function validatePassword () {
     const passwordValue = passwordInput.value;
     if (passwordValue.length < 6) {
       setError(passwordInput, 'Password must be at least 6 characters long.');
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function validateConfirmPassword() {
+  function validateConfirmPassword () {
     const confirmPasswordValue = confirmPasswordInput.value;
     const passwordValue = passwordInput.value;
     if (confirmPasswordValue !== passwordValue) {
@@ -154,21 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to set error message and style
-  function setError(input, message) {
+  function setError (input, message) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = message;
     input.classList.add('error');
   }
 
   // Function to clear error message and style
-  function clearError(input) {
+  function clearError (input) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = '';
     input.classList.remove('error');
   }
 
   // Function to enable or disable submit button based on form validity
-  function updateSubmitButton() {
+  function updateSubmitButton () {
     if (isFormValid()) {
       submitButton.removeAttribute('disabled');
     } else {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to check if the form is valid
-  function isFormValid() {
+  function isFormValid () {
     return (
       firstNameInput.value.trim().length >= 3 &&
       lastNameInput.value.trim().length >= 2 &&
@@ -210,21 +210,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Redirect to the landing page
         window.location.href = '/';
       });
-    })
+    });
   };
 
   const signUpButton = document.querySelector('.signup');
   const signInButtons = document.querySelectorAll('.signin');
 
   // Function to handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick() {
+  function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
       window.location.href = '/signup';
     });
   }
 
   // Function to handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick() {
+  function handleSignInButtonClick () {
     signInButtons.forEach(button => {
       button.addEventListener('click', () => {
         window.location.href = '/signin';

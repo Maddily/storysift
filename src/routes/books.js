@@ -9,7 +9,6 @@ router.get('/search', booksController.searchBooks);
 // Route to get book details by volumeId
 router.get('/:volumeId/details', booksController.getBookDetails);
 
-
 router.post('/', booksController.createBook);
 router.get('/', booksController.getAllBooks);
 router.get('/:id', booksController.getBookById);

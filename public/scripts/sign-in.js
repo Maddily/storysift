@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
       /* errorMessage.style.display = 'none'; */
       console.log('Sign in successful');
       console.log('Session started');
-      alert('You are now signed in!');
       window.location.reload();
     } catch (error) {
       errorMessage.style.display = 'flex';

@@ -4,10 +4,10 @@ const User = require('../models/User');
 
 // Controller function to create a new user (Sign-up)
 async function createUser (req, res) {
-  const { first_name, last_name, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password } = req.body;
 
   try {
-    const newUser = new User({ first_name, last_name, username, email, password });
+    const newUser = new User({ firstName, lastName, username, email, password });
     await newUser.save();
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
@@ -64,7 +64,7 @@ async function getUserById (req, res) {
 // Controller function to update a user by ID
 async function updateUser (req, res) {
   const userId = req.params.id;
-  const { first_name, last_name, username, email, password } = req.body;
+  const { firstName, lastName, username, email, password } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -72,8 +72,8 @@ async function updateUser (req, res) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.first_name = first_name;
-    user.last_name = last_name;
+    user.firstName = firstName;
+    user.lastName = lastName;
     user.username = username;
     user.email = email;
     user.password = password; // You may want to hash the new password here

@@ -4,10 +4,10 @@ const Bookshelf = require('../models/Bookshelf');
 
 // Controller function to create a new bookshelf
 async function createBookshelf (req, res) {
-  const { name, user_id } = req.body;
+  const { name, userId } = req.body;
 
   try {
-    const newBookshelf = new Bookshelf({ name, user_id });
+    const newBookshelf = new Bookshelf({ name, userId });
     const savedBookshelf = await newBookshelf.save();
     res.status(201).json(savedBookshelf);
   } catch (error) {
@@ -21,7 +21,7 @@ async function getAllBookshelves (req, res) {
   const userId = req.userId;
 
   try {
-    const bookshelves = await Bookshelf.find({ user_id: userId });
+    const bookshelves = await Bookshelf.find({ userId: userId });
     res.status(200).json(bookshelves);
   } catch (error) {
     console.error('Error fetching bookshelves:', error);

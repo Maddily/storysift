@@ -28,8 +28,8 @@ async function searchBooks (req, res) {
         author: authors,
         description: bookInfo.description,
         language: bookInfo.language,
-        page_count: bookInfo.pageCount || 0,
-        date_published: bookInfo.publishedDate,
+        pageCount: bookInfo.pageCount || 0,
+        datePublished: bookInfo.publishedDate,
         publisher,
         thumbnailURL: bookInfo.imageLinks?.thumbnail,
         ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null,
@@ -64,8 +64,8 @@ async function getBookDetails (req, res) {
       author: authors,
       description: bookInfo.description,
       language: bookInfo.language,
-      page_count: bookInfo.pageCount || 0,
-      date_published: bookInfo.publishedDate,
+      pageCount: bookInfo.pageCount || 0,
+      datePublished: bookInfo.publishedDate,
       publisher,
       thumbnailURL: bookInfo.imageLinks?.thumbnail,
       ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null,
@@ -85,13 +85,13 @@ async function createBook (req, res) {
     title,
     description,
     language,
-    page_count,
-    date_published,
+    pageCount,
+    datePublished,
     publisher,
     ISBN,
     volumeId,
-    author_id,
-    genre_id
+    authorId,
+    genreId
   } = req.body;
 
   try {
@@ -99,13 +99,13 @@ async function createBook (req, res) {
       title,
       description,
       language,
-      page_count,
-      date_published,
+      pageCount,
+      datePublished,
       publisher,
       ISBN,
       volumeId,
-      author_id,
-      genre_id
+      authorId,
+      genreId
     });
 
     const savedBook = await newBook.save();

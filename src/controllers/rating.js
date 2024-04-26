@@ -4,10 +4,10 @@ const Rating = require('../models/Rating');
 
 // Controller function to create a new rating
 async function createRating (req, res) {
-  const { user_id, author_id, book_id, genre_id, rating } = req.body;
+  const { userId, authorId, bookId, genreId, rating } = req.body;
 
   try {
-    const newRating = new Rating({ user_id, author_id, book_id, genre_id, rating });
+    const newRating = new Rating({ userId, authorId, bookId, genreId, rating });
     const savedRating = await newRating.save();
     res.status(201).json(savedRating);
   } catch (error) {

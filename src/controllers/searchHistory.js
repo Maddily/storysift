@@ -4,10 +4,10 @@ const SearchHistory = require('../models/SearchHistory');
 
 // Controller function to create a new search history entry
 async function createSearchHistory (req, res) {
-  const { query, user_id } = req.body;
+  const { query, userId } = req.body;
 
   try {
-    const newSearchHistory = new SearchHistory({ query, user_id });
+    const newSearchHistory = new SearchHistory({ query, userId });
     const savedSearchHistory = await newSearchHistory.save();
     res.status(201).json(savedSearchHistory);
   } catch (error) {
@@ -29,10 +29,10 @@ async function getAllSearchHistories (req, res) {
 
 // Controller function to get search history entries by user ID
 async function getSearchHistoriesByUserId (req, res) {
-  const { user_id } = req.params;
+  const { userId } = req.params;
 
   try {
-    const searchHistories = await SearchHistory.find({ user_id });
+    const searchHistories = await SearchHistory.find({ userId });
     res.status(200).json(searchHistories);
   } catch (error) {
     console.error('Error fetching search histories:', error);

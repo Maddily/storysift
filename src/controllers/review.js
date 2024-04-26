@@ -4,16 +4,16 @@ const Review = require('../models/Review');
 
 // Controller function to create a new review
 async function createReview (req, res) {
-  const { title, description, rating, user_id, book_id, genre_id } = req.body;
+  const { title, description, rating, userId, bookId, genreId } = req.body;
 
   try {
     const newReview = new Review({
       title,
       description,
       rating,
-      user_id,
-      book_id,
-      genre_id,
+      userId,
+      bookId,
+      genreId,
       date_posted: new Date() // Automatically set the current date
     });
 

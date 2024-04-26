@@ -272,6 +272,68 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  const signOutButton = document.querySelector('.signout');
+  const profileButton = document.querySelector('.profile');
+
+  // Function to check authentication status using JWT
+  const checkAuthentication = async () => {
+    try {
+      const token = localStorage.getItem('token');
+  
+      /* if (!token) {
+        // No token found, user is not authenticated
+        showGuestNav();
+        return;
+      } */
+
+      const authResponse = await fetch('/api/users/check-authentication', {
+        headers: {
+            Authorization: token
+        }
+      });
+
+      const authData = await authResponse.json();
+  
+      if (authData.authenticated) {
+        // Token is valid, user is authenticated
+        showAuthenticatedNav();
+      } else {
+        // Token is invalid or expired, user is not authenticated
+        showGuestNav();
+      }
+      } catch (error) {
+        console.error('Error checking authentication status:', error);
+      }
+  };
+
+  // Function to show navigation buttons for authenticated users
+  const showAuthenticatedNav = () => {
+      signInButton.style.display = 'none';
+      signUpButton.style.display = 'none';
+      profileButton.style.display = 'flex';
+      signOutButton.style.display = 'flex';
+  };
+
+  // Function to show navigation buttons for guest users
+  const showGuestNav = () => {
+      signInButton.style.display = 'flex';
+      signUpButton.style.display = 'flex';
+      profileButton.style.display = 'none';
+      signOutButton.style.display = 'none';
+  };
+
+  // Check authentication status when the DOM is loaded
+  checkAuthentication();
+
+  // Function to handle sign out
+  const handleSignOut = async () => {
+    localStorage.setItem('token', null);
+    window.location.reload();
+  };
+
+  // Event listener for sign out button click
+  signOutButton.addEventListener('click', handleSignOut);
+
   handleHomeButtonClick();
   handleLogoClick();
   handleSignUpButtonClick();

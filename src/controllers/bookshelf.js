@@ -1,6 +1,7 @@
 // src/controllers/bookshelf.js
-
+const Book = require('../models/Book');
 const Bookshelf = require('../models/Bookshelf');
+const axios = require('axios');
 
 // Controller function to create a new bookshelf
 async function createBookshelf (req, res) {
@@ -91,12 +92,10 @@ async function addBooksToBookshelf(req, res) {
 
     // Iterate over the volumeIds array and add each book to the bookshelf
     for (const volumeId of volumeIds) {
-      // Check if the book is already in the bookshelf
       if (bookshelf.books.includes(volumeId)) {
-        continue; // Skip adding duplicate books
+        continue;
       }
 
-      // Push the bookId into the books array
       bookshelf.books.push(volumeId);
       addedBooks.push(volumeId);
     }
@@ -119,13 +118,27 @@ async function getBookshelfByIdWithBooks(req, res) {
       return res.status(404).json({ message: 'Bookshelf not found' });
     }
 
-    // Fetch details of each book using their Volume IDs
-    const books = await Book.find({ volumeId: { $in: bookshelf.books } });
+    // Fetch details for all books in the bookshelf
+    const booksDetails = [];
+    for (const volumeId of bookshelf.books) {
+      console.log(`Fetching details for volumeId: ${volumeId}`);
+      try {
+        const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${volumeId}`);
+        console.log('Response data:', response.data);
+        const bookInfo = response.data.volumeInfo;
+        booksDetails.push({
+          volumeId: volumeId,
+          title: bookInfo.title,
+          authors: bookInfo.authors,
+          description: bookInfo.description,
+        });
+      } catch (error) {
+        console.error(`Error fetching book details for volumeId ${volumeId}:`, error.message);
+      }
+    }
 
-    // Extract titles of the books
-    const bookTitles = books.map(book => book.title);
-
-    res.status(200).json({ bookshelf, bookTitles });
+    console.log('Books details:', booksDetails);
+    res.status(200).json({ bookshelf, books: booksDetails });
   } catch (error) {
     console.error('Error fetching bookshelf with books:', error);
     res.status(500).json({ message: 'Failed to fetch bookshelf with books', error: error.message });

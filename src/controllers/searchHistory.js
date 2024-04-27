@@ -42,15 +42,21 @@ async function getSearchHistoriesByUserId (req, res) {
   }
 }
 
-// Controller function to delete a search history entry by ID
-async function deleteSearchHistory (req, res) {
+// Controller function to delete a user's own search history entry by its ID
+async function deleteSearchHistory(req, res) {
   const searchHistoryId = req.params.id;
+  const userId = req.user.id; // Assuming the authenticated user's ID is available in req.user
 
   try {
-    const deletedSearchHistory = await SearchHistory.findByIdAndDelete(searchHistoryId);
-    if (!deletedSearchHistory) {
+    // Check if the search history entry exists and belongs to the authenticated user
+    const searchHistory = await SearchHistory.findOne({ _id: searchHistoryId, userId });
+
+    if (!searchHistory) {
       return res.status(404).json({ message: 'Search history not found' });
     }
+
+    // Delete the search history entry
+    await SearchHistory.findByIdAndDelete(searchHistoryId);
     res.status(200).json({ message: 'Search history deleted' });
   } catch (error) {
     console.error('Error deleting search history:', error);

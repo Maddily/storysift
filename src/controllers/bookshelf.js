@@ -145,6 +145,45 @@ async function getBookshelfByIdWithBooks(req, res) {
   }
 }
 
+// Controller function to get a single book from a bookshelf by its volumeId
+async function getBookFromBookshelf(req, res) {
+  const { bookshelfId, volumeId } = req.params;
+
+  try {
+    const bookshelf = await Bookshelf.findById(bookshelfId);
+    
+    if (!bookshelf) {
+      return res.status(404).json({ message: 'Bookshelf not found' });
+    }
+
+    // Check if the book exists in the bookshelf
+    const bookIndex = bookshelf.books.indexOf(volumeId);
+    if (bookIndex === -1) {
+      return res.status(404).json({ message: 'Book not found in the bookshelf' });
+    }
+
+    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${volumeId}`);
+    const bookInfo = response.data.volumeInfo;
+
+    const bookDetails = {
+      volumeId: volumeId,
+      title: bookInfo.title,
+      authors: bookInfo.authors,
+      description: bookInfo.description,
+      language: bookInfo.language,
+      pageCount: bookInfo.pageCount || 0,
+      datePublished: bookInfo.publishedDate,
+      publisher: bookInfo.publisher || 'Unknown',
+      ISBN: bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier : null,
+    };
+
+    res.status(200).json(bookDetails);
+  } catch (error) {
+    console.error('Error fetching book from bookshelf:', error);
+    res.status(500).json({ message: 'Failed to fetch book from bookshelf', error: error.message });
+  }
+}
+
 module.exports = {
   createBookshelf,
   getAllBookshelves,
@@ -152,5 +191,6 @@ module.exports = {
   updateBookshelf,
   deleteBookshelf,
   addBooksToBookshelf,
-  getBookshelfByIdWithBooks
+  getBookshelfByIdWithBooks,
+  getBookFromBookshelf
 };

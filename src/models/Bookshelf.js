@@ -19,7 +19,11 @@ const bookshelfSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to User model
     required: true
-  }
+  },
+  books: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'
+  }]
 });
 
 const BookShelf = mongoose.model('Bookshelf', bookshelfSchema);

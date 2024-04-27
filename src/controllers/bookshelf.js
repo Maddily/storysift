@@ -98,15 +98,10 @@ async function addBooksToBookshelf(req, res) {
 
       // Push the bookId into the books array
       bookshelf.books.push(volumeId);
-      addedBooks.push(volumeId); // Optionally, you can push the volumeId into the addedBooks array
-
-      // Note: You might want to perform additional validation or fetch book details from the Google Books API here
+      addedBooks.push(volumeId);
     }
-
-    // Save the updated bookshelf with the added volumeIds
     await bookshelf.save();
 
-    // Respond with success message and added volumeIds
     res.status(200).json({ message: 'VolumeIds added to bookshelf successfully', addedBooks });
   } catch (error) {
     console.error('Error adding volumeIds to bookshelf:', error);
@@ -114,6 +109,28 @@ async function addBooksToBookshelf(req, res) {
   }
 }
 
+// Controller function to get a single bookshelf by ID with book details
+async function getBookshelfByIdWithBooks(req, res) {
+  const bookshelfId = req.params.id;
+
+  try {
+    const bookshelf = await Bookshelf.findById(bookshelfId);
+    if (!bookshelf) {
+      return res.status(404).json({ message: 'Bookshelf not found' });
+    }
+
+    // Fetch details of each book using their Volume IDs
+    const books = await Book.find({ volumeId: { $in: bookshelf.books } });
+
+    // Extract titles of the books
+    const bookTitles = books.map(book => book.title);
+
+    res.status(200).json({ bookshelf, bookTitles });
+  } catch (error) {
+    console.error('Error fetching bookshelf with books:', error);
+    res.status(500).json({ message: 'Failed to fetch bookshelf with books', error: error.message });
+  }
+}
 
 module.exports = {
   createBookshelf,
@@ -121,5 +138,6 @@ module.exports = {
   getBookshelfById,
   updateBookshelf,
   deleteBookshelf,
-  addBooksToBookshelf
+  addBooksToBookshelf,
+  getBookshelfByIdWithBooks
 };

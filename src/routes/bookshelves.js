@@ -9,6 +9,6 @@ router.get('/', bookshelvesController.getAllBookshelves);
 router.get('/:id', bookshelvesController.getBookshelfById);
 router.put('/:id', bookshelvesController.updateBookshelf);
 router.delete('/:id', bookshelvesController.deleteBookshelf);
-router.post('/:id/add-books', bookshelvesController.addBookToBookshelf);
+router.post('/:id/add-books', bookshelvesController.addBooksToBookshelf);
 
 module.exports = router;

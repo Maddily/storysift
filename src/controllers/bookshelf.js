@@ -78,8 +78,8 @@ async function deleteBookshelf (req, res) {
   }
 }
 
-async function addBookToBookshelf(req, res) {
-  const { bookshelfId, bookId } = req.body;
+async function addBooksToBookshelf(req, res) {
+  const { bookshelfId, volumeIds } = req.body;
 
   try {
     const bookshelf = await Bookshelf.findById(bookshelfId);
@@ -87,21 +87,33 @@ async function addBookToBookshelf(req, res) {
       return res.status(404).json({ message: 'Bookshelf not found' });
     }
 
-    // Check if the book is already in the bookshelf
-    if (bookshelf.books.includes(bookId)) {
-      return res.status(400).json({ message: 'Book already exists in the bookshelf' });
+    const addedBooks = [];
+
+    // Iterate over the volumeIds array and add each book to the bookshelf
+    for (const volumeId of volumeIds) {
+      // Check if the book is already in the bookshelf
+      if (bookshelf.books.includes(volumeId)) {
+        continue; // Skip adding duplicate books
+      }
+
+      // Push the bookId into the books array
+      bookshelf.books.push(volumeId);
+      addedBooks.push(volumeId); // Optionally, you can push the volumeId into the addedBooks array
+
+      // Note: You might want to perform additional validation or fetch book details from the Google Books API here
     }
 
-    // Add the book to the bookshelf
-    bookshelf.books.push(bookId);
+    // Save the updated bookshelf with the added volumeIds
     await bookshelf.save();
 
-    res.status(200).json({ message: 'Book added to bookshelf successfully' });
+    // Respond with success message and added volumeIds
+    res.status(200).json({ message: 'VolumeIds added to bookshelf successfully', addedBooks });
   } catch (error) {
-    console.error('Error adding book to bookshelf:', error);
-    res.status(500).json({ message: 'Failed to add book to bookshelf', error: error.message });
+    console.error('Error adding volumeIds to bookshelf:', error);
+    res.status(500).json({ message: 'Failed to add volumeIds to bookshelf', error: error.message });
   }
 }
+
 
 module.exports = {
   createBookshelf,
@@ -109,5 +121,5 @@ module.exports = {
   getBookshelfById,
   updateBookshelf,
   deleteBookshelf,
-  addBookToBookshelf
+  addBooksToBookshelf
 };

@@ -78,10 +78,36 @@ async function deleteBookshelf (req, res) {
   }
 }
 
+async function addBookToBookshelf(req, res) {
+  const { bookshelfId, bookId } = req.body;
+
+  try {
+    const bookshelf = await Bookshelf.findById(bookshelfId);
+    if (!bookshelf) {
+      return res.status(404).json({ message: 'Bookshelf not found' });
+    }
+
+    // Check if the book is already in the bookshelf
+    if (bookshelf.books.includes(bookId)) {
+      return res.status(400).json({ message: 'Book already exists in the bookshelf' });
+    }
+
+    // Add the book to the bookshelf
+    bookshelf.books.push(bookId);
+    await bookshelf.save();
+
+    res.status(200).json({ message: 'Book added to bookshelf successfully' });
+  } catch (error) {
+    console.error('Error adding book to bookshelf:', error);
+    res.status(500).json({ message: 'Failed to add book to bookshelf', error: error.message });
+  }
+}
+
 module.exports = {
   createBookshelf,
   getAllBookshelves,
   getBookshelfById,
   updateBookshelf,
-  deleteBookshelf
+  deleteBookshelf,
+  addBookToBookshelf
 };

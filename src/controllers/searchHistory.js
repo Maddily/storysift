@@ -16,10 +16,12 @@ async function createSearchHistory (req, res) {
   }
 }
 
-// Controller function to get all search history entries
-async function getAllSearchHistories (req, res) {
+// Controller function to get all search history entries for a user
+async function getAllSearchHistories(req, res) {
+  const { userId } = req.query;
+
   try {
-    const searchHistories = await SearchHistory.find();
+    const searchHistories = await SearchHistory.find({ userId });
     res.status(200).json(searchHistories);
   } catch (error) {
     console.error('Error fetching search histories:', error);

@@ -44,16 +44,8 @@ const bookSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Author', // Reference to Author model
     required: true
-  },
-  genreId: {
-    type: mongoose.Schema.Types.ObjectID,
-    ref: 'Genre', // Reference to Genre model
-    required: true
   }
-
 });
 
-// Defines the Book model using the schema
 const Book = mongoose.model('Book', bookSchema);
-
 module.exports = Book;

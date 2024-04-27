@@ -28,16 +28,8 @@ const reviewSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book', // Reference to Book model
     required: true
-  },
-  genreId: {
-    type: mongoose.Schema.Types.ObjectID,
-    ref: 'Genre', // Reference to Genre model
-    required: true
   }
-
 });
 
-// Defines the Review model using the schema
 const Review = mongoose.model('Review', reviewSchema);
-
 module.exports = Review;

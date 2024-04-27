@@ -20,14 +20,14 @@ const authorSchema = new mongoose.Schema({
     type: Date
   },
   dateOfDeath: {
-    type: Date // Corrected type to Date
+    type: Date
   },
   bio: {
-    type: String, // Added type as String
+    type: String,
     minlength: 5
   },
   thumbnailURL: {
-    type: String, // Added type as String
+    type: String,
     minlength: 10
   },
   booksWritten: [{
@@ -36,7 +36,5 @@ const authorSchema = new mongoose.Schema({
   }]
 });
 
-// Defines the Author model using the schema
 const Author = mongoose.model('Author', authorSchema);
-
 module.exports = Author;

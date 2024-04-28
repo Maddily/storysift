@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 // Route to handle search query and redirect to results page
 app.get('/books/search', (req, res) => {
   // Validate user input in the search bar
-  const query = req.query.q;
+  const query = req.query.query;
   if (!query || query.trim() === '') {
     return res.status(400).json({ message: 'Invalid search query' });
   }

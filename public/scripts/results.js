@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       // Handle clicking on add button
       const addButton = event.target.closest('.add');
+      let bookId = addButton.parentElement.getAttribute('id');
       if (addButton) {
         const modal = document.querySelector("dialog");
         modal.showModal();
@@ -65,17 +66,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             bookShelvesContainer.appendChild(bookshelf);
           }
 
-          /* // Handle choosing a bookshelf
-          bookshelves = document.querySelectorAll('.bookshelf');
-          bookshelf.forEach(bookshelf => {
-            bookshelf.addEventListener('click', () => {
-              // Add book to the user's bookshelf
-              // Get bookshelf's id
-              // Fetch /api/bookshelves/:id PUT
-                // Pass data in request
-            });
-          }); */
-
           // Handle closing the modal
           const cancelButton = document.querySelector('.cancel');
           cancelButton.addEventListener('click', () => {
@@ -83,6 +73,35 @@ document.addEventListener('DOMContentLoaded', async () => {
           });
           document.addEventListener('click', (event) => {
             if (event.target === modal) modal.close();
+          });
+
+          // Handle choosing a bookshelf and placing a book in it
+          bookshelves = document.querySelectorAll('.bookshelf');
+          bookshelves.forEach(bookshelf => {
+            bookshelf.addEventListener('click', async () => {
+              const bookshelfId = bookshelf.dataset.id;
+              // Fetch the clicked bookshelf Object and add the book to its books array
+              const bookshelfObjectResponse = await fetch(`/api/bookshelves/${bookshelfId}`);
+              const bookshelfObject = await bookshelfObjectResponse.json();
+              const booksArray = bookshelfObject.books;
+              if (booksArray.includes(bookId)) {
+                return;
+              }
+              booksArray.push(bookId);
+              // Add the book to the bookshelf
+              const bookshelfResponse = await fetch(`/api/bookshelves/${bookshelfId}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  books: booksArray
+                })
+              });
+              if (!bookshelfResponse.ok) {
+                throw new Error('Failed to update bookshelf.');
+              }
+            });
           });
           } catch (error) {
             console.error('Error:', error);

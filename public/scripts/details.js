@@ -3,123 +3,123 @@
 document.addEventListener('DOMContentLoaded', async () => {
   // Extract search query parameter from URL
   const searchParams = new URLSearchParams(window.location.search);
-  let volumeId = searchParams.get('id');
+  const volumeId = searchParams.get('id');
   const languageNames = {
-    'af': 'Afrikaans',
-    'am': 'Amharic',
-    'ar': 'Arabic',
-    'az': 'Azerbaijani',
-    'be': 'Belarusian',
-    'bg': 'Bulgarian',
-    'bn': 'Bengali',
-    'bs': 'Bosnian',
-    'ca': 'Catalan',
-    'ceb': 'Cebuano',
-    'co': 'Corsican',
-    'cs': 'Czech',
-    'cy': 'Welsh',
-    'da': 'Danish',
-    'de': 'German',
-    'el': 'Greek',
-    'en': 'English',
-    'eo': 'Esperanto',
-    'es': 'Spanish',
-    'et': 'Estonian',
-    'eu': 'Basque',
-    'fa': 'Persian',
-    'fi': 'Finnish',
-    'fr': 'French',
-    'fy': 'Western Frisian',
-    'ga': 'Irish',
-    'gd': 'Scottish Gaelic',
-    'gl': 'Galician',
-    'gu': 'Gujarati',
-    'ha': 'Hausa',
-    'haw': 'Hawaiian',
-    'he': 'Hebrew',
-    'hi': 'Hindi',
-    'hmn': 'Hmong',
-    'hr': 'Croatian',
-    'ht': 'Haitian Creole',
-    'hu': 'Hungarian',
-    'hy': 'Armenian',
-    'id': 'Indonesian',
-    'ig': 'Igbo',
-    'is': 'Icelandic',
-    'it': 'Italian',
-    'ja': 'Japanese',
-    'jv': 'Javanese',
-    'ka': 'Georgian',
-    'kk': 'Kazakh',
-    'km': 'Khmer',
-    'kn': 'Kannada',
-    'ko': 'Korean',
-    'ku': 'Kurdish (Kurmanji)',
-    'ky': 'Kyrgyz',
-    'la': 'Latin',
-    'lb': 'Luxembourgish',
-    'lo': 'Lao',
-    'lt': 'Lithuanian',
-    'lv': 'Latvian',
-    'mg': 'Malagasy',
-    'mi': 'Maori',
-    'mk': 'Macedonian',
-    'ml': 'Malayalam',
-    'mn': 'Mongolian',
-    'mr': 'Marathi',
-    'ms': 'Malay',
-    'mt': 'Maltese',
-    'my': 'Burmese',
-    'ne': 'Nepali',
-    'nl': 'Dutch',
-    'no': 'Norwegian',
-    'ny': 'Chichewa',
-    'or': 'Odia (Oriya)',
-    'pa': 'Punjabi',
-    'pl': 'Polish',
-    'ps': 'Pashto',
-    'pt': 'Portuguese',
-    'ro': 'Romanian',
-    'ru': 'Russian',
-    'rw': 'Kinyarwanda',
-    'sd': 'Sindhi',
-    'si': 'Sinhala',
-    'sk': 'Slovak',
-    'sl': 'Slovenian',
-    'sm': 'Samoan',
-    'sn': 'Shona',
-    'so': 'Somali',
-    'sq': 'Albanian',
-    'sr': 'Serbian',
-    'st': 'Southern Sotho',
-    'su': 'Sundanese',
-    'sv': 'Swedish',
-    'sw': 'Swahili',
-    'ta': 'Tamil',
-    'te': 'Telugu',
-    'tg': 'Tajik',
-    'th': 'Thai',
-    'tk': 'Turkmen',
-    'tl': 'Filipino',
-    'tr': 'Turkish',
-    'tt': 'Tatar',
-    'ug': 'Uyghur',
-    'uk': 'Ukrainian',
-    'ur': 'Urdu',
-    'uz': 'Uzbek',
-    'vi': 'Vietnamese',
-    'xh': 'Xhosa',
-    'yi': 'Yiddish',
-    'yo': 'Yoruba',
-    'zh': 'Chinese',
-    'zu': 'Zulu'
+    af: 'Afrikaans',
+    am: 'Amharic',
+    ar: 'Arabic',
+    az: 'Azerbaijani',
+    be: 'Belarusian',
+    bg: 'Bulgarian',
+    bn: 'Bengali',
+    bs: 'Bosnian',
+    ca: 'Catalan',
+    ceb: 'Cebuano',
+    co: 'Corsican',
+    cs: 'Czech',
+    cy: 'Welsh',
+    da: 'Danish',
+    de: 'German',
+    el: 'Greek',
+    en: 'English',
+    eo: 'Esperanto',
+    es: 'Spanish',
+    et: 'Estonian',
+    eu: 'Basque',
+    fa: 'Persian',
+    fi: 'Finnish',
+    fr: 'French',
+    fy: 'Western Frisian',
+    ga: 'Irish',
+    gd: 'Scottish Gaelic',
+    gl: 'Galician',
+    gu: 'Gujarati',
+    ha: 'Hausa',
+    haw: 'Hawaiian',
+    he: 'Hebrew',
+    hi: 'Hindi',
+    hmn: 'Hmong',
+    hr: 'Croatian',
+    ht: 'Haitian Creole',
+    hu: 'Hungarian',
+    hy: 'Armenian',
+    id: 'Indonesian',
+    ig: 'Igbo',
+    is: 'Icelandic',
+    it: 'Italian',
+    ja: 'Japanese',
+    jv: 'Javanese',
+    ka: 'Georgian',
+    kk: 'Kazakh',
+    km: 'Khmer',
+    kn: 'Kannada',
+    ko: 'Korean',
+    ku: 'Kurdish (Kurmanji)',
+    ky: 'Kyrgyz',
+    la: 'Latin',
+    lb: 'Luxembourgish',
+    lo: 'Lao',
+    lt: 'Lithuanian',
+    lv: 'Latvian',
+    mg: 'Malagasy',
+    mi: 'Maori',
+    mk: 'Macedonian',
+    ml: 'Malayalam',
+    mn: 'Mongolian',
+    mr: 'Marathi',
+    ms: 'Malay',
+    mt: 'Maltese',
+    my: 'Burmese',
+    ne: 'Nepali',
+    nl: 'Dutch',
+    no: 'Norwegian',
+    ny: 'Chichewa',
+    or: 'Odia (Oriya)',
+    pa: 'Punjabi',
+    pl: 'Polish',
+    ps: 'Pashto',
+    pt: 'Portuguese',
+    ro: 'Romanian',
+    ru: 'Russian',
+    rw: 'Kinyarwanda',
+    sd: 'Sindhi',
+    si: 'Sinhala',
+    sk: 'Slovak',
+    sl: 'Slovenian',
+    sm: 'Samoan',
+    sn: 'Shona',
+    so: 'Somali',
+    sq: 'Albanian',
+    sr: 'Serbian',
+    st: 'Southern Sotho',
+    su: 'Sundanese',
+    sv: 'Swedish',
+    sw: 'Swahili',
+    ta: 'Tamil',
+    te: 'Telugu',
+    tg: 'Tajik',
+    th: 'Thai',
+    tk: 'Turkmen',
+    tl: 'Filipino',
+    tr: 'Turkish',
+    tt: 'Tatar',
+    ug: 'Uyghur',
+    uk: 'Ukrainian',
+    ur: 'Urdu',
+    uz: 'Uzbek',
+    vi: 'Vietnamese',
+    xh: 'Xhosa',
+    yi: 'Yiddish',
+    yo: 'Yoruba',
+    zh: 'Chinese',
+    zu: 'Zulu'
   };
 
   /**
    * Fetch book details from the Google Books API
    */
-  async function fetchBookDetails() {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${volumeId}`, {mode: 'cors'});
+  async function fetchBookDetails () {
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${volumeId}`, { mode: 'cors' });
 
     if (!response.ok) {
       throw new Error('Failed to fetch books');
@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
    * Fetch author details from the Google Books API
    */
-  async function fetchAuthorDetails(author) {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?key=AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU&q=inauthor:${encodeURIComponent(author)}`, {mode: 'cors'});
+  async function fetchAuthorDetails (author) {
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?key=AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU&q=inauthor:${encodeURIComponent(author)}`, { mode: 'cors' });
 
     if (!response.ok) {
       throw new Error('Failed to fetch books');
@@ -157,10 +157,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-   /**
+  /**
    * Handle redirecting to the landing page when the logo is clicked.
    */
-   const handleLogoClick = () => {
+  const handleLogoClick = () => {
     const logos = document.querySelectorAll('.logo');
 
     logos.forEach((logo) => {
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Redirect to the landing page
         window.location.href = '/';
       });
-    })
+    });
   };
 
   if (volumeId) {
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const title = bookData.volumeInfo.title;
       const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : 'Unknown';
       const description = bookData.volumeInfo.description ? bookData.volumeInfo.description : 'Unknown';
-      const pageCount = bookData.volumeInfo.pageCount? bookData.volumeInfo.pageCount : 'Unknown';
+      const pageCount = bookData.volumeInfo.pageCount ? bookData.volumeInfo.pageCount : 'Unknown';
       const languageCode = bookData.volumeInfo.language ? bookData.volumeInfo.language : 'Unknown';
       const publisher = bookData.volumeInfo.publisher ? bookData.volumeInfo.publisher : 'Unknown';
       const publishedDate = bookData.volumeInfo.publishedDate ? bookData.volumeInfo.publishedDate : 'Unknown';
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
    * Handle redirecting to the sign up page when the sign up button is clicked.
    */
-  function handleSignUpButtonClick() {
+  function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
       window.location.href = '/signup';
     });
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
    * Handle redirecting to the sign in page when the sign in button is clicked.
    */
-  function handleSignInButtonClick() {
+  function handleSignInButtonClick () {
     signInButton.addEventListener('click', () => {
       window.location.href = '/signin';
     });
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const checkAuthentication = async () => {
     try {
       const token = localStorage.getItem('token');
-  
+
       /* if (!token) {
         // No token found, user is not authenticated
         showGuestNav();
@@ -288,12 +288,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const authResponse = await fetch('/api/users/check-authentication', {
         headers: {
-            Authorization: token
+          Authorization: token
         }
       });
 
       const authData = await authResponse.json();
-  
+
       if (authData.authenticated) {
         // Token is valid, user is authenticated
         showAuthenticatedNav();
@@ -301,25 +301,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Token is invalid or expired, user is not authenticated
         showGuestNav();
       }
-      } catch (error) {
-        console.error('Error checking authentication status:', error);
-      }
+    } catch (error) {
+      console.error('Error checking authentication status:', error);
+    }
   };
 
   // Function to show navigation buttons for authenticated users
   const showAuthenticatedNav = () => {
-      signInButton.style.display = 'none';
-      signUpButton.style.display = 'none';
-      profileButton.style.display = 'flex';
-      signOutButton.style.display = 'flex';
+    signInButton.style.display = 'none';
+    signUpButton.style.display = 'none';
+    profileButton.style.display = 'flex';
+    signOutButton.style.display = 'flex';
   };
 
   // Function to show navigation buttons for guest users
   const showGuestNav = () => {
-      signInButton.style.display = 'flex';
-      signUpButton.style.display = 'flex';
-      profileButton.style.display = 'none';
-      signOutButton.style.display = 'none';
+    signInButton.style.display = 'flex';
+    signUpButton.style.display = 'flex';
+    profileButton.style.display = 'none';
+    signOutButton.style.display = 'none';
   };
 
   // Check authentication status when the DOM is loaded

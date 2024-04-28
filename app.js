@@ -14,12 +14,12 @@ const DB_URI = process.env.DB_URI;
 
 // Connect to MongoDB
 mongoose.connect(DB_URI, {})
-    .then(() => {
-        console.log('Successfully connected to MongoDB!');
-    })
-    .catch((err) => {
-        console.error('There was an error connecting to MongoDB:', err);
-    });
+  .then(() => {
+    console.log('Successfully connected to MongoDB!');
+  })
+  .catch((err) => {
+    console.error('There was an error connecting to MongoDB:', err);
+  });
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -53,7 +53,7 @@ app.use('/api/searchHistories', searchHistoriesRoutes);
 
 // Default route to the landing page
 app.get('/', (req, res) => {
-    res.sendFile('index.html', { root: './public' });
+  res.sendFile('index.html', { root: './public' });
 });
 
 // Route to handle search query and redirect to results page
@@ -93,7 +93,7 @@ app.get('/bookshelf', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'bookshelf.html'));
 });
 
-  // Error handling middleware
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
@@ -101,5 +101,5 @@ app.use((err, req, res, next) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

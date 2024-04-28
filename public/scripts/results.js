@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let books = [];
 
   // Handle redirecting to the book details page when a book is clicked.
-  function handleBookClick() {
+  function handleBookClick () {
     bookList.addEventListener('click', (event) => {
       // Handle clicking on book details section
       const bookDetails = event.target.closest('.book-details');
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Function to fetch books from the backend
-  async function fetchBooks(query, startIndex, maxResults) {
+  async function fetchBooks (query, startIndex, maxResults) {
     const response = await fetch(`/api/books/search?query=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`);
 
     if (!response.ok) {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Function to display books in the results section
-  function displayBooks(books) {
+  function displayBooks (books) {
     // Clear the existing content in the results section
     bookList.innerHTML = '';
 
@@ -127,8 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       noResultsMessage.textContent = 'No results found.';
       bookList.appendChild(noResultsMessage);
     } else {
-      if (query)
-      {
+      if (query) {
         // Calculate the current page number
         const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
         // Calculate the total number of pages
@@ -189,7 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Function to handle pagination
-  function handlePagination() {
+  function handlePagination () {
     // Next Page button
     nextPageButton.addEventListener('click', async () => {
       startIndex += maxResults;
@@ -240,7 +239,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Redirect to the landing page
         window.location.href = '/';
       });
-    })
+    });
   };
 
   // Display the initial set of books
@@ -266,7 +265,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
    * Handle redirecting to the sign up page when the sign up button is clicked.
    */
-  function handleSignUpButtonClick() {
+  function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
       window.location.href = '/signup';
     });
@@ -275,7 +274,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
    * Handle redirecting to the sign in page when the sign in button is clicked.
    */
-  function handleSignInButtonClick() {
+  function handleSignInButtonClick () {
     signInButton.addEventListener('click', () => {
       window.location.href = '/signin';
     });
@@ -291,7 +290,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const authResponse = await fetch('/api/users/check-authentication', {
         headers: {
-            Authorization: token
+          Authorization: token
         }
       });
 
@@ -304,25 +303,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Token is invalid or expired, user is not authenticated
         showGuestNav();
       }
-      } catch (error) {
-        console.error('Error checking authentication status:', error);
-      }
+    } catch (error) {
+      console.error('Error checking authentication status:', error);
+    }
   };
 
   // Function to show navigation buttons for authenticated users
   const showAuthenticatedNav = () => {
-      signInButton.style.display = 'none';
-      signUpButton.style.display = 'none';
-      profileButton.style.display = 'flex';
-      signOutButton.style.display = 'flex';
+    signInButton.style.display = 'none';
+    signUpButton.style.display = 'none';
+    profileButton.style.display = 'flex';
+    signOutButton.style.display = 'flex';
   };
 
   // Function to show navigation buttons for guest users
   const showGuestNav = () => {
-      signInButton.style.display = 'flex';
-      signUpButton.style.display = 'flex';
-      profileButton.style.display = 'none';
-      signOutButton.style.display = 'none';
+    signInButton.style.display = 'flex';
+    signUpButton.style.display = 'flex';
+    profileButton.style.display = 'none';
+    signOutButton.style.display = 'none';
   };
 
   // Check authentication status when the DOM is loaded

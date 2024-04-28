@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             bookShelvesContainer.appendChild(bookshelf);
           }
 
-          // Handle choosing a bookshelf
+          /* // Handle choosing a bookshelf
           bookshelves = document.querySelectorAll('.bookshelf');
           bookshelf.forEach(bookshelf => {
             bookshelf.addEventListener('click', () => {
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               // Fetch /api/bookshelves/:id PUT
                 // Pass data in request
             });
-          });
+          }); */
 
           // Handle closing the modal
           const cancelButton = document.querySelector('.cancel');

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/profile.css">
+  <script src="scripts/profile.js" defer></script>
+  <title>Profile</title>
+</head>
+<body>
+  <header>
+    <img src="../assets/images/small-logo.png" alt="StorySift Logo" class="small-logo-img logo">
+    <img src="../assets/images/logo.png" alt="StorySift Logo" class="logo-img logo">
+    <nav>
+      <ul>
+        <li class="home"><a>Home</a></li>
+        <li class="profile"><a>Profile</a></li>
+        <li class="signout"><a>Sign Out</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="profile-container">
+    <div class="name">
+      <h1 class="full-name"></h1>
+    </div>
+    <article class="details">
+      <div class="username-container">
+        <p>Username</p>
+        <p class="username"></p>
+      </div>
+      <div class="email-container">
+        <p>Email</p>
+        <p class="email"></p>
+      </div>
+      <div class="joining-date-container">
+        <p>Joining Date</p>
+        <p class="joining-date"></p>
+      </div>
+    </article>
+    <article class="book-shelves-container">
+      <h2 class="user-book-shelves"></h2>
+      <div class="create-shelf-container">
+        <p class="create-shelf">Add a bookshelf</p>
+        <input type="text" name="bookshelf" id="bookshelf">
+      </div>
+      <div class="book-shelves"></div>
+    </article>
+  </section>
+  <footer>
+    <p>&copy; 2024 StorySift, Inc. All rights reserved.</p>
+  </footer>
+</body>
+</html>

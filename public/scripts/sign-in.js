@@ -36,8 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         throw new Error(data.error || 'Failed to sign in');
       }
-      const { token } = await response.json();
+      const { token, userId } = await response.json();
       localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
 
       // Sign-in successful, redirect to home page
       window.location.href = '/';

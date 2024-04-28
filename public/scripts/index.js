@@ -85,12 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const token = localStorage.getItem('token');
 
-      /* if (!token) {
-        // No token found, user is not authenticated
-        showGuestNav();
-        return;
-      } */
-
       const authResponse = await fetch('/api/users/check-authentication', {
         headers: {
           Authorization: token
@@ -163,9 +157,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to handle sign out
   const handleSignOut = async () => {
     localStorage.setItem('token', null);
+    localStorage.setItem('userId', null);
     window.location.reload();
   };
 
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
+
+  // Event listener for profile button click
+  profileButton.addEventListener('click', () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
+  });
 });

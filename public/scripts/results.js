@@ -22,15 +22,72 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Handle redirecting to the book details page when a book is clicked.
   function handleBookClick () {
     bookList.addEventListener('click', (event) => {
-      const book = event.target.closest('.book');
-      if (book) {
+      // Handle clicking on book details section
+      const bookDetails = event.target.closest('.book-details');
+      if (bookDetails) {
         // Extract volumeId
-        const volumeId = book.id;
+        const volumeId = bookDetails.id;
         if (volumeId) {
           window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
         } else {
           console.log('No book found');
         }
+      }
+      // Handle clicking on book cover
+      const bookCover = event.target.closest('.book img');
+      if (bookCover) {
+        // Extract volumeId
+        const volumeId = bookCover.id;
+        if (volumeId) {
+          window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
+        } else {
+          console.log('No book found');
+        }
+      }
+      // Handle clicking on add button
+      const addButton = event.target.closest('.add');
+      if (addButton) {
+        const modal = document.querySelector("dialog");
+        modal.showModal();
+        // With user id, retrieve bookshelves
+        const userId = localStorage.getItem('userId');
+        const fetchBookshelves = (async function () {
+          try {
+          const response = await fetch(`/api/bookshelves?userId=${userId}`);
+          let bookshelves = await response.json();
+          const bookShelvesContainer = document.querySelector('.bookshelves');
+          bookShelvesContainer.innerHTML = '';
+          for (let i = 0; i < bookshelves.length; i++) {
+            const bookshelf = document.createElement('div');
+            bookshelf.classList.add('bookshelf');
+            bookshelf.setAttribute('data-id', bookshelves[i]._id);
+            bookshelf.innerHTML = bookshelves[i].name;
+            bookShelvesContainer.appendChild(bookshelf);
+          }
+
+          /* // Handle choosing a bookshelf
+          bookshelves = document.querySelectorAll('.bookshelf');
+          bookshelf.forEach(bookshelf => {
+            bookshelf.addEventListener('click', () => {
+              // Add book to the user's bookshelf
+              // Get bookshelf's id
+              // Fetch /api/bookshelves/:id PUT
+                // Pass data in request
+            });
+          }); */
+
+          // Handle closing the modal
+          const cancelButton = document.querySelector('.cancel');
+          cancelButton.addEventListener('click', () => {
+            modal.close();
+          });
+          document.addEventListener('click', (event) => {
+            if (event.target === modal) modal.close();
+          });
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        })();
       }
     });
   }
@@ -84,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         countContainer.appendChild(bookCountParagraph);
       }
       // Loop through the books and create HTML elements to display them
-      books.forEach((book) => {
+      books.forEach(async (book) => {
         const title = book.title;
         const authors = book.author;
         const thumbnail = book.thumbnailURL ? book.thumbnailURL : 'https://via.placeholder.com/150';
@@ -95,14 +152,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         bookElement.classList.add('book');
         bookElement.setAttribute('id', volumeId);
         bookElement.innerHTML = `
-          <img src="${thumbnail}" alt="${title}">
-          <div class="book-details">
+          <img src="${thumbnail}" alt="${title}" id=${volumeId}>
+          <div class="book-details" id=${volumeId}>
             <h3>${title}</h3>
             <p>Authors: ${authors}</p>
           </div>
         `;
 
         // Append the book element to the results section
+        try {
+          const token = localStorage.getItem('token');
+    
+          const authResponse = await fetch('/api/users/check-authentication', {
+            headers: {
+                Authorization: token
+            }
+          });
+    
+          const authData = await authResponse.json();
+    
+          if (authData.authenticated) {
+            // Token is valid, user is authenticated
+            const addBookToShelf = document.createElement('p');
+            addBookToShelf.innerHTML = 'Add';
+            addBookToShelf.classList.add('add');
+            bookElement.appendChild(addBookToShelf);
+            bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
+          }
+          } catch (error) {
+            console.error('Error checking authentication status:', error);
+          }
         bookList.appendChild(bookElement);
       });
     }
@@ -278,4 +357,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       handleSearchQuery();
     }
   });
+
+  // Event listener for profile button click
+  profileButton.addEventListener('click', () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
+  });
+
+  const addBookButtons = document.querySelectorAll('.add');
+
+  if (addBookButtons) {
+    addBookButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        console.log('it works');
+      });
+    });
+  }
 });

@@ -58,33 +58,39 @@ app.get('/', (req, res) => {
 
 // Route to handle search query and redirect to results page
 app.get('/books/search', (req, res) => {
-  // Validate user input in the search bar
+  // Commented out because it causes an error even when there's a query
+  /* // Validate user input in the search bar
   const query = req.query.q;
   if (!query || query.trim() === '') {
-    return res.status(400).json({ message: 'Invalid search query' });
-  }
+      return res.status(400).json({ message: 'Invalid search query' });
+  } */
 
   res.sendFile(path.join(__dirname, 'public', 'results.html'));
 });
 
 // Route to handle clicking a book and redirect to book details page
 app.get('/books', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'details.html'));
+    res.sendFile(path.join(__dirname, 'public', 'details.html'));
 });
 
 // Route to handle redirecting to sign up page
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'sign-up.html'));
+    res.sendFile(path.join(__dirname, 'public', 'sign-up.html'));
 });
 
 // Route to handle redirecting to sign in page
 app.get('/signin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'sign-in.html'));
+    res.sendFile(path.join(__dirname, 'public', 'sign-in.html'));
 });
 
 // Route to handle redirecting to a user's profile
 app.get('/user', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+    res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+});
+
+// Route to handle redirecting to a bookshelf
+app.get('/bookshelf', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bookshelf.html'));
 });
 
 // Error handling middleware

@@ -17,8 +17,9 @@ async function createBookshelf (req, res) {
 }
 
 // Controller function to get all bookshelves belonging to a specific user
-async function getAllBookshelves (req, res) {
-  const userId = req.userId;
+async function getAllBookshelves(req, res) {
+    const userId = req.query.userId;
+    console.log(userId);
 
   try {
     const bookshelves = await Bookshelf.find({ userId });

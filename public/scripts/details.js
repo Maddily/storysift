@@ -338,4 +338,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   handleLogoClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
+
+  // Event listener for profile button click
+  profileButton.addEventListener('click', () => {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
+  });
 });

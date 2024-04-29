@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bookshelfObjectResponse = await fetch(`/api/bookshelves/${bookshelfId}`);
     const bookshelfObject = await bookshelfObjectResponse.json();
     const booksArray = bookshelfObject.books;
+    document.title = `${bookshelfObject.name} Bookshelf`;
 
     await displayBooks(booksArray);
   })();

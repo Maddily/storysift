@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     email.innerHTML = userData.email;
     joiningDate.innerHTML = formatDate(userData.joining_date);
     bookShelvesHead.innerHTML = `${userData.first_name}'s Bookshelves`;
+    document.title = `${userData.first_name}'s Profile`;
   } catch (error) {
     console.error('Failed to fetch user data.');
   }

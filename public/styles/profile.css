@@ -108,11 +108,15 @@ body {
   font-weight: bold;
   text-align: center;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: rgba(218, 169, 114, 0.3);
 }
 
 .bookshelf:hover {
-  border-radius: 5px;
-  background: #daa972;
+  background: rgba(228, 141, 122, 0.3);
 }
 
 @media screen and (min-width: 400px) {

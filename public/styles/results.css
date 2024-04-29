@@ -193,12 +193,12 @@
 }
 
 :modal {
-  background: #e2c4a1;
+  background: rgba(61, 85, 92, 0.9);
   border: none;
   border-radius: 5px;
   width: 300px;
   padding: 10px;
-  outline: 2px solid #e48d7a;
+  outline: 2px solid rgba(42, 74, 84, 0.9);
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -229,10 +229,11 @@
   color: #1e3f48;
   align-self: center;
   border-radius: 5px;
+  background: rgba(218, 169, 114, 0.5);
 }
 
 .bookshelf:hover {
-  background: #e48d7a;
+  background: rgba(228, 141, 122, 0.5);
 }
 
 .bookshelf:active {

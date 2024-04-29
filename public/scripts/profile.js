@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Create a bookshelf
-  addBookShelf.addEventListener('click', async () => {
+  async function createBookshelf() {
     if (bookshelfInput.value) {
       try {
         const response = await fetch('/api/bookshelves', {
@@ -63,12 +63,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         await fetchBookshelves();
         bookshelfInput.value = '';
-        /* if (response.ok) {
-          window.location.reload();
-        } */
+        window.location.reload();
       } catch (error) {
         console.error('Error:', error);
       }
+    }
+  }
+
+  addBookShelf.addEventListener('click', createBookshelf);
+
+  bookshelfInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      createBookshelf();
     }
   });
 

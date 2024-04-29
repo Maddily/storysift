@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               if (!bookshelfResponse.ok) {
                 throw new Error('Failed to update bookshelf.');
               }
+              modal.close();
             });
           });
           } catch (error) {

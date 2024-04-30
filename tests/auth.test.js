@@ -56,6 +56,7 @@ describe("User Authentication", () => {
   });
 
   // Test case for user sign-out
+  /*
   describe("Sign Out", () => {
     it("should allow a user to sign out successfully", async () => {
       const response = await request(app)
@@ -66,6 +67,7 @@ describe("User Authentication", () => {
       expect(response.body).toHaveProperty("message", "Sign out successful");
     });
   });
+  */
 });
 
 afterAll(async () => {

@@ -28,5 +28,10 @@
     "mongodb": "^4.17.2",
     "mongoose": "^8.3.2",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
+    "supertest": "^7.0.0"
   }
 }

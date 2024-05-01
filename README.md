@@ -16,6 +16,34 @@ StorySift is a user-friendly book lookup/finder app designed to simplify the pro
 - **Book Details**: Users can click on a book from the search results to view detailed information, including the book summary and cover image.
 - **User Authentication**: Users can sign up for an account and sign in to access personalized features such as saving favorite books and receiving personalized recommendations.
 
+## How to Install
+
+To install and run StorySift locally on your machine, follow these steps:
+
+1. Clone the repository to your local machine:
+```bash
+git clone https://github.com/Maddily/storysift.git
+```
+2. Navigate to the project directory:
+```bash
+cd storysift
+```
+3. Install the necessary dependencies using npm (Node Package Manager):
+```bash
+npm install
+```
+4. Create a `.env` file in the root directory of the project and add your Google Books API key:
+```
+GOOGLE_BOOKS_API_KEY=your_api_key_here
+```
+5. Start the server:
+```bash
+node app.js
+```
+6. Once the server is running, open your web browser and navigate to `http://localhost:3000` to access StorySift.
+
+That's it! You can now use StorySift to search for books, view search results, and explore book details.
+
 ## Technologies Used
 
 StorySift is built using the following technologies:

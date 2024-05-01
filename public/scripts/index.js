@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
 
-  /**
-   * Handle search query submission
-   */
+  // Handle search query submission
   async function handleSearchQuery () {
     const query = searchInput.value.trim();
     if (query) {
@@ -23,9 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * Handle redirecting to the landing page when the Home button is clicked.
-   */
+  // Handle redirecting to the landing page when the Home button is clicked.
   const handleHomeButtonClick = () => {
     homeButton.addEventListener('click', (event) => {
       // Prevent the default link behavior
@@ -35,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  /**
-   * Handle redirecting to the landing page when the logo is clicked.
-   */
+  // Handle redirecting to the landing page when the logo is clicked.
   const handleLogoClick = () => {
     const logos = document.querySelectorAll('.logo');
 
@@ -49,9 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  /**
-   * Put the search bar in focus when Discover button is clicked.
-   */
+  // Put the search bar in focus when Discover button is clicked.
   function handleDiscoverButtonClick () {
     document.addEventListener('click', (event) => {
       const discoverButton = event.target.closest('.discover');
@@ -62,18 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /**
-   * Handle redirecting to the sign up page when the sign up button is clicked.
-   */
+  // Handle redirecting to the sign up page when the sign up button is clicked.
   function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
       window.location.href = '/signup';
     });
   }
 
-  /**
-   * Handle redirecting to the sign in page when the sign in button is clicked.
-   */
+  // Handle redirecting to the sign in page when the sign in button is clicked.
   function handleSignInButtonClick () {
     signInButton.addEventListener('click', () => {
       window.location.href = '/signin';
@@ -123,11 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Check authentication status when the DOM is loaded
   checkAuthentication();
-
-  // Add event listeners to navigation buttons
-  homeButton.addEventListener('click', () => {
-    window.location.href = '/';
-  });
 
   signInButton.addEventListener('click', () => {
     window.location.href = '/signin';

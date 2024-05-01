@@ -112,9 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  /**
-   * Handle search query submission
-   */
+  // Handle search query submission
   async function handleSearchQuery () {
     query = searchInput.value.trim();
 
@@ -234,9 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  /**
-   * Handle redirecting to the landing page when the Home button is clicked.
-   */
+  // Handle redirecting to the landing page when the Home button is clicked.
   const handleHomeButtonClick = () => {
     const homeButton = document.querySelector('.home');
 
@@ -248,9 +244,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   };
 
-  /**
-   * Handle redirecting to the landing page when the logo is clicked.
-   */
+  // Handle redirecting to the landing page when the logo is clicked.
   const handleLogoClick = () => {
     const logos = document.querySelectorAll('.logo');
 
@@ -282,18 +276,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('No search query found in URL');
   }
 
-  /**
-   * Handle redirecting to the sign up page when the sign up button is clicked.
-   */
+  // Handle redirecting to the sign up page when the sign up button is clicked.
   function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
       window.location.href = '/signup';
     });
   }
 
-  /**
-   * Handle redirecting to the sign in page when the sign in button is clicked.
-   */
+  // Handle redirecting to the sign in page when the sign in button is clicked.
   function handleSignInButtonClick () {
     signInButton.addEventListener('click', () => {
       window.location.href = '/signin';

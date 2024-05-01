@@ -115,9 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     zu: 'Zulu'
   };
 
-  /**
-   * Fetch book details from the Google Books API
-   */
+  // Fetch book details from the Google Books API
   async function fetchBookDetails () {
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${volumeId}`, { mode: 'cors' });
 
@@ -129,9 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  /**
-   * Fetch author details from the Google Books API
-   */
+  // Fetch author details from the Google Books API
   async function fetchAuthorDetails (author) {
     const response = await fetch(`https://www.googleapis.com/books/v1/volumes?key=AIzaSyDEv9J97e4e_ln5uYEtrt639fKBxyrREtU&q=inauthor:${encodeURIComponent(author)}`, { mode: 'cors' });
 
@@ -143,23 +139,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  /**
-   * Handle redirecting to the landing page when the Home button is clicked.
-   */
+  // Handle redirecting to the landing page when the Home button is clicked.
   const handleHomeButtonClick = () => {
     const homeButton = document.querySelector('.home');
 
-    homeButton.addEventListener('click', (event) => {
-      // Prevent the default link behavior
-      event.preventDefault();
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+    if (homeButton) {
+      homeButton.addEventListener('click', (event) => {
+        // Prevent the default link behavior
+        event.preventDefault();
+        // Redirect to the landing page
+        window.location.href = '/';
+      });
+    }
   };
 
-  /**
-   * Handle redirecting to the landing page when the logo is clicked.
-   */
+  // Handle redirecting to the landing page when the logo is clicked.
   const handleLogoClick = () => {
     const logos = document.querySelectorAll('.logo');
 
@@ -254,22 +248,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   const signUpButton = document.querySelector('.signup');
   const signInButton = document.querySelector('.sign-in');
 
-  /**
-   * Handle redirecting to the sign up page when the sign up button is clicked.
-   */
+  // Handle redirecting to the sign up page when the sign up button is clicked.
   function handleSignUpButtonClick () {
-    signUpButton.addEventListener('click', () => {
-      window.location.href = '/signup';
-    });
+    if (signUpButton) {
+      signUpButton.addEventListener('click', () => {
+        window.location.href = '/signup';
+      });
+    }
   }
 
-  /**
-   * Handle redirecting to the sign in page when the sign in button is clicked.
-   */
+  // Handle redirecting to the sign in page when the sign in button is clicked.
   function handleSignInButtonClick () {
-    signInButton.addEventListener('click', () => {
-      window.location.href = '/signin';
-    });
+    if (signInButton) {
+      signInButton.addEventListener('click', () => {
+        window.location.href = '/signin';
+      });
+    }
   }
 
   const signOutButton = document.querySelector('.signout');
@@ -279,13 +273,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const checkAuthentication = async () => {
     try {
       const token = localStorage.getItem('token');
-
-      /* if (!token) {
-        // No token found, user is not authenticated
-        showGuestNav();
-        return;
-      } */
-
       const authResponse = await fetch('/api/users/check-authentication', {
         headers: {
           Authorization: token
@@ -308,18 +295,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Function to show navigation buttons for authenticated users
   const showAuthenticatedNav = () => {
-    signInButton.style.display = 'none';
-    signUpButton.style.display = 'none';
-    profileButton.style.display = 'flex';
-    signOutButton.style.display = 'flex';
+    if (signInButton && signUpButton && profileButton && signOutButton) {
+      signInButton.style.display = 'none';
+      signUpButton.style.display = 'none';
+      profileButton.style.display = 'flex';
+      signOutButton.style.display = 'flex';
+    }
   };
 
   // Function to show navigation buttons for guest users
   const showGuestNav = () => {
-    signInButton.style.display = 'flex';
-    signUpButton.style.display = 'flex';
-    profileButton.style.display = 'none';
-    signOutButton.style.display = 'none';
+    if (signInButton && signUpButton && profileButton && signOutButton) {
+      signInButton.style.display = 'flex';
+      signUpButton.style.display = 'flex';
+      profileButton.style.display = 'none';
+      signOutButton.style.display = 'none';
+    }
   };
 
   // Check authentication status when the DOM is loaded
@@ -332,20 +323,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   // Event listener for sign out button click
-  signOutButton.addEventListener('click', handleSignOut);
+  if (signOutButton) {
+    signOutButton.addEventListener('click', handleSignOut);
+  }
 
   handleHomeButtonClick();
   handleLogoClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
 
-  // Event listener for profile button click
-  profileButton.addEventListener('click', () => {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      window.location.href = `/user?id=${userId}`;
-    } else {
-      console.error('User ID not found');
-    }
-  });
+  if (profileButton) {
+    profileButton.addEventListener('click', () => {
+      const userId = localStorage.getItem('userId');
+      if (userId) {
+        window.location.href = `/user?id=${userId}`;
+      } else {
+        console.error('User ID not found');
+      }
+    });
+  }
 });

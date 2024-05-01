@@ -1,5 +1,3 @@
-// tests/book.test.js
-
 const axios = require("axios");
 const { searchBooks } = require("../src/controllers/book");
 
@@ -17,10 +15,9 @@ describe("searchBooks", () => {
 
     const res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn(), // Mocking the json function
+      json: jest.fn(),
     };
 
-    // Mocking axios.get to simulate a successful response
     axios.get.mockResolvedValue({
       data: {
         totalItems: 2,
@@ -30,9 +27,7 @@ describe("searchBooks", () => {
 
     await searchBooks(req, res);
 
-    // Assert the response status
     expect(res.status).toHaveBeenCalledWith(200);
-    // Assert that json function is called
     expect(res.json).toHaveBeenCalled();
   });
 });

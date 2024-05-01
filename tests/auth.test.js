@@ -1,5 +1,3 @@
-// tests/search.tests.js
-
 const request = require("supertest");
 const app = require("../app");
 const User = require("../src/models/User");

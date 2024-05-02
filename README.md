@@ -38,7 +38,7 @@ StorySift is a user-friendly book lookup/finder app designed to simplify the pro
 ![Alt Text](assets/images/sign-in.png)
 
 
-- **View profile details**: Users that have signed up will have access personalized features such as saving favorite books.
+- **View profile details**: Users that have signed up will have access to personalized features such as saving favorite books.
 
 
 ![Alt Text](assets/images/profile-page.png)

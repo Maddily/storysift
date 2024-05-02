@@ -12,9 +12,41 @@ StorySift is a user-friendly book lookup/finder app designed to simplify the pro
 ## Features
 
 - **Search for Books**: Users can search for books by entering keywords or phrases in a search bar.
+
+
+![Alt Text](assets/images/Landing-page.png)
+
+
 - **View Search Results**: Users can view a list of search results containing relevant book titles and authors.
+
+
+![Alt Text](assets/images/search-results.png)
+
+
 - **Book Details**: Users can click on a book from the search results to view detailed information, including the book summary and cover image.
-- **User Authentication**: Users can sign up for an account and sign in to access personalized features such as saving favorite books and receiving personalized recommendations.
+
+
+![Alt Text](assets/images/Book-details.png)
+
+
+- **User Authentication**: Users can sign up for an account and sign in to access personalized features such as saving favorite books.
+
+
+![Alt Text](assets/images/sign-up.png)
+
+
+![Alt Text](assets/images/sign-in.png)
+
+
+- **View profile details**: Users that have signed up will have access to personalized features such as saving favorite books.
+
+
+![Alt Text](assets/images/profile-page.png)
+
+
+- **Bookshelves**: Users can organize their saved books by category with the bookshelves feature.
+
+![Alt Text](assets/images/bookshelf.png)
 
 ## How to Install
 

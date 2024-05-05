@@ -66,9 +66,74 @@ nav a {
   padding: 0 10px;
 }
 
+.discover, nav a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #1e3f48;
+  text-decoration: none;
+  background-color: #eeecec;
+  height: 70%;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.discover {
+  padding: 0 20px;
+}
+
+.discover:hover, nav a:hover {
+  background: #c0bbc7;
+}
+
+.discover:active, nav a:active {
+  background: #daa972;
+}
+
+.main {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.hero {
+  background: url('../assets/images/medium-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1.6px 3.2px rgba(0, 0, 0, 0.15);
+}
+
+.hero-msg {
+  margin-left: 20px;
+  text-align: center;
+  color: #1e3f48;
+  line-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-msg h1 {
+  margin-bottom: 0;
+}
+
+.hero-msg p {
+  color: #1e3f48;
+  margin-top: 0;
+}
+
 @media screen and (min-width: 400px) {
   header img {
     margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .hero {
+    justify-content: unset;
   }
 }
 
@@ -83,6 +148,20 @@ nav a {
 
   nav {
     margin-right: 50px;
+  }
+
+  .hero {
+    height: 550px;
+  }
+
+  .hero-msg {
+    margin-left: 100px;
+    font-size: 1.1rem;
+  }
+
+  .hero-msg h1 {
+    line-height: 4rem;
+    margin-bottom: 0;
   }
 }
 
@@ -99,5 +178,29 @@ nav a {
 @media screen and (min-width: 1000px) {
   html {
     font-size: 18px;
+  }
+
+  .hero {
+    height: 650px;
+  }
+
+  .hero-msg {
+    margin-left: 200px;
+    font-size: 1.3rem;
+  }
+
+  .hero-msg h1 {
+    line-height: 5rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .hero-msg {
+    margin-left: 250px;
+    font-size: 1.5rem;
+  }
+
+  .hero-msg h1 {
+    line-height: 5.5rem;
   }
 }

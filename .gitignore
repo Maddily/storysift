@@ -1,5 +1,0 @@
-# Ignore environment-specific configuration files
-.env
-
-# Ignore node_modules (usually not needed in version control)
-node_modules/

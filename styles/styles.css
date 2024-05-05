@@ -1,0 +1,103 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  height: 100vh;
+  font-family: 'TT Commons Pro', Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  height: 80px;
+  box-shadow: 0 1.6px 3.2px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  z-index: 1;
+}
+
+.logo-img {
+  display: none;
+}
+
+.small-logo-img {
+  height: 80%;
+}
+
+header img {
+  width: fit-content;
+  height: 90%;
+  margin-right: 10px;
+}
+
+nav {
+  height: 100%;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+  color: #173139;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-items: center;
+}
+
+nav a:hover {
+  background: #c0bbc7;
+}
+
+nav a {
+  text-decoration: none;
+  color: #173139;
+  width: fit-content;
+  padding: 0 10px;
+}
+
+@media screen and (min-width: 400px) {
+  header img {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  html {
+    font-size: 16px;
+  }
+
+  header img {
+    margin-left: 50px;
+  }
+
+  nav {
+    margin-right: 50px;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .logo-img {
+    display: block;
+  }
+
+  .small-logo-img {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  html {
+    font-size: 18px;
+  }
+}

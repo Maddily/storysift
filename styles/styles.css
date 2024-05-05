@@ -157,6 +157,53 @@ nav a {
   line-height: 2rem;
 }
 
+.about {
+  background: #eeecec;
+  box-shadow: 0 -1.6px 3.2px rgba(0, 0, 0, 0.15);
+  height: 800px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #1e3f48;
+}
+
+.about h3 {
+  font-size: 1.5rem;
+}
+
+.about > p {
+  width: 70%;
+  text-align: center;
+  line-height: 1.7rem;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.mayada-links {
+  margin-bottom: 40px;
+}
+
+footer {
+  height: 60px;
+  box-shadow: 0 -1.6px 3.2px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #173139;
+  margin: 0;
+  margin-top: auto;
+}
+
+footer p {
+  margin-left: 50px;
+}
+
 @media screen and (min-width: 400px) {
   header img {
     margin-left: 10px;
@@ -190,6 +237,15 @@ nav a {
   #details img {
     order: 2;
   }
+
+  .about {
+    height: 600px;
+  }
+
+  .links-container {
+    display: flex;
+    gap: 60px;
+  }
 }
 
 @media screen and (min-width: 700px) {
@@ -221,6 +277,10 @@ nav a {
 
   .features h2 {
     font-size: 2rem;
+  }
+
+  footer p {
+    margin-left: 100px;
   }
 }
 
@@ -259,11 +319,23 @@ nav a {
   .features article {
     gap: 120px;
   }
+
+  .about > p {
+    width: 60%;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .features article {
     gap: 180px;
+  }
+
+  .links-container {
+    gap: 100px;
+  }
+
+  .about > p {
+    width: 50%;
   }
 }
 
@@ -279,5 +351,9 @@ nav a {
 
   .features article {
     gap: 240px;
+  }
+
+  .about > p {
+    width: 40%;
   }
 }

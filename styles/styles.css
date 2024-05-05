@@ -80,9 +80,16 @@ nav a {
 
 .discover {
   padding: 0 20px;
+  background-color: #1e3f48;
+  color: #eeecec;
 }
 
-.discover:hover, nav a:hover {
+.discover:hover {
+  background: #c0bbc7;
+  color: #1e3f48;
+}
+
+nav a:hover {
   background: #c0bbc7;
 }
 

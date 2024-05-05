@@ -29,6 +29,10 @@ html {
   font-size: 1.8rem;
 }
 
+.book-details p {
+  line-height: 2rem;
+}
+
 .author {
   margin-bottom: 40px;
 }

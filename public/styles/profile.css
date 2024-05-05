@@ -119,6 +119,11 @@ body {
   background: rgba(228, 141, 122, 0.3);
 }
 
+.bookshelf:active {
+  background: #e48d7a;
+  color: #eeecec;
+}
+
 @media screen and (min-width: 400px) {
   .logo-img {
     display: none;

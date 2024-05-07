@@ -28,12 +28,11 @@ header {
 }
 
 .small-logo-img {
-  height: 80%;
+  height: 80px;
 }
 
 header img {
-  width: fit-content;
-  height: 90%;
+  height: 80px;
   margin-right: 10px;
 }
 

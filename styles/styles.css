@@ -195,6 +195,21 @@ nav a:hover {
   margin-bottom: 40px;
 }
 
+.repo a {
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #ad7e48;
+}
+
+.repo a:hover {
+  color: #1e3f48;
+}
+
+.repo a:active {
+  color: #355f6b;
+}
+
 footer {
   height: 60px;
   box-shadow: 0 -1.6px 3.2px rgba(0, 0, 0, 0.15);

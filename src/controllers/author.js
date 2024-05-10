@@ -64,6 +64,7 @@ async function deleteAuthor (req, res) {
   }
 }
 
+// Export all controller functions
 module.exports = {
   createAuthor,
   getAllAuthors,

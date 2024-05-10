@@ -22,7 +22,8 @@ body {
   border-bottom: 1px solid #c0bbc7;
   padding-bottom: 10px;
   justify-items: center;
-  width: fit-content;
+  width: 300px;
+  cursor: pointer;
 }
 
 .book:hover {
@@ -31,10 +32,6 @@ body {
 
 .book:active {
   background: #daa972;
-}
-
-.book {
-  cursor: pointer;
 }
 
 .book img {
@@ -73,9 +70,9 @@ body {
     width: 380px;
   }
 
-  /* .book {
+  .book {
     width: 380px;
-  } */
+  }
 }
 
 @media screen and (min-width: 450px) {
@@ -93,9 +90,9 @@ body {
     width: 480px;
   }
 
-  /* .book {
+  .book {
     width: 480px;
-  } */
+  }
 }
 
 @media screen and (min-width: 600px) {
@@ -103,9 +100,9 @@ body {
     width: 580px;
   }
 
-  /* .book {
+  .book {
     width: 580px;
-  } */
+  }
 }
 
 @media screen and (min-width: 700px) {
@@ -113,7 +110,7 @@ body {
     width: 680px;
   }
 
-  /* .book {
+  .book {
     width: 680px;
-  } */
+  }
 }

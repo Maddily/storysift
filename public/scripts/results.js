@@ -1,5 +1,4 @@
 // public/scripts/results.js
-
 document.addEventListener('DOMContentLoaded', async () => {
   // Extract search query parameter from URL
   const searchParams = new URLSearchParams(window.location.search);
@@ -232,29 +231,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home');
-
-    homeButton.addEventListener('click', (event) => {
-      // Prevent the default link behavior
-      event.preventDefault();
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
 
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
 
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   // Display the initial set of books
   if (query) {
@@ -348,9 +338,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize pagination
   handlePagination();
-
-  handleHomeButtonClick();
-  handleLogoClick();
 
   handleBookClick();
 

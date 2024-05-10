@@ -1,7 +1,5 @@
 // public/scripts/index.js
-
 document.addEventListener('DOMContentLoaded', () => {
-  const homeButton = document.querySelector('.home');
   const searchInput = document.getElementById('book-search');
   const searchButton = document.querySelector('.search-button');
   const signUpButton = document.querySelector('.signup');
@@ -21,27 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    homeButton.addEventListener('click', (event) => {
-      // Prevent the default link behavior
-      event.preventDefault();
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
 
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
 
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   // Put the search bar in focus when Discover button is clicked.
   function handleDiscoverButtonClick () {
@@ -112,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check authentication status when the DOM is loaded
   checkAuthentication();
 
-  handleHomeButtonClick();
-  handleLogoClick();
   handleDiscoverButtonClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();

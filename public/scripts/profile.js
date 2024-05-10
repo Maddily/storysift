@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const homeButton = document.querySelector('.home');
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
@@ -116,17 +115,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
-
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    })
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
+
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
+
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   // Function to handle sign out
   const handleSignOut = async () => {
@@ -134,13 +136,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('userId', null);
     window.location.href = '/';
   };
-
-  // Add event listeners to navigation buttons
-  homeButton.addEventListener('click', () => {
-    window.location.href = '/';
-  });
-
-  handleLogoClick();
 
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);

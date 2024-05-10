@@ -139,32 +139,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  // Handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home');
-
-    if (homeButton) {
-      homeButton.addEventListener('click', (event) => {
-        // Prevent the default link behavior
-        event.preventDefault();
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    }
-  };
-
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
-
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
-
   if (volumeId) {
     const bookData = await fetchBookDetails();
     // Fetch book details
@@ -244,6 +218,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       authorDetailsSection.style.color = '#152d34';
     }
   }
+
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
+  };
+
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
+
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   const signUpButton = document.querySelector('.signup');
   const signInButton = document.querySelector('.sign-in');
@@ -327,8 +316,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     signOutButton.addEventListener('click', handleSignOut);
   }
 
-  handleHomeButtonClick();
-  handleLogoClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
 

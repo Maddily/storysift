@@ -190,28 +190,20 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // Function to handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home');
-
-    homeButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
 
-  // Function to handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
 
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   const signUpButton = document.querySelector('.signup');
   const signInButtons = document.querySelectorAll('.signin');
@@ -239,8 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSubmitButton();
   });
 
-  handleHomeButtonClick();
-  handleLogoClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
 });

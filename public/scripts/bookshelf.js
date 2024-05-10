@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const homeButton = document.querySelector('.home');
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
@@ -69,27 +68,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   })();
 
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
-
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        window.location.href = '/';
-      });
-    })
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
+
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
+
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   const handleSignOut = async () => {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
     window.location.href = '/';
   };
-
-  homeButton.addEventListener('click', () => {
-    window.location.href = '/';
-  });
-
-  handleLogoClick();
 
   signOutButton.addEventListener('click', handleSignOut);
 

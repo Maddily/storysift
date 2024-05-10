@@ -112,14 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check authentication status when the DOM is loaded
   checkAuthentication();
 
-  signInButton.addEventListener('click', () => {
-    window.location.href = '/signin';
-  });
-
-  signUpButton.addEventListener('click', () => {
-    window.location.href = '/signup';
-  });
-
   handleHomeButtonClick();
   handleLogoClick();
   handleDiscoverButtonClick();

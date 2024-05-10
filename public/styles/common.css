@@ -29,7 +29,6 @@ header {
 }
 
 header img {
-  width: fit-content;
   height: 90%;
   cursor: pointer;
 }

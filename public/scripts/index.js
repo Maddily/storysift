@@ -35,17 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Put the search bar in focus when Discover button is clicked.
-  function handleDiscoverButtonClick () {
-    document.addEventListener('click', (event) => {
-      const discoverButton = event.target.closest('.discover');
-      if (discoverButton) {
-        event.preventDefault();
-        searchInput.focus();
-      }
-    });
-  }
-
-  // Put the search bar in focus when Discover button is clicked.
   document.addEventListener('click', (event) => {
     const discoverButton = event.target.closest('.discover');
     if (discoverButton) {
@@ -55,18 +44,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    signUpButton.addEventListener('click', () => {
-      window.location.href = '/signup';
-    });
-  }
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
 
   // Handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    signInButton.addEventListener('click', () => {
-      window.location.href = '/signin';
-    });
-  }
+  signInButton.addEventListener('click', () => {
+    window.location.href = '/signin';
+  });
 
   // Function to check authentication status using JWT
   const checkAuthentication = async () => {
@@ -111,9 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Check authentication status when the DOM is loaded
   checkAuthentication();
-
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const signOutButton = document.querySelector('.signout');
   // Handle sign out
-  const handleSignOut = async () => {
+  function handleSignOut () {
     localStorage.setItem('token', null);
     window.location.reload();
   };

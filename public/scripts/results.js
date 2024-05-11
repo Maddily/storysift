@@ -14,6 +14,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Append bookshelf elements to the bookshelf container
+  function appendBookshelves (bookshelves) {
+    const bookShelvesContainer = document.querySelector('.bookshelves');
+
+    bookShelvesContainer.innerHTML = '';
+
+    for (let i = 0; i < bookshelves.length; i++) {
+      const bookshelf = document.createElement('div');
+      bookshelf.classList.add('bookshelf');
+      bookshelf.setAttribute('data-id', bookshelves[i]._id);
+      bookshelf.innerHTML = bookshelves[i].name;
+      bookShelvesContainer.appendChild(bookshelf);
+    }
+  }
+
   // Handle redirecting to the book details page when a book is clicked.
   function handleBookClick () {
     bookList.addEventListener('click', (event) => {
@@ -37,25 +52,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Handle clicking on add button
       const addButton = event.target.closest('.add');
       let bookId;
+
       if (addButton) {
+        // Display a modal
         bookId = addButton.parentElement.getAttribute('id');
         const modal = document.querySelector("dialog");
         modal.showModal();
-        // With user id, retrieve bookshelves
+
+        // With user id, retrieve a user's bookshelves and add them
+        // to the bookshelves container inside the modal
         const userId = localStorage.getItem('userId');
         const fetchBookshelves = (async function () {
           try {
           const response = await fetch(`/api/bookshelves?userId=${userId}`);
           let bookshelves = await response.json();
-          const bookShelvesContainer = document.querySelector('.bookshelves');
-          bookShelvesContainer.innerHTML = '';
-          for (let i = 0; i < bookshelves.length; i++) {
-            const bookshelf = document.createElement('div');
-            bookshelf.classList.add('bookshelf');
-            bookshelf.setAttribute('data-id', bookshelves[i]._id);
-            bookshelf.innerHTML = bookshelves[i].name;
-            bookShelvesContainer.appendChild(bookshelf);
-          }
+
+          appendBookshelves(bookshelves);
 
           // Handle closing the modal
           const cancelButton = document.querySelector('.cancel');

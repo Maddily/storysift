@@ -29,91 +29,105 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Handle redirecting to the book details page when a book is clicked.
-  function handleBookClick () {
-    bookList.addEventListener('click', (event) => {
+  // Handle choosing a bookshelf and placing a book into it
+  function addBookToBookshelf (bookId, modal) {
+    const bookshelves = document.querySelectorAll('.bookshelf');
 
-      // Handle clicking on book details section
-      const bookDetails = event.target.closest('.book-details');
-      if (bookDetails) {
-        // Extract volumeId
-        const volumeId = bookDetails.id;
-        redirectToBookDetails(volumeId);
-      }
+    try {
+      bookshelves.forEach(bookshelf => {
+        bookshelf.addEventListener('click', async () => {
+          const bookshelfId = bookshelf.dataset.id;
 
-      // Handle clicking on book cover
-      const bookCover = event.target.closest('.book img');
-      if (bookCover) {
-        // Extract volumeId
-        const volumeId = bookCover.id;
-        redirectToBookDetails(volumeId);
-      }
+          // Fetch the clicked bookshelf Object and add the book to its books array
+          const bookshelfObjectResponse = await fetch(`/api/bookshelves/${bookshelfId}`);
+          const bookshelfObject = await bookshelfObjectResponse.json();
+          const booksArray = bookshelfObject.books;
 
-      // Handle clicking on add button
-      const addButton = event.target.closest('.add');
-      let bookId;
+          // If the book already exists in the bookshelf, do nothing
+          if (booksArray.includes(bookId)) {
+            return;
+          }
 
-      if (addButton) {
-        // Display a modal
-        bookId = addButton.parentElement.getAttribute('id');
-        const modal = document.querySelector("dialog");
-        modal.showModal();
+          booksArray.push(bookId);
 
-        // Handle closing the modal
-        const cancelButton = document.querySelector('.cancel');
-        cancelButton.addEventListener('click', () => {
+          // Add the book to the bookshelf
+          const bookshelfResponse = await fetch(`/api/bookshelves/${bookshelfId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              books: booksArray
+            })
+          });
+          if (!bookshelfResponse.ok) {
+            throw new Error('Failed to update bookshelf.');
+          }
           modal.close();
         });
-        document.addEventListener('click', (event) => {
-          if (event.target === modal) modal.close();
-        });
-
-        // With user id, retrieve a user's bookshelves and add them
-        // to the bookshelves container inside the modal
-        const userId = localStorage.getItem('userId');
-        const fetchBookshelves = (async function () {
-          try {
-          const response = await fetch(`/api/bookshelves?userId=${userId}`);
-          let bookshelves = await response.json();
-
-          appendBookshelves(bookshelves);
-
-          // Handle choosing a bookshelf and placing a book in it
-          bookshelves = document.querySelectorAll('.bookshelf');
-          bookshelves.forEach(bookshelf => {
-            bookshelf.addEventListener('click', async () => {
-              const bookshelfId = bookshelf.dataset.id;
-              // Fetch the clicked bookshelf Object and add the book to its books array
-              const bookshelfObjectResponse = await fetch(`/api/bookshelves/${bookshelfId}`);
-              const bookshelfObject = await bookshelfObjectResponse.json();
-              const booksArray = bookshelfObject.books;
-              if (booksArray.includes(bookId)) {
-                return;
-              }
-              booksArray.push(bookId);
-              // Add the book to the bookshelf
-              const bookshelfResponse = await fetch(`/api/bookshelves/${bookshelfId}`, {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  books: booksArray
-                })
-              });
-              if (!bookshelfResponse.ok) {
-                throw new Error('Failed to update bookshelf.');
-              }
-              modal.close();
-            });
-          });
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        })();
-      }
-    });
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
+
+  // Handle redirecting to the book details page when a book is clicked.
+  bookList.addEventListener('click', (event) => {
+
+    // Handle clicking on book details section
+    const bookDetails = event.target.closest('.book-details');
+    if (bookDetails) {
+      // Extract volumeId
+      const volumeId = bookDetails.id;
+      redirectToBookDetails(volumeId);
+    }
+
+    // Handle clicking on book cover
+    const bookCover = event.target.closest('.book img');
+    if (bookCover) {
+      // Extract volumeId
+      const volumeId = bookCover.id;
+      redirectToBookDetails(volumeId);
+    }
+
+    // Handle clicking on add button
+    const addButton = event.target.closest('.add');
+    let bookId;
+
+    if (addButton) {
+      // Display a modal
+      bookId = addButton.parentElement.getAttribute('id');
+      const modal = document.querySelector("dialog");
+      modal.showModal();
+
+      // Handle closing the modal
+      const cancelButton = document.querySelector('.cancel');
+      cancelButton.addEventListener('click', () => {
+        modal.close();
+      });
+      document.addEventListener('click', (event) => {
+        if (event.target === modal) modal.close();
+      });
+
+      // With user id, retrieve a user's bookshelves and add them
+      // to the bookshelves container inside the modal
+      const userId = localStorage.getItem('userId');
+      const fetchBookshelves = (async function () {
+        try {
+        const response = await fetch(`/api/bookshelves?userId=${userId}`);
+        let bookshelves = await response.json();
+
+        appendBookshelves(bookshelves);
+
+        // Handle choosing a bookshelf and placing a book in it
+        addBookToBookshelf(bookId, modal);
+
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      })();
+    }
+  });
 
   // Fetch books from the backend
   async function fetchBooks (query, startIndex, maxResults) {
@@ -304,7 +318,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
-  handleBookClick();
+  /* handleBookClick(); */
 
   const searchInput = document.getElementById('book-search');
   // Handle search query submission

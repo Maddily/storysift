@@ -9,8 +9,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nextPageButton = document.querySelector('.next-page-button');
   const searchInput = document.getElementById('book-search');
   const searchButton = document.querySelector('.search-button');
-  const signUpButton = document.querySelector('.signup');
-  const signInButton = document.querySelector('.sign-in');
 
   // Global variables for pagination
   let startIndex = 0;
@@ -266,19 +264,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('No search query found in URL');
   }
 
+  const signUpButton = document.querySelector('.signup');
   // Handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    signUpButton.addEventListener('click', () => {
-      window.location.href = '/signup';
-    });
-  }
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
 
+  const signInButton = document.querySelector('.sign-in');
   // Handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    signInButton.addEventListener('click', () => {
-      window.location.href = '/signin';
-    });
-  }
+  signInButton.addEventListener('click', () => {
+    window.location.href = '/signin';
+  });
 
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
@@ -340,9 +336,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   handlePagination();
 
   handleBookClick();
-
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

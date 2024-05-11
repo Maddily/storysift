@@ -191,32 +191,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Function to handle pagination
-  function handlePagination () {
-    // Next Page button
-    nextPageButton.addEventListener('click', async () => {
-      startIndex += maxResults;
-      const data = await fetchBooks(query, startIndex, maxResults);
-      if (data && data.items && data.items.length > 0) {
-        books = data.items || [];
-        displayBooks(books);
-      } else {
-        console.log('No more books to display.');
-      }
-    });
-
-    // Previous Page button
-    prevPageButton.addEventListener('click', async () => {
-      startIndex = Math.max(0, startIndex - maxResults);
-      const data = await fetchBooks(query, startIndex, maxResults);
-      if (data && data.items && data.items.length > 0) {
-        books = data.items || [];
-        displayBooks(books);
-      } else {
-        console.log('No more books to display.');
-      }
-    });
+  // Display the next page of books
+  async function displayNextPage () {
+    startIndex += maxResults;
+    const data = await fetchBooks(query, startIndex, maxResults);
+    if (data && data.items && data.items.length > 0) {
+      books = data.items || [];
+      displayBooks(books);
+    } else {
+      console.log('No more books to display.');
+    }
   }
+
+  // Display the next page of books when Next button is clicked
+  nextPageButton.addEventListener('click', displayNextPage);
+
+  // Display the previous page of books
+  async function displayPreviousPage () {
+    startIndex = Math.max(0, startIndex - maxResults);
+    const data = await fetchBooks(query, startIndex, maxResults);
+    if (data && data.items && data.items.length > 0) {
+      books = data.items || [];
+      displayBooks(books);
+    } else {
+      console.log('No more books to display.');
+    }
+  }
+  // Display the previous page of books when Previous button is clicked
+  prevPageButton.addEventListener('click', displayPreviousPage);
 
   // Redirect to the homepage.
   function redirectHome () {
@@ -274,9 +276,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
-
-  // Initialize pagination
-  handlePagination();
 
   handleBookClick();
 

@@ -4,16 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchParams = new URLSearchParams(window.location.search);
   let query = searchParams.get('query');
   const bookList = document.querySelector('.book-list');
-  const prevPageButton = document.querySelector('.prev-page-button');
-  const nextPageButton = document.querySelector('.next-page-button');
-  const searchInput = document.getElementById('book-search');
-  const searchButton = document.querySelector('.search-button');
-
-  // Global variables for pagination
-  let startIndex = 0;
-  const maxResults = 10;
-  let totalResults = 0;
-  let books = [];
 
   // Handle redirecting to the book details page when a book is clicked.
   function handleBookClick () {
@@ -149,6 +139,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Global variables for pagination
+  let startIndex = 0;
+  const maxResults = 10;
+  let totalResults = 0;
+
   // Create a paragraph element to display book count information
   function createBookCountElement () {
     const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
@@ -209,6 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Display the initial set of books
   document.title = `Search results for "${query}"`;
   try {
+    let books = [];
     const initialBooks = await fetchBooks(query, startIndex, maxResults);
     if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {
       totalResults = initialBooks.totalItems;
@@ -235,6 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Display the next page of books when Next button is clicked
+  const nextPageButton = document.querySelector('.next-page-button');
   nextPageButton.addEventListener('click', displayNextPage);
 
   // Display the previous page of books
@@ -248,7 +245,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.log('No more books to display.');
     }
   }
+
   // Display the previous page of books when Previous button is clicked
+  const prevPageButton = document.querySelector('.prev-page-button');
   prevPageButton.addEventListener('click', displayPreviousPage);
 
   // Redirect to the homepage.
@@ -290,6 +289,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   handleBookClick();
 
+  const searchInput = document.getElementById('book-search');
   // Handle search query submission
   function handleSearchQuery () {
     query = searchInput.value.trim();
@@ -301,6 +301,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  const searchButton = document.querySelector('.search-button');
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);
 

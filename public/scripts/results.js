@@ -109,17 +109,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle search query submission
-  async function handleSearchQuery () {
-    query = searchInput.value.trim();
-
-    if (query) {
-      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-    } else {
-      console.error('No search query found in URL');
-    }
-  }
-
   // Function to fetch books from the backend
   async function fetchBooks (query, startIndex, maxResults) {
     const response = await fetch(`/api/books/search?query=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`);
@@ -277,7 +266,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const signOutButton = document.querySelector('.signout');
-
   // Handle sign out
   const handleSignOut = async () => {
     localStorage.setItem('token', null);
@@ -291,6 +279,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   handlePagination();
 
   handleBookClick();
+
+  // Handle search query submission
+  function handleSearchQuery () {
+    query = searchInput.value.trim();
+
+    if (query) {
+      window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+    } else {
+      console.error('No search query found in URL');
+    }
+  }
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

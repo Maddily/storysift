@@ -7,18 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
 
-  // Handle search query submission
-  async function handleSearchQuery () {
-    const query = searchInput.value.trim();
-    if (query) {
-      try {
-        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-
   // Redirect to the homepage.
   function redirectHome () {
     window.location.href = '/';
@@ -91,6 +79,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     profileButton.style.display = 'none';
     signOutButton.style.display = 'none';
   };
+
+  // Handle search query submission
+  function handleSearchQuery () {
+    const query = searchInput.value.trim();
+    if (query) {
+      try {
+        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
 
   // Event listener for search button click
   searchButton.addEventListener('click', handleSearchQuery);

@@ -5,35 +5,40 @@ document.addEventListener('DOMContentLoaded', async () => {
   let query = searchParams.get('query');
   const bookList = document.querySelector('.book-list');
 
+  // Redirect to the book details page
+  function redirectToBookDetails (volumeId) {
+    if (volumeId) {
+      window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
+    } else {
+      console.log('No book found');
+    }
+  }
+
   // Handle redirecting to the book details page when a book is clicked.
   function handleBookClick () {
     bookList.addEventListener('click', (event) => {
+
       // Handle clicking on book details section
       const bookDetails = event.target.closest('.book-details');
       if (bookDetails) {
         // Extract volumeId
         const volumeId = bookDetails.id;
-        if (volumeId) {
-          window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
-        } else {
-          console.log('No book found');
-        }
+        redirectToBookDetails(volumeId);
       }
+
       // Handle clicking on book cover
       const bookCover = event.target.closest('.book img');
       if (bookCover) {
         // Extract volumeId
         const volumeId = bookCover.id;
-        if (volumeId) {
-          window.location.href = `/books?id=${encodeURIComponent(volumeId)}`;
-        } else {
-          console.log('No book found');
-        }
+        redirectToBookDetails(volumeId);
       }
+
       // Handle clicking on add button
       const addButton = event.target.closest('.add');
-      let bookId = addButton.parentElement.getAttribute('id');
+      let bookId;
       if (addButton) {
+        bookId = addButton.parentElement.getAttribute('id');
         const modal = document.querySelector("dialog");
         modal.showModal();
         // With user id, retrieve bookshelves

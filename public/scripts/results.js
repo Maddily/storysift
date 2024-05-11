@@ -316,8 +316,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
-  /* handleBookClick(); */
-
   const searchInput = document.getElementById('book-search');
   // Handle search query submission
   function handleSearchQuery () {

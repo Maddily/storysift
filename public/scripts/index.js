@@ -45,6 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Put the search bar in focus when Discover button is clicked.
+  document.addEventListener('click', (event) => {
+    const discoverButton = event.target.closest('.discover');
+    if (discoverButton) {
+      event.preventDefault();
+      searchInput.focus();
+    }
+  });
+
   // Handle redirecting to the sign up page when the sign up button is clicked.
   function handleSignUpButtonClick () {
     signUpButton.addEventListener('click', () => {
@@ -103,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Check authentication status when the DOM is loaded
   checkAuthentication();
 
-  handleDiscoverButtonClick();
   handleSignUpButtonClick();
   handleSignInButtonClick();
 

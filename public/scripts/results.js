@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const modal = document.querySelector("dialog");
         modal.showModal();
 
+        // Handle closing the modal
+        const cancelButton = document.querySelector('.cancel');
+        cancelButton.addEventListener('click', () => {
+          modal.close();
+        });
+        document.addEventListener('click', (event) => {
+          if (event.target === modal) modal.close();
+        });
+
         // With user id, retrieve a user's bookshelves and add them
         // to the bookshelves container inside the modal
         const userId = localStorage.getItem('userId');
@@ -68,15 +77,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           let bookshelves = await response.json();
 
           appendBookshelves(bookshelves);
-
-          // Handle closing the modal
-          const cancelButton = document.querySelector('.cancel');
-          cancelButton.addEventListener('click', () => {
-            modal.close();
-          });
-          document.addEventListener('click', (event) => {
-            if (event.target === modal) modal.close();
-          });
 
           // Handle choosing a bookshelf and placing a book in it
           bookshelves = document.querySelectorAll('.bookshelf');

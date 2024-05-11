@@ -4,17 +4,17 @@ body {
 
 .book-list {
   height: 81%;
-  width: 300px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   padding: 50px 0;
+  overflow: auto;
 }
 
 .book {
-  overflow-x: auto;
   display: grid;
   grid-template-columns: 1fr 7fr;
   gap: 40px;
@@ -66,10 +66,6 @@ body {
     display: block;
   }
 
-  .book-list {
-    width: 380px;
-  }
-
   .book {
     width: 380px;
   }
@@ -86,30 +82,18 @@ body {
 }
 
 @media screen and (min-width: 500px) {
-  .book-list {
-    width: 480px;
-  }
-
   .book {
     width: 480px;
   }
 }
 
 @media screen and (min-width: 600px) {
-  .book-list {
-    width: 580px;
-  }
-
   .book {
     width: 580px;
   }
 }
 
 @media screen and (min-width: 700px) {
-  .book-list {
-    width: 680px;
-  }
-
   .book {
     width: 680px;
   }

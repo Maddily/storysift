@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // Function to handle sign out
+  // Handle sign out by resetting the stored token and userId, then reloading the page
   function handleSignOut () {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
@@ -113,13 +113,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
-  // Event listener for profile button click
-  profileButton.addEventListener('click', () => {
+  // Redirect to profile page
+  function redirectToProfile () {
     const userId = localStorage.getItem('userId');
     if (userId) {
       window.location.href = `/user?id=${userId}`;
     } else {
       console.error('User ID not found');
     }
-  });
+  }
+
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 });

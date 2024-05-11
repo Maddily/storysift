@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Extract search query parameter from URL
   const searchParams = new URLSearchParams(window.location.search);
   let query = searchParams.get('query');
-  const countContainer = document.querySelector('.count-container');
   const bookList = document.querySelector('.book-list');
   const prevPageButton = document.querySelector('.prev-page-button');
   const nextPageButton = document.querySelector('.next-page-button');
@@ -109,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Function to fetch books from the backend
+  // Fetch books from the backend
   async function fetchBooks (query, startIndex, maxResults) {
     const response = await fetch(`/api/books/search?query=${encodeURIComponent(query)}&startIndex=${startIndex}&maxResults=${maxResults}`);
 
@@ -121,7 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  // Function to display books in the results section
+  // Display books in the results section
   function displayBooks (books) {
     // Clear the existing content in the results section
     bookList.innerHTML = '';
@@ -131,19 +130,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       noResultsMessage.textContent = 'No results found.';
       bookList.appendChild(noResultsMessage);
     } else {
-      if (query) {
-        // Calculate the current page number
-        const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
-        // Calculate the total number of pages
-        const totalPages = Math.ceil(totalResults / maxResults);
+      // Create a paragraph element to display book count information
+      createBookCountElement();
 
-        // Create a paragraph element to display book count information
-        const bookCountParagraph = document.createElement('p');
-        bookCountParagraph.classList.add('count');
-        bookCountParagraph.textContent = `Search results for "${query}" - Page ${currentPageNumber} out of ${totalPages}`;
-        countContainer.innerHTML = '';
-        countContainer.appendChild(bookCountParagraph);
-      }
       // Loop through the books and create HTML elements to display them
       books.forEach(async (book) => {
         const title = book.title;
@@ -191,6 +180,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  const countContainer = document.querySelector('.count-container');
+  // Create a paragraph element to display book count information
+  function createBookCountElement () {
+    const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
+    const totalPages = Math.ceil(totalResults / maxResults);
+    const bookCountParagraph = document.createElement('p');
+
+    bookCountParagraph.classList.add('count');
+    bookCountParagraph.textContent = `Search results for "${query}" - Page ${currentPageNumber} out of ${totalPages}`;
+    countContainer.innerHTML = '';
+    countContainer.appendChild(bookCountParagraph);
+  }
+
+  // Display the initial set of books
+  document.title = `Search results for "${query}"`;
+  try {
+    const initialBooks = await fetchBooks(query, startIndex, maxResults);
+    if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {
+      totalResults = initialBooks.totalItems;
+      books = initialBooks.items || [];
+      displayBooks(books);
+    } else {
+      console.log('No books found for the given query.');
+      displayBooks([]);
+    }
+  } catch (error) {
+    console.error('Failed to fetch books:', error);
+  }
+
   // Display the next page of books
   async function displayNextPage () {
     startIndex += maxResults;
@@ -234,26 +252,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   logos.forEach((logo) => {
     logo.addEventListener('click', redirectHome);
   });
-
-  // Display the initial set of books
-  if (query) {
-    document.title = `Search results for "${query}"`;
-    try {
-      const initialBooks = await fetchBooks(query, startIndex, maxResults);
-      if (initialBooks && initialBooks.items && initialBooks.items.length > 0) {
-        totalResults = initialBooks.totalItems;
-        books = initialBooks.items || [];
-        displayBooks(books);
-      } else {
-        console.log('No books found for the given query.');
-        displayBooks([]);
-      }
-    } catch (error) {
-      console.error('Failed to fetch books:', error);
-    }
-  } else {
-    console.error('No search query found in URL');
-  }
 
   const signUpButton = document.querySelector('.signup');
   // Handle redirecting to the sign up page when the sign up button is clicked.

@@ -1,12 +1,5 @@
 // public/scripts/index.js
 document.addEventListener('DOMContentLoaded', async () => {
-  const searchInput = document.getElementById('book-search');
-  const searchButton = document.querySelector('.search-button');
-  const signUpButton = document.querySelector('.signup');
-  const signInButton = document.querySelector('.sign-in');
-  const signOutButton = document.querySelector('.signout');
-  const profileButton = document.querySelector('.profile');
-
   // Redirect to the homepage.
   function redirectHome () {
     window.location.href = '/';
@@ -22,6 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     logo.addEventListener('click', redirectHome);
   });
 
+  const searchInput = document.getElementById('book-search');
   // Put the search bar in focus when Discover button is clicked.
   document.addEventListener('click', (event) => {
     const discoverButton = event.target.closest('.discover');
@@ -31,15 +25,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  const signUpButton = document.querySelector('.signup');
   // Handle redirecting to the sign up page when the sign up button is clicked.
   signUpButton.addEventListener('click', () => {
     window.location.href = '/signup';
   });
 
+  const signInButton = document.querySelector('.sign-in');
   // Handle redirecting to the sign in page when the sign in button is clicked.
   signInButton.addEventListener('click', () => {
     window.location.href = '/signin';
   });
+
+  // Handle search query submission
+  function handleSearchQuery () {
+    const query = searchInput.value.trim();
+    if (query) {
+      try {
+        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  const searchButton = document.querySelector('.search-button');
+  // Event listener for search button click
+  searchButton.addEventListener('click', handleSearchQuery);
+
+  // Event listener for pressing Enter key
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearchQuery();
+    }
+  });
+
+  // Handle sign out by resetting the stored token and userId, then reloading the page
+  function handleSignOut () {
+    localStorage.setItem('token', null);
+    localStorage.setItem('userId', null);
+    window.location.reload();
+  };
+
+  const signOutButton = document.querySelector('.signout');
+  // Event listener for sign out button click
+  signOutButton.addEventListener('click', handleSignOut);
+
+  // Redirect to profile page
+  function redirectToProfile () {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
+  }
+
+  const profileButton = document.querySelector('.profile');
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 
   // Check authentication status using JWT
   try {
@@ -79,50 +124,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     profileButton.style.display = 'none';
     signOutButton.style.display = 'none';
   };
-
-  // Handle search query submission
-  function handleSearchQuery () {
-    const query = searchInput.value.trim();
-    if (query) {
-      try {
-        window.location.href = `/books/search?query=${encodeURIComponent(query)}`;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-
-  // Event listener for search button click
-  searchButton.addEventListener('click', handleSearchQuery);
-
-  // Event listener for pressing Enter key
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSearchQuery();
-    }
-  });
-
-  // Handle sign out by resetting the stored token and userId, then reloading the page
-  function handleSignOut () {
-    localStorage.setItem('token', null);
-    localStorage.setItem('userId', null);
-    window.location.reload();
-  };
-
-  // Event listener for sign out button click
-  signOutButton.addEventListener('click', handleSignOut);
-
-  // Redirect to profile page
-  function redirectToProfile () {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      window.location.href = `/user?id=${userId}`;
-    } else {
-      console.error('User ID not found');
-    }
-  }
-
-  // Event listener for profile button click
-  profileButton.addEventListener('click', redirectToProfile);
 });

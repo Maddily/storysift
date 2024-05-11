@@ -277,7 +277,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const signOutButton = document.querySelector('.signout');
-  const profileButton = document.querySelector('.profile');
 
   // Handle sign out
   const handleSignOut = async () => {
@@ -304,15 +303,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // Event listener for profile button click
-  profileButton.addEventListener('click', () => {
+  // Redirect to profile page
+  function redirectToProfile () {
     const userId = localStorage.getItem('userId');
     if (userId) {
       window.location.href = `/user?id=${userId}`;
     } else {
       console.error('User ID not found');
     }
-  });
+  }
+
+  const profileButton = document.querySelector('.profile');
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 
   // Check authentication status using JWT
   try {

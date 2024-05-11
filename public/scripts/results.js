@@ -141,34 +141,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         createBook(book, bookElement);
 
         // If the user is signed in, display an Add button next to each book.
-        try {
-          const token = localStorage.getItem('token');
-    
-          const authResponse = await fetch('/api/users/check-authentication', {
-            headers: {
-                Authorization: token
-            }
-          });
-    
-          const authData = await authResponse.json();
-    
-          if (authData.authenticated) {
-            // Token is valid, user is authenticated
-            const addBookToShelfButton = document.createElement('p');
-            addBookToShelfButton.innerHTML = 'Add';
-            addBookToShelfButton.classList.add('add');
-            bookElement.appendChild(addBookToShelfButton);
-            bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
-          }
-          } catch (error) {
-            console.error('Error checking authentication status:', error);
-          }
+        displayAddButton(bookElement);
 
         // Append the book element to the results section (book list)
         bookList.appendChild(bookElement);
       });
     }
   }
+
+  // Display an Add button next to each book
+  async function displayAddButton (bookElement) {
+    try {
+      const token = localStorage.getItem('token');
+
+      const authResponse = await fetch('/api/users/check-authentication', {
+        headers: {
+            Authorization: token
+        }
+      });
+
+      const authData = await authResponse.json();
+
+      if (authData.authenticated) {
+        // Token is valid, user is authenticated
+        const addBookToShelfButton = document.createElement('p');
+        addBookToShelfButton.innerHTML = 'Add';
+        addBookToShelfButton.classList.add('add');
+        bookElement.appendChild(addBookToShelfButton);
+        bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
+      }
+      } catch (error) {
+        console.error('Error checking authentication status:', error);
+      }
+  }
+
 
   // Create a paragraph element to display book count information
   function createBookCountElement () {

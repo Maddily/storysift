@@ -314,16 +314,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  const addBookButtons = document.querySelectorAll('.add');
-
-  if (addBookButtons) {
-    addBookButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        console.log('it works');
-      });
-    });
-  }
-
   // Check authentication status using JWT
   try {
     const token = localStorage.getItem('token');

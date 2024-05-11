@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Function to handle sign out
-  const handleSignOut = async () => {
+  function handleSignOut () {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
     window.location.reload();

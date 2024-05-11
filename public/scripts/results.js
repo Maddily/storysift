@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Handle redirecting to the book details page when a book is clicked.
-  bookList.addEventListener('click', (event) => {
+  bookList.addEventListener('click', async (event) => {
 
     // Handle clicking on book details section
     const bookDetails = event.target.closest('.book-details');
@@ -112,20 +112,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       // With user id, retrieve a user's bookshelves and add them
       // to the bookshelves container inside the modal
       const userId = localStorage.getItem('userId');
-      const fetchBookshelves = (async function () {
-        try {
-        const response = await fetch(`/api/bookshelves?userId=${userId}`);
-        let bookshelves = await response.json();
+      try {
+      const response = await fetch(`/api/bookshelves?userId=${userId}`);
+      let bookshelves = await response.json();
 
-        appendBookshelves(bookshelves);
+      appendBookshelves(bookshelves);
 
-        // Handle choosing a bookshelf and placing a book in it
-        addBookToBookshelf(bookId, modal);
+      // Handle choosing a bookshelf and placing a book in it
+      addBookToBookshelf(bookId, modal);
 
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      })();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   });
 

@@ -135,24 +135,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Loop through the books and create HTML elements to display them
       books.forEach(async (book) => {
-        const title = book.title;
-        const authors = book.author;
-        const thumbnail = book.thumbnailURL ? book.thumbnailURL : 'https://via.placeholder.com/150';
-        const volumeId = book.volumeId;
 
-        // Create HTML elements for each book
+        // Create an element for each book
         const bookElement = document.createElement('div');
-        bookElement.classList.add('book');
-        bookElement.setAttribute('id', volumeId);
-        bookElement.innerHTML = `
-          <img src="${thumbnail}" alt="${title}" id=${volumeId}>
-          <div class="book-details" id=${volumeId}>
-            <h3>${title}</h3>
-            <p>Authors: ${authors}</p>
-          </div>
-        `;
+        createBook(book, bookElement);
 
-        // Append the book element to the results section
+        // If the user is signed in, display an Add button next to each book.
         try {
           const token = localStorage.getItem('token');
     
@@ -166,31 +154,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     
           if (authData.authenticated) {
             // Token is valid, user is authenticated
-            const addBookToShelf = document.createElement('p');
-            addBookToShelf.innerHTML = 'Add';
-            addBookToShelf.classList.add('add');
-            bookElement.appendChild(addBookToShelf);
+            const addBookToShelfButton = document.createElement('p');
+            addBookToShelfButton.innerHTML = 'Add';
+            addBookToShelfButton.classList.add('add');
+            bookElement.appendChild(addBookToShelfButton);
             bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
           }
           } catch (error) {
             console.error('Error checking authentication status:', error);
           }
+
+        // Append the book element to the results section (book list)
         bookList.appendChild(bookElement);
       });
     }
   }
 
-  const countContainer = document.querySelector('.count-container');
   // Create a paragraph element to display book count information
   function createBookCountElement () {
     const currentPageNumber = Math.floor(startIndex / maxResults) + 1;
     const totalPages = Math.ceil(totalResults / maxResults);
     const bookCountParagraph = document.createElement('p');
+    const countContainer = document.querySelector('.count-container');
 
     bookCountParagraph.classList.add('count');
     bookCountParagraph.textContent = `Search results for "${query}" - Page ${currentPageNumber} out of ${totalPages}`;
     countContainer.innerHTML = '';
     countContainer.appendChild(bookCountParagraph);
+  }
+
+  // Create a book element
+  function createBook (book, bookElement) {
+    const title = book.title;
+    const authors = book.author;
+    const thumbnail = book.thumbnailURL ? book.thumbnailURL : 'https://via.placeholder.com/150';
+    const volumeId = book.volumeId;
+
+    bookElement.classList.add('book');
+    bookElement.setAttribute('id', volumeId);
+    bookElement.innerHTML = `
+      <img src="${thumbnail}" alt="${title}" id=${volumeId}>
+      <div class="book-details" id=${volumeId}>
+        <h3>${title}</h3>
+        <p>Authors: ${authors}</p>
+      </div>
+    `;
   }
 
   // Display the initial set of books

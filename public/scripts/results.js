@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       createBookCountElement();
 
       // Loop through the books and create HTML elements to display them
-      books.forEach(async (book) => {
+      books.forEach((book) => {
 
         // Create an element for each book
         const bookElement = document.createElement('div');
@@ -148,33 +148,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
-
-  // Display an Add button next to each book
-  async function displayAddButton (bookElement) {
-    try {
-      const token = localStorage.getItem('token');
-
-      const authResponse = await fetch('/api/users/check-authentication', {
-        headers: {
-            Authorization: token
-        }
-      });
-
-      const authData = await authResponse.json();
-
-      if (authData.authenticated) {
-        // Token is valid, user is authenticated
-        const addBookToShelfButton = document.createElement('p');
-        addBookToShelfButton.innerHTML = 'Add';
-        addBookToShelfButton.classList.add('add');
-        bookElement.appendChild(addBookToShelfButton);
-        bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
-      }
-      } catch (error) {
-        console.error('Error checking authentication status:', error);
-      }
-  }
-
 
   // Create a paragraph element to display book count information
   function createBookCountElement () {
@@ -205,6 +178,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         <p>Authors: ${authors}</p>
       </div>
     `;
+  }
+
+  // Display an Add button next to each book
+  async function displayAddButton (bookElement) {
+    try {
+      const token = localStorage.getItem('token');
+
+      const authResponse = await fetch('/api/users/check-authentication', {
+        headers: {
+            Authorization: token
+        }
+      });
+
+      const authData = await authResponse.json();
+
+      if (authData.authenticated) {
+        // Token is valid, user is authenticated
+        const addBookToShelfButton = document.createElement('p');
+        addBookToShelfButton.innerHTML = 'Add';
+        addBookToShelfButton.classList.add('add');
+        bookElement.appendChild(addBookToShelfButton);
+        bookElement.style.gridTemplateColumns = '1fr 7fr 1fr';
+      }
+      } catch (error) {
+        console.error('Error checking authentication status:', error);
+      }
   }
 
   // Display the initial set of books

@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const signOutButton = document.querySelector('.signout');
-  const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
   const userId = searchParams.get('id');
   const fullName = document.querySelector('.full-name');
@@ -151,15 +149,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Function to handle sign out
-  const handleSignOut = async () => {
+  function handleSignOut () {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
     window.location.href = '/';
-  };
+  }
 
+  const signOutButton = document.querySelector('.signout');
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
+  const profileButton = document.querySelector('.profile');
   // Event listener for profile button click
   profileButton.addEventListener('click', () => {
     window.location.reload();

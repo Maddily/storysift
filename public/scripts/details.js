@@ -139,207 +139,175 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  // Handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home');
+  // Fetch book details
+  const bookData = await fetchBookDetails();
+  try {
+    const thumbnail = bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
+    const title = bookData.volumeInfo.title;
+    const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : 'Unknown';
+    const description = bookData.volumeInfo.description ? bookData.volumeInfo.description : 'Unknown';
+    const pageCount = bookData.volumeInfo.pageCount ? bookData.volumeInfo.pageCount : 'Unknown';
+    const languageCode = bookData.volumeInfo.language ? bookData.volumeInfo.language : 'Unknown';
+    const publisher = bookData.volumeInfo.publisher ? bookData.volumeInfo.publisher : 'Unknown';
+    const publishedDate = bookData.volumeInfo.publishedDate ? bookData.volumeInfo.publishedDate : 'Unknown';
+    const isbn = bookData.volumeInfo.industryIdentifiers ? bookData.volumeInfo.industryIdentifiers[1].identifier : 'unknown';
 
-    if (homeButton) {
-      homeButton.addEventListener('click', (event) => {
-        // Prevent the default link behavior
-        event.preventDefault();
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    }
-  };
+    // Populate the book details section with data
+    const bookDetailsContainer = document.querySelector('.book-details-container');
 
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
-
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
-
-  if (volumeId) {
-    const bookData = await fetchBookDetails();
-    // Fetch book details
-    try {
-      const thumbnail = bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
-      const title = bookData.volumeInfo.title;
-      const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : 'Unknown';
-      const description = bookData.volumeInfo.description ? bookData.volumeInfo.description : 'Unknown';
-      const pageCount = bookData.volumeInfo.pageCount ? bookData.volumeInfo.pageCount : 'Unknown';
-      const languageCode = bookData.volumeInfo.language ? bookData.volumeInfo.language : 'Unknown';
-      const publisher = bookData.volumeInfo.publisher ? bookData.volumeInfo.publisher : 'Unknown';
-      const publishedDate = bookData.volumeInfo.publishedDate ? bookData.volumeInfo.publishedDate : 'Unknown';
-      const isbn = bookData.volumeInfo.industryIdentifiers ? bookData.volumeInfo.industryIdentifiers[1].identifier : 'unknown';
-
-      const bookDetailsContainer = document.querySelector('.book-details-container');
-
-      bookDetailsContainer.innerHTML = `
-        <img src="${thumbnail}" alt="${title}">
-        <div class="book-details">
-          <h1>${title}</h1>
-          <p class="author">${authors.join(', ')}</p>
-          <p class="description">${description}</p>
-          <div>
-            <p>Pages</p>
-            <p>${pageCount}</p>
-          </div>
-          <div class="language">
-            <p>Language</p>
-            <p>${languageNames[languageCode]}</p>
-          </div>
-          <div class="publisher">
-            <p>Publisher</p>
-            <p>${publisher}</p>
-          </div>
-          <div class="published">
-            <p>Published</p>
-            <p>${publishedDate}</p>
-          </div>
-          <div class="isbn">
-            <p>ISBN</p>
-            <p>${isbn}</p>
-          </div>
+    bookDetailsContainer.innerHTML = `
+      <img src="${thumbnail}" alt="${title}">
+      <div class="book-details">
+        <h1>${title}</h1>
+        <p class="author">${authors.join(', ')}</p>
+        <p class="description">${description}</p>
+        <div>
+          <p>Pages</p>
+          <p>${pageCount}</p>
         </div>
-      `;
-      document.title = title + ' by ' + authors[0] + ' | StorySift';
-    } catch (error) {
-      const detailsSection = document.querySelector('.details');
-      detailsSection.textContent = 'Service temporarily unavailable.';
-      detailsSection.style.textAlign = 'center';
-      detailsSection.style.color = '#152d34';
-    }
-
-    // Fetch author details
-    const authorDetailsSection = document.querySelector('.author-details-container');
-    try {
-      const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : undefined;
-      const authorData = await fetchAuthorDetails(authors[0]);
-      const thumbnail = document.querySelector('.book-details-container img');
-
-      authorDetailsSection.innerHTML = `
-        <span style="width: ${thumbnail.width}px;"></span>
-        <div class="author-details">
-          <h2>About the author</h2>
-          <div>
-            <p>Author Name</p>
-            <p>${authors[0]}</p>
-          </div>
-          <div>
-            <p>Books Written</p>
-            <p>${authorData.totalItems}</p>
-          </div>
+        <div class="language">
+          <p>Language</p>
+          <p>${languageNames[languageCode]}</p>
         </div>
-      `;
-    } catch (error) {
-      authorDetailsSection.textContent = 'Unknown';
-      authorDetailsSection.style.textAlign = 'center';
-      authorDetailsSection.style.color = '#152d34';
-    }
+        <div class="publisher">
+          <p>Publisher</p>
+          <p>${publisher}</p>
+        </div>
+        <div class="published">
+          <p>Published</p>
+          <p>${publishedDate}</p>
+        </div>
+        <div class="isbn">
+          <p>ISBN</p>
+          <p>${isbn}</p>
+        </div>
+      </div>
+    `;
+
+    document.title = title + ' by ' + authors[0] + ' | StorySift';
+  } catch (error) {
+    const detailsSection = document.querySelector('.details');
+    detailsSection.textContent = 'Service temporarily unavailable.';
+    detailsSection.style.textAlign = 'center';
+    detailsSection.style.color = '#152d34';
   }
+
+  // Fetch author details
+  const authorDetailsSection = document.querySelector('.author-details-container');
+  try {
+    const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : undefined;
+    const authorData = await fetchAuthorDetails(authors[0]);
+    const thumbnail = document.querySelector('.book-details-container img');
+
+    // Populate the author details section with data
+    authorDetailsSection.innerHTML = `
+      <span style="width: ${thumbnail.width}px;"></span>
+      <div class="author-details">
+        <h2>About the author</h2>
+        <div>
+          <p>Author Name</p>
+          <p>${authors[0]}</p>
+        </div>
+        <div>
+          <p>Books Written</p>
+          <p>${authorData.totalItems}</p>
+        </div>
+      </div>
+    `;
+  } catch (error) {
+    authorDetailsSection.textContent = 'Unknown';
+    authorDetailsSection.style.textAlign = 'center';
+    authorDetailsSection.style.color = '#152d34';
+  }
+
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
+  };
+
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
+
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   const signUpButton = document.querySelector('.signup');
-  const signInButton = document.querySelector('.sign-in');
-
   // Handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    if (signUpButton) {
-      signUpButton.addEventListener('click', () => {
-        window.location.href = '/signup';
-      });
-    }
-  }
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
 
+  const signInButton = document.querySelector('.sign-in');
   // Handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    if (signInButton) {
-      signInButton.addEventListener('click', () => {
-        window.location.href = '/signin';
-      });
-    }
-  }
+  signInButton.addEventListener('click', () => {
+    window.location.href = '/signin';
+  });
 
-  const signOutButton = document.querySelector('.signout');
-  const profileButton = document.querySelector('.profile');
-
-  // Function to check authentication status using JWT
-  const checkAuthentication = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const authResponse = await fetch('/api/users/check-authentication', {
-        headers: {
-          Authorization: token
-        }
-      });
-
-      const authData = await authResponse.json();
-
-      if (authData.authenticated) {
-        // Token is valid, user is authenticated
-        showAuthenticatedNav();
-      } else {
-        // Token is invalid or expired, user is not authenticated
-        showGuestNav();
-      }
-    } catch (error) {
-      console.error('Error checking authentication status:', error);
-    }
-  };
-
-  // Function to show navigation buttons for authenticated users
-  const showAuthenticatedNav = () => {
-    if (signInButton && signUpButton && profileButton && signOutButton) {
-      signInButton.style.display = 'none';
-      signUpButton.style.display = 'none';
-      profileButton.style.display = 'flex';
-      signOutButton.style.display = 'flex';
-    }
-  };
-
-  // Function to show navigation buttons for guest users
-  const showGuestNav = () => {
-    if (signInButton && signUpButton && profileButton && signOutButton) {
-      signInButton.style.display = 'flex';
-      signUpButton.style.display = 'flex';
-      profileButton.style.display = 'none';
-      signOutButton.style.display = 'none';
-    }
-  };
-
-  // Check authentication status when the DOM is loaded
-  checkAuthentication();
-
-  // Function to handle sign out
-  const handleSignOut = async () => {
+  // Handle sign out by resetting the stored token and userId, then reloading the page
+  function handleSignOut () {
     localStorage.setItem('token', null);
+    localStorage.setItem('userId', null);
     window.location.reload();
   };
 
+  const signOutButton = document.querySelector('.signout');
   // Event listener for sign out button click
-  if (signOutButton) {
-    signOutButton.addEventListener('click', handleSignOut);
+  signOutButton.addEventListener('click', handleSignOut);
+
+  // Redirect to profile page
+  function redirectToProfile () {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
   }
 
-  handleHomeButtonClick();
-  handleLogoClick();
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
+  const profileButton = document.querySelector('.profile');
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 
-  if (profileButton) {
-    profileButton.addEventListener('click', () => {
-      const userId = localStorage.getItem('userId');
-      if (userId) {
-        window.location.href = `/user?id=${userId}`;
-      } else {
-        console.error('User ID not found');
+  // Check authentication status using JWT
+  try {
+    const token = localStorage.getItem('token');
+
+    const authResponse = await fetch('/api/users/check-authentication', {
+      headers: {
+        Authorization: token
       }
     });
+
+    const authData = await authResponse.json();
+
+    if (authData.authenticated) {
+      // Token is valid, user is authenticated
+      showAuthenticatedNav();
+    } else {
+      // Token is invalid or expired, user is not authenticated
+      showGuestNav();
+    }
+  } catch (error) {
+    console.error('Error checking authentication status:', error);
   }
+
+  // Show navigation buttons for authenticated users
+  function showAuthenticatedNav () {
+    signInButton.style.display = 'none';
+    signUpButton.style.display = 'none';
+    profileButton.style.display = 'flex';
+    signOutButton.style.display = 'flex';
+  };
+
+  // Show navigation buttons for guest users
+  function showGuestNav () {
+    signInButton.style.display = 'flex';
+    signUpButton.style.display = 'flex';
+    profileButton.style.display = 'none';
+    signOutButton.style.display = 'none';
+  };
 });

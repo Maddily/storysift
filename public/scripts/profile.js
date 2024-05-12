@@ -53,6 +53,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function createBookshelf() {
     if (bookshelfInput.value) {
       try {
+        // Fetch stored bookshelves and only add a new one if it doesn't already exist
+        const bookshelfResponse = await fetch(`/api/bookshelves?userId=${userId}`);
+        const bookshelves = await bookshelfResponse.json();
+
+        if (bookshelves.some((bookshelf) => bookshelf.name === bookshelfInput.value)) {
+          bookshelfInput.value = '';
+          return;
+        }
+
         const response = await fetch('/api/bookshelves', {
           method: 'POST',
           headers: {

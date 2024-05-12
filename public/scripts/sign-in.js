@@ -70,29 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const signUpButtons = document.querySelectorAll('.sign-up');
-  const signInButton = document.querySelector('.sign-in');
-
   // Function to handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    signUpButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        console.log('Sign-in form submitted');
-        window.location.href = '/signup';
-      });
+  signUpButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      window.location.href = '/signup';
     });
-    // the smaller sign up button isn't working
-  }
+  });
 
-  // Function to handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    signInButton.addEventListener('click', () => {
-      console.log('Sign-in button clicked');
-      window.location.href = '/signin';
-    });
-  }
-
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
+  const signInButton = document.querySelector('.sign-in');
+  // Handle redirecting to the sign in page when the sign in button is clicked.
+  signInButton.addEventListener('click', () => {
+    window.location.href = '/signin';
+  });
 
   // fetching user profile using the stored JWT token
   (async () => {

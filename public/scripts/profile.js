@@ -1,17 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const homeButton = document.querySelector('.home');
-  const signOutButton = document.querySelector('.signout');
-  const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
   const userId = searchParams.get('id');
   const fullName = document.querySelector('.full-name');
   const userName = document.querySelector('.username');
   const email = document.querySelector('.email');
   const joiningDate = document.querySelector('.joining-date');
-  const addBookShelf = document.querySelector('.create-shelf');
-  const bookshelfInput = document.getElementById('bookshelf');
   const bookShelvesHead = document.querySelector('.user-book-shelves');
-  const bookShelvesContainer = document.querySelector('.book-shelves');
 
   // Get user data
   try {
@@ -32,6 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Failed to fetch user data.');
   }
 
+  // Change the joining date format to "Joined in <month> <year>"
   function formatDate (dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -48,10 +43,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     return formattedDate;
   }
 
+  const bookshelfInput = document.getElementById('bookshelf');
+
   // Create a bookshelf
   async function createBookshelf() {
     if (bookshelfInput.value) {
       try {
+        // Fetch stored bookshelves and only add a new one if it doesn't already exist
+        const bookshelfResponse = await fetch(`/api/bookshelves?userId=${userId}`);
+        const bookshelves = await bookshelfResponse.json();
+
+        if (bookshelves.some((bookshelf) => bookshelf.name === bookshelfInput.value)) {
+          bookshelfInput.value = '';
+          return;
+        }
+
+        // Create a new bookshelf
         const response = await fetch('/api/bookshelves', {
           method: 'POST',
           headers: {
@@ -62,6 +69,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             user_id: userId
           })
         });
+
+        // Refresh the displayed bookshelves to show the newly added one
         await fetchBookshelves();
         bookshelfInput.value = '';
         window.location.reload();
@@ -71,7 +80,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  addBookShelf.addEventListener('click', createBookshelf);
+  // Create a bookshelf on button click or enter key press
+  const addShelfButton = document.querySelector('.create-shelf');
+
+  addShelfButton.addEventListener('click', createBookshelf);
 
   bookshelfInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
@@ -85,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
     const response = await fetch(`/api/bookshelves?userId=${userId}`);
     const bookshelves = await response.json();
+    const bookShelvesContainer = document.querySelector('.book-shelves');
 
     bookShelvesContainer.innerHTML = '';
     for (let i = 0; i < bookshelves.length; i++) {
@@ -99,13 +112,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Initially fetch and display a user's stored bookshelves
   await fetchBookshelves();
 
   const bookshelves = document.querySelectorAll('.bookshelf');
   const bookshelf = document.querySelector('.bookshelf');
+
+  // Handle selecting a bookshelf in the cases when a user has
+  // only one bookshelf or more than one
   if (bookshelves) {
     bookshelves.forEach(bookshelf => {
       bookshelf.addEventListener('click', () => {
+        // Redirect to bookshelf page
         window.location.href = `/bookshelf?id=${bookshelf.dataset.id}`;
       });
     });
@@ -116,37 +134,54 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
-
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    })
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
 
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
+
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
+
   // Function to handle sign out
-  const handleSignOut = async () => {
+  function handleSignOut () {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
     window.location.href = '/';
-  };
+  }
 
-  // Add event listeners to navigation buttons
-  homeButton.addEventListener('click', () => {
-    window.location.href = '/';
-  });
-
-  handleLogoClick();
-
+  const signOutButton = document.querySelector('.signout');
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
+  const profileButton = document.querySelector('.profile');
   // Event listener for profile button click
   profileButton.addEventListener('click', () => {
     window.location.reload();
   });
+
+  // If a user isn't authenticated, redirect them to the homepage
+  try {
+    const token = localStorage.getItem('token');
+
+    const authResponse = await fetch('/api/users/check-authentication', {
+      headers: {
+        Authorization: token
+      }
+    });
+
+    const authData = await authResponse.json();
+
+    if (!authData.authenticated) {
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('Error checking authentication status:', error);
+  }
 });

@@ -5,6 +5,8 @@ const router = express.Router();
 const userController = require('../controllers/user');
 const isAuthenticated = require('../middleware/auth');
 
+// Define routes
+
 // Authentication check endpoint
 router.get('/check-authentication', isAuthenticated, (req, res) => {
   res.json({ authenticated: true, user: req.userId });
@@ -21,4 +23,5 @@ router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 router.get('/', userController.getAllUsers);
 
+// Export the router
 module.exports = router;

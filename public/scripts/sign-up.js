@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const signUpForm = document.querySelector('form');
   const firstName = document.getElementById('first-name');
 
+  // Focus the first name field on page load
   firstName.focus();
 
+  // On form submission, handle input data to create an account
   signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -19,12 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return; // Do not submit the form if it's invalid
     }
 
-    // Check if passwords match
+    // Check if passwords don't match
     if (password !== confirmPassword) {
       setError(document.getElementById('confirm-password'), 'Passwords do not match.');
       return;
     }
 
+    // User data to be sent to the backend
     const user = {
       first_name: firstName,
       last_name: lastName,
@@ -57,40 +60,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Validate input
   const firstNameInput = document.getElementById('first-name');
-  const lastNameInput = document.getElementById('last-name');
-  const usernameInput = document.getElementById('username');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-  const submitButton = document.querySelector('.submit button');
-
   firstNameInput.addEventListener('input', () => {
     validateFirstName();
     updateSubmitButton();
   });
+
+  const lastNameInput = document.getElementById('last-name');
   lastNameInput.addEventListener('input', () => {
     validateLastName();
     updateSubmitButton();
   });
+
+  const usernameInput = document.getElementById('username');
   usernameInput.addEventListener('input', () => {
     validateUsername();
     updateSubmitButton();
   });
+
+  const emailInput = document.getElementById('email');
   emailInput.addEventListener('input', () => {
     validateEmail();
     updateSubmitButton();
   });
+
+  const passwordInput = document.getElementById('password');
   passwordInput.addEventListener('input', () => {
     validatePassword();
     updateSubmitButton();
   });
+
+  const confirmPasswordInput = document.getElementById('confirm-password');
   confirmPasswordInput.addEventListener('input', () => {
     validateConfirmPassword();
     updateSubmitButton();
   });
 
-  // Validation functions for input fields
+  // Validation functions for input fields that check if input matches requirements
   function validateFirstName () {
     const firstNameValue = firstNameInput.value.trim();
     if (firstNameValue.length < 3) {
@@ -153,21 +160,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Function to set error message and style
+  // Set error message
   function setError (input, message) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = message;
     input.classList.add('error');
   }
 
-  // Function to clear error message and style
+  // Clear error message
   function clearError (input) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = '';
     input.classList.remove('error');
   }
 
-  // Function to enable or disable submit button based on form validity
+  const submitButton = document.querySelector('.submit button');
+
+  // Enable or disable submit button based on form validity
   function updateSubmitButton () {
     if (isFormValid()) {
       submitButton.removeAttribute('disabled');
@@ -176,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Function to check if the form is valid
+  // Check if the form is valid
   function isFormValid () {
     return (
       firstNameInput.value.trim().length >= 3 &&
@@ -190,47 +199,34 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // Function to handle redirecting to the landing page when the Home button is clicked.
-  const handleHomeButtonClick = () => {
-    const homeButton = document.querySelector('.home');
-
-    homeButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      // Redirect to the landing page
-      window.location.href = '/';
-    });
+  // Redirect to the homepage.
+  function redirectHome () {
+    window.location.href = '/';
   };
 
-  // Function to handle redirecting to the landing page when the logo is clicked.
-  const handleLogoClick = () => {
-    const logos = document.querySelectorAll('.logo');
+  // Redirect to the homepage when Home button is clicked
+  const homeButton = document.querySelector('.home');
+  homeButton.addEventListener('click', redirectHome);
 
-    logos.forEach((logo) => {
-      logo.addEventListener('click', (event) => {
-        // Redirect to the landing page
-        window.location.href = '/';
-      });
-    });
-  };
+  // Redirect to the homepage when the logo is clicked
+  const logos = document.querySelectorAll('.logo');
+  logos.forEach((logo) => {
+    logo.addEventListener('click', redirectHome);
+  });
 
   const signUpButton = document.querySelector('.signup');
+  // Handle redirecting to the sign up page when the sign up button is clicked.
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
+
   const signInButtons = document.querySelectorAll('.signin');
-
-  // Function to handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    signUpButton.addEventListener('click', () => {
-      window.location.href = '/signup';
+  // Handle redirecting to the sign in page when the sign in button is clicked.
+  signInButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      window.location.href = '/signin';
     });
-  }
-
-  // Function to handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    signInButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        window.location.href = '/signin';
-      });
-    });
-  }
+  });
 
   // Update submit button initially
   updateSubmitButton();
@@ -238,9 +234,4 @@ document.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', () => {
     updateSubmitButton();
   });
-
-  handleHomeButtonClick();
-  handleLogoClick();
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
 });

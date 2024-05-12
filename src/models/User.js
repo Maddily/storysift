@@ -1,8 +1,10 @@
 // src/models/User.js
 
 const mongoose = require('mongoose');
+// Import bcrypt library for password hashing
 const bcrypt = require('bcrypt');
 
+// Define the user schema
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -30,6 +32,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     index: true
   },
+  // Password of the user (hashed)
   password: {
     type: String,
     required: true,
@@ -43,7 +46,7 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: true
+  timestamps: true // Automatically add createdAt and updatedAt fields
 });
 
 // Hash the password before saving to database
@@ -77,4 +80,5 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 // Define the User model using the schema
 const User = mongoose.model('User', userSchema);
 
+// Export the User model
 module.exports = User;

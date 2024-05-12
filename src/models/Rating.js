@@ -2,34 +2,37 @@
 
 const mongoose = require('mongoose');
 
+// Define the rating schema
 const ratingSchema = new mongoose.Schema({
-  user_id: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Reference to User model
     required: true
   },
-  author_id: {
+  authorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Author', // Reference to Author Model
     required: true
   },
-  book_id: {
+  bookId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Book', // Reference to Book model
     required: true
   },
-  genre_id: {
-    type: mongoose.Schema.Types.ObjectID,
+  genreId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Genre', // Reference to Genre model
     required: true
   },
+  // Numeric rating value
   rating: {
     type: Number
   }
 
 });
 
-// Defines the Rating model using the schema
+// Define the Rating model using the schema
 const Rating = mongoose.model('Rating', ratingSchema);
 
+// Export the Rating model
 module.exports = Rating;

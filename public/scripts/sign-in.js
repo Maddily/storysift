@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // const profileButton = document.querySelector('.profile');
   const email = document.getElementById('email');
 
+  // Focus the email field on page load
   email.focus();
 
+  // On form submission, handle input data and sign in users
   signInForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -17,13 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return; // Do not submit the form if it's invalid
     }
 
+    // User data to be sent to the backend
     const user = {
       email,
       password
     };
 
     try {
-      // Send sign-up request to the backend
+      // Send sign-in request to the backend
       const response = await fetch('/api/users/signin', {
         method: 'POST',
         headers: {
@@ -36,13 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
         throw new Error(data.error || 'Failed to sign in');
       }
+
+      // Extract user id and generated token from the backend response
+      // and store them to keep a session
       const { token, userId } = await response.json();
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
 
       // Sign-in successful, redirect to home page
       window.location.href = '/';
-      console.log('Sign in successful');
     } catch (error) {
       errorMessage.style.display = 'flex';
       console.error('Sign-in error:', error.message);

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
   const bookshelfId = searchParams.get('id');
@@ -83,12 +82,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     logo.addEventListener('click', redirectHome);
   });
 
-  const handleSignOut = async () => {
+  // On sign out, reset the stored token and redirect the user to the homepage
+  function handleSignOut () {
     localStorage.setItem('token', null);
     localStorage.setItem('userId', null);
     window.location.href = '/';
   };
 
+  const signOutButton = document.querySelector('.signout');
+
+  // Handle sign out
   signOutButton.addEventListener('click', handleSignOut);
 
   profileButton.addEventListener('click', () => {

@@ -215,23 +215,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const signUpButton = document.querySelector('.signup');
+  // Handle redirecting to the sign up page when the sign up button is clicked.
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
+
   const signInButtons = document.querySelectorAll('.signin');
-
-  // Function to handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    signUpButton.addEventListener('click', () => {
-      window.location.href = '/signup';
+  // Handle redirecting to the sign in page when the sign in button is clicked.
+  signInButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      window.location.href = '/signin';
     });
-  }
-
-  // Function to handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    signInButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        window.location.href = '/signin';
-      });
-    });
-  }
+  });
 
   // Update submit button initially
   updateSubmitButton();

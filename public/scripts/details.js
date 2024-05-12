@@ -236,25 +236,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   const signUpButton = document.querySelector('.signup');
-  const signInButton = document.querySelector('.sign-in');
-
   // Handle redirecting to the sign up page when the sign up button is clicked.
-  function handleSignUpButtonClick () {
-    if (signUpButton) {
-      signUpButton.addEventListener('click', () => {
-        window.location.href = '/signup';
-      });
-    }
-  }
+  signUpButton.addEventListener('click', () => {
+    window.location.href = '/signup';
+  });
 
+  const signInButton = document.querySelector('.sign-in');
   // Handle redirecting to the sign in page when the sign in button is clicked.
-  function handleSignInButtonClick () {
-    if (signInButton) {
-      signInButton.addEventListener('click', () => {
-        window.location.href = '/signin';
-      });
-    }
-  }
+  signInButton.addEventListener('click', () => {
+    window.location.href = '/signin';
+  });
 
   const signOutButton = document.querySelector('.signout');
   const profileButton = document.querySelector('.profile');
@@ -316,9 +307,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (signOutButton) {
     signOutButton.addEventListener('click', handleSignOut);
   }
-
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
 
   if (profileButton) {
     profileButton.addEventListener('click', () => {

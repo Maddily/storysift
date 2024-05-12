@@ -272,50 +272,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for profile button click
   profileButton.addEventListener('click', redirectToProfile);
 
-  // Function to check authentication status using JWT
-  const checkAuthentication = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const authResponse = await fetch('/api/users/check-authentication', {
-        headers: {
-          Authorization: token
-        }
-      });
+  // Check authentication status using JWT
+  try {
+    const token = localStorage.getItem('token');
 
-      const authData = await authResponse.json();
-
-      if (authData.authenticated) {
-        // Token is valid, user is authenticated
-        showAuthenticatedNav();
-      } else {
-        // Token is invalid or expired, user is not authenticated
-        showGuestNav();
+    const authResponse = await fetch('/api/users/check-authentication', {
+      headers: {
+        Authorization: token
       }
-    } catch (error) {
-      console.error('Error checking authentication status:', error);
+    });
+
+    const authData = await authResponse.json();
+
+    if (authData.authenticated) {
+      // Token is valid, user is authenticated
+      showAuthenticatedNav();
+    } else {
+      // Token is invalid or expired, user is not authenticated
+      showGuestNav();
     }
+  } catch (error) {
+    console.error('Error checking authentication status:', error);
+  }
+
+  // Show navigation buttons for authenticated users
+  function showAuthenticatedNav () {
+    signInButton.style.display = 'none';
+    signUpButton.style.display = 'none';
+    profileButton.style.display = 'flex';
+    signOutButton.style.display = 'flex';
   };
 
-  // Function to show navigation buttons for authenticated users
-  const showAuthenticatedNav = () => {
-    if (signInButton && signUpButton && profileButton && signOutButton) {
-      signInButton.style.display = 'none';
-      signUpButton.style.display = 'none';
-      profileButton.style.display = 'flex';
-      signOutButton.style.display = 'flex';
-    }
+  // Show navigation buttons for guest users
+  function showGuestNav () {
+    signInButton.style.display = 'flex';
+    signUpButton.style.display = 'flex';
+    profileButton.style.display = 'none';
+    signOutButton.style.display = 'none';
   };
-
-  // Function to show navigation buttons for guest users
-  const showGuestNav = () => {
-    if (signInButton && signUpButton && profileButton && signOutButton) {
-      signInButton.style.display = 'flex';
-      signUpButton.style.display = 'flex';
-      profileButton.style.display = 'none';
-      signOutButton.style.display = 'none';
-    }
-  };
-
-  // Check authentication status when the DOM is loaded
-  checkAuthentication();
 });

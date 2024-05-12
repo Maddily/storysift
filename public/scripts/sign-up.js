@@ -160,14 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Function to set error message and style
+  // Set error message
   function setError (input, message) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = message;
     input.classList.add('error');
   }
 
-  // Function to clear error message and style
+  // Clear error message
   function clearError (input) {
     const errorMessage = input.parentElement.querySelector('.error-message');
     errorMessage.textContent = '';
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const submitButton = document.querySelector('.submit button');
 
-  // Function to enable or disable submit button based on form validity
+  // Enable or disable submit button based on form validity
   function updateSubmitButton () {
     if (isFormValid()) {
       submitButton.removeAttribute('disabled');
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Function to check if the form is valid
+  // Check if the form is valid
   function isFormValid () {
     return (
       firstNameInput.value.trim().length >= 3 &&

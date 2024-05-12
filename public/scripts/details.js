@@ -139,84 +139,85 @@ document.addEventListener('DOMContentLoaded', async () => {
     return data;
   }
 
-  if (volumeId) {
-    const bookData = await fetchBookDetails();
-    // Fetch book details
-    try {
-      const thumbnail = bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
-      const title = bookData.volumeInfo.title;
-      const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : 'Unknown';
-      const description = bookData.volumeInfo.description ? bookData.volumeInfo.description : 'Unknown';
-      const pageCount = bookData.volumeInfo.pageCount ? bookData.volumeInfo.pageCount : 'Unknown';
-      const languageCode = bookData.volumeInfo.language ? bookData.volumeInfo.language : 'Unknown';
-      const publisher = bookData.volumeInfo.publisher ? bookData.volumeInfo.publisher : 'Unknown';
-      const publishedDate = bookData.volumeInfo.publishedDate ? bookData.volumeInfo.publishedDate : 'Unknown';
-      const isbn = bookData.volumeInfo.industryIdentifiers ? bookData.volumeInfo.industryIdentifiers[1].identifier : 'unknown';
+  // Fetch book details
+  const bookData = await fetchBookDetails();
+  try {
+    const thumbnail = bookData.volumeInfo.imageLinks ? bookData.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/150';
+    const title = bookData.volumeInfo.title;
+    const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : 'Unknown';
+    const description = bookData.volumeInfo.description ? bookData.volumeInfo.description : 'Unknown';
+    const pageCount = bookData.volumeInfo.pageCount ? bookData.volumeInfo.pageCount : 'Unknown';
+    const languageCode = bookData.volumeInfo.language ? bookData.volumeInfo.language : 'Unknown';
+    const publisher = bookData.volumeInfo.publisher ? bookData.volumeInfo.publisher : 'Unknown';
+    const publishedDate = bookData.volumeInfo.publishedDate ? bookData.volumeInfo.publishedDate : 'Unknown';
+    const isbn = bookData.volumeInfo.industryIdentifiers ? bookData.volumeInfo.industryIdentifiers[1].identifier : 'unknown';
 
-      const bookDetailsContainer = document.querySelector('.book-details-container');
+    // Populate the book details section with data
+    const bookDetailsContainer = document.querySelector('.book-details-container');
 
-      bookDetailsContainer.innerHTML = `
-        <img src="${thumbnail}" alt="${title}">
-        <div class="book-details">
-          <h1>${title}</h1>
-          <p class="author">${authors.join(', ')}</p>
-          <p class="description">${description}</p>
-          <div>
-            <p>Pages</p>
-            <p>${pageCount}</p>
-          </div>
-          <div class="language">
-            <p>Language</p>
-            <p>${languageNames[languageCode]}</p>
-          </div>
-          <div class="publisher">
-            <p>Publisher</p>
-            <p>${publisher}</p>
-          </div>
-          <div class="published">
-            <p>Published</p>
-            <p>${publishedDate}</p>
-          </div>
-          <div class="isbn">
-            <p>ISBN</p>
-            <p>${isbn}</p>
-          </div>
+    bookDetailsContainer.innerHTML = `
+      <img src="${thumbnail}" alt="${title}">
+      <div class="book-details">
+        <h1>${title}</h1>
+        <p class="author">${authors.join(', ')}</p>
+        <p class="description">${description}</p>
+        <div>
+          <p>Pages</p>
+          <p>${pageCount}</p>
         </div>
-      `;
-      document.title = title + ' by ' + authors[0] + ' | StorySift';
-    } catch (error) {
-      const detailsSection = document.querySelector('.details');
-      detailsSection.textContent = 'Service temporarily unavailable.';
-      detailsSection.style.textAlign = 'center';
-      detailsSection.style.color = '#152d34';
-    }
-
-    // Fetch author details
-    const authorDetailsSection = document.querySelector('.author-details-container');
-    try {
-      const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : undefined;
-      const authorData = await fetchAuthorDetails(authors[0]);
-      const thumbnail = document.querySelector('.book-details-container img');
-
-      authorDetailsSection.innerHTML = `
-        <span style="width: ${thumbnail.width}px;"></span>
-        <div class="author-details">
-          <h2>About the author</h2>
-          <div>
-            <p>Author Name</p>
-            <p>${authors[0]}</p>
-          </div>
-          <div>
-            <p>Books Written</p>
-            <p>${authorData.totalItems}</p>
-          </div>
+        <div class="language">
+          <p>Language</p>
+          <p>${languageNames[languageCode]}</p>
         </div>
-      `;
-    } catch (error) {
-      authorDetailsSection.textContent = 'Unknown';
-      authorDetailsSection.style.textAlign = 'center';
-      authorDetailsSection.style.color = '#152d34';
-    }
+        <div class="publisher">
+          <p>Publisher</p>
+          <p>${publisher}</p>
+        </div>
+        <div class="published">
+          <p>Published</p>
+          <p>${publishedDate}</p>
+        </div>
+        <div class="isbn">
+          <p>ISBN</p>
+          <p>${isbn}</p>
+        </div>
+      </div>
+    `;
+
+    document.title = title + ' by ' + authors[0] + ' | StorySift';
+  } catch (error) {
+    const detailsSection = document.querySelector('.details');
+    detailsSection.textContent = 'Service temporarily unavailable.';
+    detailsSection.style.textAlign = 'center';
+    detailsSection.style.color = '#152d34';
+  }
+
+  // Fetch author details
+  const authorDetailsSection = document.querySelector('.author-details-container');
+  try {
+    const authors = bookData.volumeInfo.authors ? bookData.volumeInfo.authors : undefined;
+    const authorData = await fetchAuthorDetails(authors[0]);
+    const thumbnail = document.querySelector('.book-details-container img');
+
+    // Populate the author details section with data
+    authorDetailsSection.innerHTML = `
+      <span style="width: ${thumbnail.width}px;"></span>
+      <div class="author-details">
+        <h2>About the author</h2>
+        <div>
+          <p>Author Name</p>
+          <p>${authors[0]}</p>
+        </div>
+        <div>
+          <p>Books Written</p>
+          <p>${authorData.totalItems}</p>
+        </div>
+      </div>
+    `;
+  } catch (error) {
+    authorDetailsSection.textContent = 'Unknown';
+    authorDetailsSection.style.textAlign = 'center';
+    authorDetailsSection.style.color = '#152d34';
   }
 
   // Redirect to the homepage.

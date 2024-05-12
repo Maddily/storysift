@@ -82,33 +82,4 @@ document.addEventListener('DOMContentLoaded', () => {
   signInButton.addEventListener('click', () => {
     window.location.href = '/signin';
   });
-
-  // fetching user profile using the stored JWT token
-  (async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const authResponse = await fetch('/api/users/check-authentication', {
-        headers: {
-          Authorization: token
-        }
-      });
-
-      const authData = await authResponse.json();
-
-      if (authData.authenticated) {
-        // User is authenticated, hide sign-in and sign-up buttons
-        const signInButton = document.querySelector('.sign-in');
-        const signUpButtons = document.querySelectorAll('.sign-up');
-
-        signInButton.style.display = 'none';
-        signUpButtons.forEach((button) => {
-          button.style.display = 'none';
-        });
-
-        console.log('Session started');
-      }
-    } catch (error) {
-      console.error('Authentication check failed:', error.message);
-    }
-  })();
 });

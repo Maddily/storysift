@@ -6,7 +6,11 @@ StorySift is a user-friendly book lookup/finder app designed to simplify the pro
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Installation](#how-to-install)
 - [Contributing](#contributing)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgments)
+- [Related projects](#related-projects)
 - [License](#license)
 
 ## Features
@@ -116,6 +120,10 @@ Sibongile Nhlema - <a href="https://github.com/Sibongile-Nhlema">Github</a> / <a
 
 * The logo is by ©Rizelle Anne Galvez via <a href="https://www.canva.com/" target="_blank">Canva.com</a>
 * The landing page's background photo is by <a href="https://unsplash.com/@olia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Olia Gozha</a> on <a href="https://unsplash.com/photos/white-book-marker-on-book-page-J4kK8b9Fgj8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Related-projects
+
+* Airbnb Clone - <a href="https://github.com/Sibongile-Nhlema/AirBnB_clone_v4">HBNB Airbnb_v4</a> 
 
 ## License
 

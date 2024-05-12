@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const userName = document.querySelector('.username');
   const email = document.querySelector('.email');
   const joiningDate = document.querySelector('.joining-date');
-  const addBookShelf = document.querySelector('.create-shelf');
   const bookShelvesHead = document.querySelector('.user-book-shelves');
   const bookShelvesContainer = document.querySelector('.book-shelves');
 
@@ -83,7 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Create a bookshelf on button click or enter key press
-  addBookShelf.addEventListener('click', createBookshelf);
+  const addShelfButton = document.querySelector('.create-shelf');
+
+  addShelfButton.addEventListener('click', createBookshelf);
 
   bookshelfInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {

@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const email = document.querySelector('.email');
   const joiningDate = document.querySelector('.joining-date');
   const bookShelvesHead = document.querySelector('.user-book-shelves');
-  const bookShelvesContainer = document.querySelector('.book-shelves');
 
   // Get user data
   try {
@@ -98,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
     const response = await fetch(`/api/bookshelves?userId=${userId}`);
     const bookshelves = await response.json();
+    const bookShelvesContainer = document.querySelector('.book-shelves');
 
     bookShelvesContainer.innerHTML = '';
     for (let i = 0; i < bookshelves.length; i++) {

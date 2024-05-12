@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const email = document.querySelector('.email');
   const joiningDate = document.querySelector('.joining-date');
   const addBookShelf = document.querySelector('.create-shelf');
-  const bookshelfInput = document.getElementById('bookshelf');
   const bookShelvesHead = document.querySelector('.user-book-shelves');
   const bookShelvesContainer = document.querySelector('.book-shelves');
 
@@ -31,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Failed to fetch user data.');
   }
 
+  // Change the joining date format to "Joined in <month> <year>"
   function formatDate (dateString) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     return formattedDate;
   }
 
+  const bookshelfInput = document.getElementById('bookshelf');
+
   // Create a bookshelf
   async function createBookshelf() {
     if (bookshelfInput.value) {
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             user_id: userId
           })
         });
+
         await fetchBookshelves();
         bookshelfInput.value = '';
         window.location.reload();

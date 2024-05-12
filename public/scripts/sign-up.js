@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const signUpForm = document.querySelector('form');
   const firstName = document.getElementById('first-name');
 
+  // Focus the first name field on page load
   firstName.focus();
 
+  // On form submission, handle input data to create an account
   signUpForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -19,12 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return; // Do not submit the form if it's invalid
     }
 
-    // Check if passwords match
+    // Check if passwords don't match
     if (password !== confirmPassword) {
       setError(document.getElementById('confirm-password'), 'Passwords do not match.');
       return;
     }
 
+    // User data to be sent to the backend
     const user = {
       first_name: firstName,
       last_name: lastName,
@@ -57,40 +60,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Validate input
   const firstNameInput = document.getElementById('first-name');
-  const lastNameInput = document.getElementById('last-name');
-  const usernameInput = document.getElementById('username');
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-  const submitButton = document.querySelector('.submit button');
-
   firstNameInput.addEventListener('input', () => {
     validateFirstName();
     updateSubmitButton();
   });
+
+  const lastNameInput = document.getElementById('last-name');
   lastNameInput.addEventListener('input', () => {
     validateLastName();
     updateSubmitButton();
   });
+
+  const usernameInput = document.getElementById('username');
   usernameInput.addEventListener('input', () => {
     validateUsername();
     updateSubmitButton();
   });
+
+  const emailInput = document.getElementById('email');
   emailInput.addEventListener('input', () => {
     validateEmail();
     updateSubmitButton();
   });
+
+  const passwordInput = document.getElementById('password');
   passwordInput.addEventListener('input', () => {
     validatePassword();
     updateSubmitButton();
   });
+
+  const confirmPasswordInput = document.getElementById('confirm-password');
   confirmPasswordInput.addEventListener('input', () => {
     validateConfirmPassword();
     updateSubmitButton();
   });
 
-  // Validation functions for input fields
+  // Validation functions for input fields that check if input matches requirements
   function validateFirstName () {
     const firstNameValue = firstNameInput.value.trim();
     if (firstNameValue.length < 3) {
@@ -166,6 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
     errorMessage.textContent = '';
     input.classList.remove('error');
   }
+
+  const submitButton = document.querySelector('.submit button');
 
   // Function to enable or disable submit button based on form validity
   function updateSubmitButton () {

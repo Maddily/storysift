@@ -247,7 +247,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.location.href = '/signin';
   });
 
+  // Handle sign out by resetting the stored token and userId, then reloading the page
+  function handleSignOut () {
+    localStorage.setItem('token', null);
+    localStorage.setItem('userId', null);
+    window.location.reload();
+  };
+
   const signOutButton = document.querySelector('.signout');
+  // Event listener for sign out button click
+  signOutButton.addEventListener('click', handleSignOut);
+
   const profileButton = document.querySelector('.profile');
 
   // Function to check authentication status using JWT
@@ -296,17 +306,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Check authentication status when the DOM is loaded
   checkAuthentication();
-
-  // Function to handle sign out
-  const handleSignOut = async () => {
-    localStorage.setItem('token', null);
-    window.location.reload();
-  };
-
-  // Event listener for sign out button click
-  if (signOutButton) {
-    signOutButton.addEventListener('click', handleSignOut);
-  }
 
   if (profileButton) {
     profileButton.addEventListener('click', () => {

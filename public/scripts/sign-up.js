@@ -234,7 +234,4 @@ document.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', () => {
     updateSubmitButton();
   });
-
-  handleSignUpButtonClick();
-  handleSignInButtonClick();
 });

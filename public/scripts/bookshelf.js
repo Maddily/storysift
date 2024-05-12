@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  const profileButton = document.querySelector('.profile');
   const searchParams = new URLSearchParams(window.location.search);
   const bookshelfId = searchParams.get('id');
   const bookList = document.querySelector('.book-list');
@@ -90,16 +89,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   const signOutButton = document.querySelector('.signout');
-
   // Handle sign out
   signOutButton.addEventListener('click', handleSignOut);
 
-  profileButton.addEventListener('click', () => {
+  // Redirect to profile page
+  function redirectToProfile () {
     const userId = localStorage.getItem('userId');
     if (userId) {
       window.location.href = `/user?id=${userId}`;
     } else {
       console.error('User ID not found');
     }
-  });
+  }
+
+  const profileButton = document.querySelector('.profile');
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 });

@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           return;
         }
 
+        // Create a new bookshelf
         const response = await fetch('/api/bookshelves', {
           method: 'POST',
           headers: {
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           })
         });
 
+        // Refresh the displayed bookshelves to show the newly added one
         await fetchBookshelves();
         bookshelfInput.value = '';
         window.location.reload();
@@ -82,6 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Create a bookshelf on button click or enter key press
   addBookShelf.addEventListener('click', createBookshelf);
 
   bookshelfInput.addEventListener('keydown', (e) => {
@@ -110,13 +113,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Initially fetch and display a user's stored bookshelves
   await fetchBookshelves();
 
   const bookshelves = document.querySelectorAll('.bookshelf');
   const bookshelf = document.querySelector('.bookshelf');
+
+  // Handle selecting a bookshelf in the cases when a user has
+  // only one bookshelf or more than one
   if (bookshelves) {
     bookshelves.forEach(bookshelf => {
       bookshelf.addEventListener('click', () => {
+        // Redirect to bookshelf page
         window.location.href = `/bookshelf?id=${bookshelf.dataset.id}`;
       });
     });

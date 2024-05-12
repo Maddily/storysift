@@ -108,4 +108,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const profileButton = document.querySelector('.profile');
   // Event listener for profile button click
   profileButton.addEventListener('click', redirectToProfile);
+
+  // If a user isn't authenticated, redirect them to the homepage
+  try {
+    const token = localStorage.getItem('token');
+
+    const authResponse = await fetch('/api/users/check-authentication', {
+      headers: {
+        Authorization: token
+      }
+    });
+
+    const authData = await authResponse.json();
+
+    if (!authData.authenticated) {
+      window.location.href = '/';
+    }
+  } catch (error) {
+    console.error('Error checking authentication status:', error);
+  }
 });

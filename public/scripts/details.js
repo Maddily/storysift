@@ -258,7 +258,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Event listener for sign out button click
   signOutButton.addEventListener('click', handleSignOut);
 
+  // Redirect to profile page
+  function redirectToProfile () {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      window.location.href = `/user?id=${userId}`;
+    } else {
+      console.error('User ID not found');
+    }
+  }
+
   const profileButton = document.querySelector('.profile');
+  // Event listener for profile button click
+  profileButton.addEventListener('click', redirectToProfile);
 
   // Function to check authentication status using JWT
   const checkAuthentication = async () => {
@@ -306,15 +318,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Check authentication status when the DOM is loaded
   checkAuthentication();
-
-  if (profileButton) {
-    profileButton.addEventListener('click', () => {
-      const userId = localStorage.getItem('userId');
-      if (userId) {
-        window.location.href = `/user?id=${userId}`;
-      } else {
-        console.error('User ID not found');
-      }
-    });
-  }
 });

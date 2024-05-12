@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const bookshelfId = searchParams.get('id');
   const bookList = document.querySelector('.book-list');
 
+  // Fetch and display books
   const retrieveBooks = (async function () {
     const bookshelfObjectResponse = await fetch(`/api/bookshelves/${bookshelfId}`);
     const bookshelfObject = await bookshelfObjectResponse.json();
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await displayBooks(booksArray);
   })();
 
+  // Display books in a bookshelf
   async function displayBooks (books) {
     if (books.length === 0) {
       const noResultsMessage = document.createElement('p');
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const thumbnail = book.thumbnailURL ? book.thumbnailURL : 'https://via.placeholder.com/150';
           const volumeId = book.volumeId;
 
-          // Create HTML elements for each book
+          // Create an element for each book
           const bookElement = document.createElement('div');
           bookElement.classList.add('book');
           bookElement.setAttribute('id', volumeId);
@@ -52,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // On a book click, redirect users to the book details page
   const handleBookClick = (function () {
     bookList.addEventListener('click', (event) => {
       const book = event.target.closest('.book');
@@ -66,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   })();
 
-  // Redirect to the homepage.
+  // Redirect to the homepage
   function redirectHome () {
     window.location.href = '/';
   };
